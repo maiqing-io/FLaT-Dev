@@ -99,3 +99,23 @@ def handler(event, context):
         'headers': {'Access-Control-Allow-Origin': '*'},
         'body': json.dumps({'status': 'ok', 'storage': 'none', 'payload': payload})
     }
+gsheet_url = os.environ.get('GSHEET_WEBAPP_URL')
+gsheet_secret = os.environ.get('GSHEET_SECRET')
+
+if gsheet_url and gsheet_secret:
+    try:
+        forward_payload = dict(payload)
+        forward_payload['secret'] = gsheet_secret
+        data = json.dumps(forward_payload).encode('utf-8')
+        req = request.Request(gsheet_url, data=data, method='POST')
+        req.add_header('Content-Type', 'application/json')
+        with request.urlopen(req, timeout=10) as resp:
+            resp_body = resp.read().decode('utf-8')
+        return {
+            'statusCode': 200,
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps({'status': 'ok', 'storage': 'gsheet'})
+        }
+    except Exception:
+        logging.exception('GSheet forward failed')
+        # fall through to Airtable/SMTP/none

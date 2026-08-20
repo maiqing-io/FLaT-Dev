@@ -1,0 +1,10 @@
+CREATE TABLE applications (
+  id SERIAL PRIMARY KEY,
+  role TEXT NOT NULL,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  contact TEXT NOT NULL DEFAULT '',
+  message TEXT NOT NULL DEFAULT '',
+  synced_to_sheet BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);

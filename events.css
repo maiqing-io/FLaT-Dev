@@ -1,0 +1,105 @@
+/* ---------- Events Page Hero ---------- */
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  line-height: 1.06;
+  margin: 0 0 26px;
+}
+
+.hero-intro {
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  color: var(--text-on-ink-soft);
+  max-width: 54ch;
+  margin: 0;
+}
+
+/* ---------- Events Section ---------- */
+.events-section {
+  background: var(--paper);
+  padding: 76px 0;
+}
+
+.events-section-alt {
+  background: var(--paper-dim);
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.events-empty {
+  color: var(--text-on-paper-soft);
+  font-size: 1rem;
+  margin: 0;
+  padding: 32px 0;
+  text-align: center;
+}
+
+.events-empty a {
+  color: var(--brass);
+  text-decoration: none;
+  border-bottom: 1px solid var(--brass);
+}
+
+.events-empty a:hover {
+  color: var(--brass-light);
+  border-color: var(--brass-light);
+}
+
+/* ---------- Event Card ---------- */
+.event-card {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 28px;
+  padding: 28px;
+  background: white;
+  border: 1px solid rgba(32, 29, 24, 0.12);
+  border-radius: 3px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.event-card:hover {
+  box-shadow: 0 4px 16px rgba(32, 29, 24, 0.08);
+  transform: translateY(-2px);
+}
+
+.event-date {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--brass);
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-top: 4px;
+}
+
+.event-content h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin: 0 0 8px;
+  color: var(--text-on-paper);
+}
+
+.event-content p {
+  margin: 0;
+  color: var(--text-on-paper-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 62ch;
+}
+
+@media (max-width: 620px) {
+  .event-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .event-date {
+    order: -1;
+  }
+}

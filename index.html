@@ -329,6 +329,14 @@
     margin: 0 auto;
     text-align:left;
   }
+  .founder-grid{
+    max-width: 100ch;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    text-align: left;
+  }
   .founder blockquote{
     font-family: var(--font-display);
     font-style: italic;
@@ -346,6 +354,9 @@
     color: var(--text-on-paper-soft);
   }
   .founder-sig strong{ color: var(--text-on-paper); font-weight:600; }
+  @media (max-width: 800px){
+    .founder-grid{ grid-template-columns: 1fr; gap: 36px; }
+  }
 
   /* ---------- Join ---------- */
   .join{ background: var(--ink-deep); color: var(--text-on-ink); text-align:center; }
@@ -623,10 +634,18 @@
   </section>
 
   <section class="founder">
-    <div class="wrap founder-inner reveal">
+    <div class="wrap reveal">
       <p class="section-tag">Why it exists</p>
-      <blockquote>"I started FLaT because a lot of good, interesting content in this space assumes a level of access or background that not everyone has. It's meant to be a way in, whether you're already set on a career in finance or law or you just want to understand either a bit better."</blockquote>
-      <p class="founder-sig"><strong>Madison Farrell</strong> &amp; <strong>Poulome Yadav</strong> — Co-Founders &amp; Co-Presidents, FLaT Society</p>
+      <div class="founder-grid">
+        <div>
+          <blockquote>"I started FLaT because a lot of good, interesting content in finance and fintech assumes a level of access or background that not everyone has. It's meant to be a way in, whether you're already set on a career in finance or you just want to understand the industry a bit better."</blockquote>
+          <p class="founder-sig"><strong>Madison Farrell</strong> — Co-Founder &amp; Co-President, FLaT Society</p>
+        </div>
+        <div>
+          <blockquote>"My side of FLaT grew out of the same gap, but on the legal and legaltech side of things. Law can feel closed off if you don't already know someone in it, and I wanted a space where getting a foothold in law or legal innovation didn't depend on who you happened to know."</blockquote>
+          <p class="founder-sig"><strong>Poulome Yadav</strong> — Co-Founder &amp; Co-President, FLaT Society</p>
+        </div>
+      </div>
     </div>
   </section>
 

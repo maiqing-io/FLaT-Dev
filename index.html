@@ -7,500 +7,8 @@
 <meta name="description" content="FLaT Society is the University of Greenwich student society connecting students across finance, law and technology through events, mentorship and career opportunities.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink: #101B2D;
-    --ink-deep: #0A121F;
-    --paper: #F1EEE3;
-    --paper-dim: #E7E2D2;
-    --brass: #A9812E;
-    --brass-light: #C9A24F;
-    --ledger: #3E6259;
-    --text-on-paper: #201D18;
-    --text-on-paper-soft: #514C41;
-    --text-on-ink: #F3EFE2;
-    --text-on-ink-soft: #B9B4A4;
-
-    --font-display: 'Fraunces', serif;
-    --font-body: 'Inter', sans-serif;
-    --font-mono: 'IBM Plex Mono', monospace;
-
-    --max: 1120px;
-  }
-
-  *{ box-sizing: border-box; }
-  html{ scroll-behavior: smooth; }
-  body{
-    margin:0;
-    font-family: var(--font-body);
-    background: var(--paper);
-    color: var(--text-on-paper);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-  img,svg{ max-width:100%; display:block; }
-  a{ color: inherit; }
-  .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 28px; }
-
-  a:focus-visible, button:focus-visible, input:focus-visible{
-    outline: 2px solid var(--brass-light);
-    outline-offset: 3px;
-  }
-
-  /* ---------- Ticker ---------- */
-  .ticker-band{
-    background: var(--ink-deep);
-    border-bottom: 1px solid rgba(201,162,79,0.25);
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 9px 0;
-  }
-  .ticker-track{
-    display: inline-flex;
-    animation: scroll-ticker 42s linear infinite;
-  }
-  .ticker-track span{
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.09em;
-    color: var(--text-on-ink-soft);
-    padding: 0 1.4rem;
-    text-transform: uppercase;
-  }
-  .ticker-track span.divider{ color: var(--brass); padding: 0 0.6rem; }
-  @keyframes scroll-ticker{
-    from{ transform: translateX(0); }
-    to{ transform: translateX(-50%); }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .ticker-track{ animation: none; }
-    .ticker-band{ overflow-x: auto; }
-  }
-
-  /* ---------- Nav ---------- */
-  header.site-header{
-    background: var(--ink);
-    color: var(--text-on-ink);
-  }
-  nav.wrap{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding-top: 22px;
-    padding-bottom: 22px;
-  }
-  .wordmark{
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.35rem;
-    letter-spacing: 0.01em;
-    text-decoration:none;
-    color: var(--text-on-ink);
-  }
-  .wordmark em{
-    font-style: normal;
-    color: var(--brass-light);
-  }
-  .nav-links{
-    display:flex;
-    gap: 2rem;
-    list-style:none;
-    margin:0; padding:0;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-  .nav-links a{
-    text-decoration:none;
-    color: var(--text-on-ink-soft);
-    transition: color .15s ease;
-  }
-  .nav-links a:hover{ color: var(--brass-light); }
-  .nav-cta{
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    text-decoration:none;
-    color: var(--ink);
-    background: var(--brass-light);
-    padding: 0.55rem 1.1rem;
-    border-radius: 2px;
-    white-space:nowrap;
-  }
-  .nav-mobile-hide{ display:flex; }
-  @media (max-width: 720px){
-    .nav-links{ display:none; }
-  }
-
-  /* ---------- Hero ---------- */
-  .hero{
-    background: var(--ink);
-    color: var(--text-on-ink);
-    padding: 64px 0 88px;
-    border-bottom: 4px solid var(--brass);
-  }
-  .eyebrow{
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--brass-light);
-    margin: 0 0 22px;
-  }
-  h1.hero-title{
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(2.4rem, 5vw, 4.2rem);
-    line-height: 1.06;
-    margin: 0 0 26px;
-    max-width: 15ch;
-  }
-  .hero-sub{
-    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
-    color: var(--text-on-ink-soft);
-    max-width: 46ch;
-    margin: 0 0 20px;
-  }
-  .hero-body{
-    max-width: 56ch;
-    color: var(--text-on-ink-soft);
-    margin: 0 0 36px;
-  }
-  .hero-actions{
-    display:flex;
-    gap: 1rem;
-    flex-wrap:wrap;
-  }
-  .btn{
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    text-decoration:none;
-    padding: 0.85rem 1.5rem;
-    border-radius: 2px;
-    display:inline-block;
-    transition: transform .15s ease, background .15s ease;
-  }
-  .btn-primary{
-    background: var(--brass-light);
-    color: var(--ink);
-  }
-  .btn-primary:hover{ transform: translateY(-1px); background:#D8B463; }
-  .btn-ghost{
-    background: transparent;
-    color: var(--text-on-ink);
-    border: 1px solid rgba(243,239,226,0.35);
-  }
-  .btn-ghost:hover{ border-color: var(--brass-light); color: var(--brass-light); }
-
-  /* ---------- Section shells ---------- */
-  section{ padding: 76px 0; }
-  .section-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    gap: 2rem;
-    margin-bottom: 44px;
-    flex-wrap: wrap;
-  }
-  .section-tag{
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--brass);
-    margin: 0 0 10px;
-  }
-  h2.section-title{
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: clamp(1.7rem, 3vw, 2.5rem);
-    margin: 0;
-    max-width: 20ch;
-  }
-
-  /* ---------- About / preamble ---------- */
-  .about{ background: var(--paper); }
-  .about-grid{
-    max-width: 68ch;
-  }
-  .about-grid p{
-    font-size: 1.05rem;
-    color: var(--text-on-paper-soft);
-    margin: 0 0 1.1rem;
-  }
-  .about-grid p:first-child{
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.35rem;
-    color: var(--text-on-paper);
-    line-height: 1.5;
-  }
-
-  /* ---------- Articles ---------- */
-  .articles{ background: var(--paper-dim); }
-  .article-list{
-    display:flex;
-    flex-direction:column;
-    border-top: 1px solid rgba(32,29,24,0.18);
-  }
-  .article{
-    display:grid;
-    grid-template-columns: 140px 1fr;
-    gap: 32px;
-    padding: 34px 0;
-    border-bottom: 1px solid rgba(32,29,24,0.18);
-  }
-  .article-mark{
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    letter-spacing: 0.04em;
-    color: var(--brass);
-    padding-top: 4px;
-  }
-  .article h3{
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.4rem;
-    margin: 0 0 10px;
-  }
-  .article p{
-    margin:0;
-    color: var(--text-on-paper-soft);
-    max-width: 62ch;
-  }
-  @media (max-width: 620px){
-    .article{ grid-template-columns: 1fr; gap: 8px; }
-  }
-
-  /* ---------- Programme (docket) ---------- */
-  .programme{ background: var(--ink); color: var(--text-on-ink); }
-  .programme .section-tag{ color: var(--brass-light); }
-  .programme .section-head p{
-    color: var(--text-on-ink-soft);
-    max-width: 40ch;
-    margin: 0;
-  }
-  .docket{
-    width: 100%;
-    border-collapse: collapse;
-  }
-  .docket thead th{
-    text-align:left;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-on-ink-soft);
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(201,162,79,0.35);
-    font-weight: 400;
-  }
-  .docket td{
-    padding: 20px 12px 20px 0;
-    border-bottom: 1px solid rgba(243,239,226,0.12);
-    vertical-align: top;
-  }
-  .docket td.label{
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.05rem;
-    white-space: nowrap;
-    padding-right: 28px;
-    width: 220px;
-  }
-  .docket td.desc{ color: var(--text-on-ink-soft); }
-  @media (max-width: 700px){
-    .docket, .docket thead, .docket tbody, .docket th, .docket td, .docket tr{ display:block; }
-    .docket thead{ display:none; }
-    .docket td{ padding: 6px 0; border-bottom:none; }
-    .docket tr{ padding: 20px 0; border-bottom: 1px solid rgba(243,239,226,0.12); }
-    .docket td.label{ width:auto; }
-  }
-
-  /* ---------- Founder's note ---------- */
-  .founder{ background: var(--paper); }
-  .founder-inner{
-    max-width: 62ch;
-    margin: 0 auto;
-    text-align:left;
-  }
-  .founder-grid{
-    max-width: 100ch;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    text-align: left;
-  }
-  .founder blockquote{
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(1.2rem, 2.2vw, 1.55rem);
-    line-height: 1.55;
-    margin: 0 0 24px;
-    color: var(--text-on-paper);
-    border-left: 3px solid var(--brass);
-    padding-left: 26px;
-  }
-  .founder-sig{
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    letter-spacing: 0.03em;
-    color: var(--text-on-paper-soft);
-  }
-  .founder-sig strong{ color: var(--text-on-paper); font-weight:600; }
-  @media (max-width: 800px){
-    .founder-grid{ grid-template-columns: 1fr; gap: 36px; }
-  }
-
-  /* ---------- Join ---------- */
-  .join{ background: var(--ink-deep); color: var(--text-on-ink); text-align:center; }
-  .join .section-tag{ color: var(--brass-light); }
-  .join h2{
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: clamp(1.8rem, 3.4vw, 2.6rem);
-    margin: 0 auto 16px;
-    max-width: 22ch;
-  }
-  .join > .wrap > p.join-intro{
-    color: var(--text-on-ink-soft);
-    max-width: 54ch;
-    margin: 0 auto 48px;
-  }
-
-  .roles-grid{
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    text-align:left;
-    margin-bottom: 64px;
-  }
-  .role-card{
-    background: rgba(243,239,226,0.04);
-    border: 1px solid rgba(201,162,79,0.25);
-    padding: 26px 28px;
-    border-radius: 2px;
-  }
-  .role-tag{
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--brass-light);
-    margin: 0 0 10px;
-  }
-  .role-card h3{
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.15rem;
-    margin: 0 0 10px;
-    color: var(--text-on-ink);
-  }
-  .role-card p.role-desc{
-    color: var(--text-on-ink-soft);
-    font-size: 0.92rem;
-    margin: 0 0 16px;
-  }
-  .role-focus-label{
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-on-ink-soft);
-    margin: 0 0 8px;
-  }
-  .role-focus{
-    margin: 0;
-    padding-left: 18px;
-    color: var(--text-on-ink-soft);
-    font-size: 0.88rem;
-    line-height: 1.6;
-  }
-  .role-focus li{ margin-bottom: 4px; }
-  @media (max-width: 680px){
-    .roles-grid{ grid-template-columns: 1fr; }
-  }
-
-  .join-secondary{
-    border-top: 1px solid rgba(201,162,79,0.2);
-    padding-top: 44px;
-  }
-  .join-secondary h3{
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.35rem;
-    margin: 0 0 10px;
-  }
-  .join-secondary p{
-    color: var(--text-on-ink-soft);
-    max-width: 46ch;
-    margin: 0 auto 28px;
-  }
-  .join-form{
-    display:flex;
-    justify-content:center;
-    gap: 0.7rem;
-    flex-wrap: wrap;
-    margin-bottom: 30px;
-  }
-  .join-form input[type="email"]{
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    padding: 0.85rem 1.1rem;
-    border-radius: 2px;
-    border: 1px solid rgba(243,239,226,0.3);
-    background: rgba(243,239,226,0.05);
-    color: var(--text-on-ink);
-    min-width: 260px;
-  }
-  .join-form input::placeholder{ color: var(--text-on-ink-soft); }
-  .join-links{
-    display:flex;
-    justify-content:center;
-    gap: 1.6rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-  }
-  .join-links a{ text-decoration:none; color: var(--text-on-ink-soft); border-bottom: 1px solid transparent; }
-  .join-links a:hover{ color: var(--brass-light); border-color: var(--brass-light); }
-
-  /* ---------- Footer ---------- */
-  footer{
-    background: var(--ink-deep);
-    color: var(--text-on-ink-soft);
-    padding: 30px 0;
-    border-top: 1px solid rgba(201,162,79,0.2);
-  }
-  .footer-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.03em;
-  }
-
-  /* ---------- Reveal on scroll ---------- */
-  .reveal{
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity .6s ease, transform .6s ease;
-  }
-  .reveal.in{ opacity:1; transform:none; }
-  @media (prefers-reduced-motion: reduce){
-    .reveal{ opacity:1; transform:none; transition:none; }
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -546,7 +54,7 @@
       <p class="eyebrow">University of Greenwich · Student Society</p>
       <h1 class="hero-title">Finance, law and the technology now running through both.</h1>
       <p class="hero-sub">FLaT is a society for students who want to understand where financial services and legal practice are actually heading, not just where they've been.</p>
-      <p class="hero-body">We look at the two industries together, because increasingly the interesting problems sit at the point where they overlap: how regulation responds to AI, how contracts get automated, how financial products get built and policed. Alongside that, we run open sessions aimed at making both fields easier to understand full stop, whatever you're studying.</p>
+      <p class="hero-body">We look at the two industries together, because increasingly the interesting problems sit at the point where they overlap: how regulation responds to AI, how contracts change when they're smart, what happens to legal practice when AI can read case law faster than humans.</p>
       <div class="hero-actions">
         <a href="roles.html" class="btn btn-primary">Join FLaT</a>
         <a href="#programme" class="btn btn-ghost">See what we do</a>
@@ -557,8 +65,8 @@
   <section class="about" id="about">
     <div class="wrap about-grid">
       <div class="reveal">
-        <p>FLaT exists because most finance and law societies treat the two as separate tracks, when in practice they're increasingly tangled together, and because it's easy to feel locked out of both if you don't already have a foot in the door.</p>
-        <p>We're not aiming this only at students who've already decided on a career in the City or a law firm. Some of our members have. Others just want to leave university able to read a set of accounts, understand a contract before they sign it, or hold a conversation about what AI regulation actually means in practice.</p>
+        <p>FLaT exists because most finance and law societies treat the two as separate tracks, when in practice they're increasingly tangled together, and because it's easy to feel locked out of either world if you don't already have the background.</p>
+        <p>We're not aiming this only at students who've already decided on a career in the City or a law firm. Some of our members have. Others just want to leave university able to read a set of terms and conditions, or have a sense of what happens in a banking hall, or understand what "algorithmic bias" actually means in practice.</p>
         <p>What ties the sessions together is a focus on the sectors as they're changing now, through the technology reshaping how financial and legal work actually gets done.</p>
       </div>
     </div>
@@ -577,21 +85,21 @@
           <div class="article-mark">§ Article I</div>
           <div>
             <h3>Finance × Technology</h3>
-            <p>How fintech, algorithmic trading and digital assets are changing what a career in financial services actually looks like. We cover open banking, RegTech and the shift toward AI-driven risk and compliance work, usually through sessions run with people currently doing the job.</p>
+            <p>How fintech, algorithmic trading and digital assets are changing what a career in financial services actually looks like. We cover open banking, RegTech and the shift toward AI-driven advisory.</p>
           </div>
         </div>
         <div class="article reveal">
           <div class="article-mark">§ Article II</div>
           <div>
             <h3>Law × Technology</h3>
-            <p>How legal practice is adapting to automation, AI governance and the regulatory questions that come with it. We look at legaltech tools, data protection and how firms are having to rethink advice and casework as the underlying technology changes.</p>
+            <p>How legal practice is adapting to automation, AI governance and the regulatory questions that come with it. We look at legaltech tools, data protection and how firms are having to rethink contract review and due diligence.</p>
           </div>
         </div>
         <div class="article reveal">
           <div class="article-mark">§ Article III</div>
           <div>
             <h3>Financial &amp; legal literacy</h3>
-            <p>Not everyone in the room is aiming for a career in finance or law, and that's fine. This strand covers the basics that are useful regardless of where you end up: how contracts work, what your rights actually are, how to read a payslip or a pension statement.</p>
+            <p>Not everyone in the room is aiming for a career in finance or law, and that's fine. This strand covers the basics that are useful regardless of where you end up: how contracts work, what financial regulation actually tries to do, and where the two meet.</p>
           </div>
         </div>
       </div>
@@ -638,11 +146,11 @@
       <p class="section-tag">Why it exists</p>
       <div class="founder-grid">
         <div>
-          <blockquote>"I started FLaT because a lot of good, interesting content in finance and fintech assumes a level of access or background that not everyone has. It's meant to be a way in, whether you're already set on a career in finance or you just want to understand the industry a bit better."</blockquote>
+          <blockquote>"I started FLaT because a lot of good, interesting content in finance and fintech assumes a level of access or background that not everyone has. It's meant to be a way in, without gatekeeping."</blockquote>
           <p class="founder-sig"><strong>Madison Farrell</strong> — Co-Founder &amp; Co-President, FLaT Society</p>
         </div>
         <div>
-          <blockquote>"My side of FLaT grew out of the same gap, but on the legal and legaltech side of things. Law can feel closed off if you don't already know someone in it, and I wanted a space where getting a foothold in law or legal innovation didn't depend on who you happened to know."</blockquote>
+          <blockquote>"My side of FLaT grew out of the same gap, but on the legal and legaltech side of things. Law can feel closed off if you don't already know someone in it, and I wanted a space to change that."</blockquote>
           <p class="founder-sig"><strong>Poulome Yadav</strong> — Co-Founder &amp; Co-President, FLaT Society</p>
         </div>
       </div>
@@ -653,7 +161,7 @@
     <div class="wrap reveal">
       <p class="section-tag">Join the committee</p>
       <h2>We're building the committee from scratch</h2>
-      <p class="join-intro">FLaT is currently run by two co-presidents, and every other role on this list is open. If one of these sounds like you, get in touch, scope is flexible for a founding committee and roles can be shaped around who takes them on. See <a href="roles.html" style="color:var(--brass-light);">full role details and apply</a>.</p>
+      <p class="join-intro">FLaT is currently run by two co-presidents, and every other role on this list is open. If one of these sounds like you, get in touch, scope is flexible for a founding member.</p>
 
       <div class="roles-grid">
         <div class="role-card">
@@ -783,12 +291,24 @@
     if ('IntersectionObserver' in window){
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(e=>{
-          if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+          if(e.isIntersecting){ 
+            e.target.classList.add('in'); 
+            io.unobserve(e.target); 
+          }
         });
       }, { threshold: 0.15 });
       revealEls.forEach(el=>io.observe(el));
     } else {
-      revealEls.forEach(el=>el.classList.add('in'));
+      // Fallback for older browsers: stagger reveals with requestAnimationFrame to prevent simultaneous reflows
+      let index = 0;
+      const scheduleReveal = () => {
+        if (index < revealEls.length) {
+          revealEls[index].classList.add('in');
+          index++;
+          requestAnimationFrame(scheduleReveal);
+        }
+      };
+      requestAnimationFrame(scheduleReveal);
     }
   </script>
 

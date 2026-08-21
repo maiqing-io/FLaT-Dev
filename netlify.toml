@@ -4,3 +4,8 @@
 
 [dev]
   functions = "netlify/functions"
+
+[[redirects]]
+  from = "/flat-society.html"
+  to = "/"
+  status = 301

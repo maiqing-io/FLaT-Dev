@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events — FLaT Society | Finance, Law & Technology</title>
+<meta name="description" content="Explore past and upcoming events at FLaT Society, the University of Greenwich finance, law and technology student society.">
+<meta property="og:title" content="Events — FLaT Society">
+<meta property="og:description" content="Past and upcoming events from FLaT Society">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="events.css">
+<link rel="canonical" href="https://maiqing-io.github.io/FLaT-Dev/events.html">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <nav class="wrap">
+      <a href="/" class="wordmark">FLa<em>T</em></a>
+      <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#focus">Focus</a></li>
+        <li><a href="/#programme">Programme</a></li>
+        <li><a href="roles.html">Roles</a></li>
+        <li><a href="#join">Join</a></li>
+      </ul>
+      <a href="roles.html" class="nav-cta">Join FLaT</a>
+    </nav>
+
+    <div class="wrap hero">
+      <h1>Events</h1>
+      <p class="hero-intro">Explore our past events and see what's coming up. All events are free and open to members and non-members alike.</p>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="events-section" id="upcoming">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <p class="section-tag">What's next</p>
+            <h2 class="section-title">Upcoming events</h2>
+          </div>
+        </div>
+        <div class="events-list" id="upcomingEventsList">
+          <p class="events-empty">No events scheduled yet. Check back soon or <a href="mailto:flatsociety@greenwich.ac.uk">get in touch</a> to hear about upcoming sessions.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="events-section events-section-alt" id="past">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <p class="section-tag">Archive</p>
+            <h2 class="section-title">Past events</h2>
+          </div>
+        </div>
+        <div class="events-list" id="pastEventsList">
+          <p class="events-empty">No past events yet.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="join" id="join">
+      <div class="wrap reveal">
+        <p class="section-tag">Stay updated</p>
+        <h2>Get event announcements</h2>
+        <p class="join-intro">Sign up to hear about upcoming events and sessions from FLaT.</p>
+
+        <div class="join-secondary" style="border-top: none; padding-top: 0;">
+          <form class="join-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Thanks, we\'ll be in touch';">
+            <input type="email" required placeholder="your.email@greenwich.ac.uk" aria-label="Email address">
+            <button type="submit" class="btn btn-primary" style="border:none; cursor:pointer; font-family: var(--font-mono);">Join updates</button>
+          </form>
+          <div class="join-links">
+            <a href="mailto:flatsociety@greenwich.ac.uk">Email</a>
+            <a href="#">Instagram</a>
+            <a href="#">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <span>FLaT — Finance, Law &amp; Technology Society, University of Greenwich</span>
+      <span id="year">© 2026</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = '© ' + new Date().getFullYear();
+
+    // Mobile menu toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navLinks = document.getElementById('navLinks');
+    
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener('click', () => {
+        const isOpen = navLinks.style.display === 'flex';
+        navLinks.style.display = isOpen ? 'none' : 'flex';
+        mobileMenuToggle.setAttribute('aria-expanded', !isOpen);
+      });
+
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.style.display = 'none';
+          mobileMenuToggle.setAttribute('aria-expanded', false);
+        });
+      });
+    }
+
+    // Scroll reveal animations
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(el => io.observe(el));
+    } else {
+      let index = 0;
+      const scheduleReveal = () => {
+        if (index < revealEls.length) {
+          revealEls[index].classList.add('in');
+          index++;
+          requestAnimationFrame(scheduleReveal);
+        }
+      };
+      requestAnimationFrame(scheduleReveal);
+    }
+
+    // Load and display events
+    async function loadEvents() {
+      try {
+        const response = await fetch('/FLaT-Dev/data/events.json');
+        const events = await response.json();
+        displayEvents(events);
+      } catch (error) {
+        console.error('Error loading events:', error);
+      }
+    }
+
+    function displayEvents(events) {
+      const upcomingList = document.getElementById('upcomingEventsList');
+      const pastList = document.getElementById('pastEventsList');
+
+      const upcoming = events.filter(e => e.status === 'upcoming').sort((a, b) => new Date(b.date.split('/').reverse().join('-')) - new Date(a.date.split('/').reverse().join('-')));
+      const past = events.filter(e => e.status === 'past').sort((a, b) => new Date(b.date.split('/').reverse().join('-')) - new Date(a.date.split('/').reverse().join('-')));
+
+      if (upcoming.length > 0) {
+        upcomingList.innerHTML = upcoming.map(event => `
+          <div class="event-card reveal">
+            <div class="event-date">${event.date}</div>
+            <div class="event-content">
+              <h3>${event.title}</h3>
+              <p>${event.description}</p>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      if (past.length > 0) {
+        pastList.innerHTML = past.map(event => `
+          <div class="event-card reveal">
+            <div class="event-date">${event.date}</div>
+            <div class="event-content">
+              <h3>${event.title}</h3>
+              <p>${event.description}</p>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    loadEvents();
+  </script>
+</body>
+</html>

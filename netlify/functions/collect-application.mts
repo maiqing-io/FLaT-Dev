@@ -1,5 +1,6 @@
 import type { Config } from "@netlify/functions";
 import { getDatabase } from "@netlify/database";
+import { getStore } from "@netlify/blobs";
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": process.env.CORS_ORIGIN || "https://maiqing-io.github.io",
@@ -7,40 +8,40 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
-// Simple in-memory rate limiter (resets per function invocation)
-// For production, use Redis or a persistent store
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const MAX_PER_EMAIL_AND_IP = 5; // same person retrying
+const MAX_PER_IP = 15;          // umbrella limit across all emails from one network
 
-const getRateLimit = (identifier: string, windowMs: number = 3600000): boolean => {
+// Persisted in Netlify Blobs so the count survives cold starts, unlike an
+// in-memory Map, which resets every time the function's container recycles.
+async function checkAndRecordRateLimit(key: string, max: number): Promise<boolean> {
+  const store = getStore("apply-rate-limits");
   const now = Date.now();
-  const entry = rateLimitMap.get(identifier);
+  const existing = (await store.get(key, { type: "json" })) as
+    | { count: number; resetAt: number }
+    | null;
 
-  if (!entry || now > entry.resetTime) {
-    rateLimitMap.set(identifier, { count: 1, resetTime: now + windowMs });
+  if (!existing || now > existing.resetAt) {
+    await store.setJSON(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
     return true;
   }
 
-  if (entry.count >= 5) {
+  if (existing.count >= max) {
     return false;
   }
 
-  entry.count++;
+  await store.setJSON(key, { count: existing.count + 1, resetAt: existing.resetAt });
   return true;
-};
+}
 
-// Validate email format
 const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email) && email.length <= 100;
 };
 
-// Sanitize input to prevent XSS
-const sanitizeInput = (input: string): string => {
-  return input
-    .trim()
-    .slice(0, 2000)
-    .replace(/[<>]/g, "");
-};
+// Trim and cap length only — see the note above on why this doesn't escape
+// HTML. That belongs at render time, not storage time.
+const cleanInput = (input: string): string => input.trim().slice(0, 2000);
 
 export default async (req: Request) => {
   if (req.method === "OPTIONS") {
@@ -64,35 +65,30 @@ export default async (req: Request) => {
     });
   }
 
-  // Get client IP for rate limiting
   const clientIp = req.headers.get("x-forwarded-for") || req.headers.get("cf-connecting-ip") || "unknown";
   const email = String(body.email ?? "").trim();
-  const rateLimitKey = `${email}:${clientIp}`;
 
-  // Check rate limit (max 5 submissions per email+IP per hour)
-  if (!getRateLimit(rateLimitKey)) {
+  const ipOk = await checkAndRecordRateLimit(`ip:${clientIp}`, MAX_PER_IP);
+  if (!ipOk) {
     return new Response(
-      JSON.stringify({
-        error: "Too many submissions. Please try again later.",
-        retryAfter: 3600,
-      }),
-      {
-        status: 429,
-        headers: {
-          ...CORS_HEADERS,
-          "Content-Type": "application/json",
-          "Retry-After": "3600",
-        },
-      }
+      JSON.stringify({ error: "Too many submissions from this network. Please try again later.", retryAfter: 3600 }),
+      { status: 429, headers: { ...CORS_HEADERS, "Content-Type": "application/json", "Retry-After": "3600" } }
     );
   }
 
-  const role = sanitizeInput(String(body.role ?? ""));
-  const name = sanitizeInput(String(body.name ?? ""));
-  const contact = sanitizeInput(String(body.contact ?? ""));
-  const message = sanitizeInput(String(body.message ?? ""));
+  const emailIpOk = await checkAndRecordRateLimit(`email-ip:${email}:${clientIp}`, MAX_PER_EMAIL_AND_IP);
+  if (!emailIpOk) {
+    return new Response(
+      JSON.stringify({ error: "Too many submissions. Please try again later.", retryAfter: 3600 }),
+      { status: 429, headers: { ...CORS_HEADERS, "Content-Type": "application/json", "Retry-After": "3600" } }
+    );
+  }
 
-  // Validate required fields
+  const role = cleanInput(String(body.role ?? ""));
+  const name = cleanInput(String(body.name ?? ""));
+  const contact = cleanInput(String(body.contact ?? ""));
+  const message = cleanInput(String(body.message ?? ""));
+
   const missing = ["role", "name", "email"].filter((k) => {
     if (k === "email") return !isValidEmail(email);
     return !String(body[k] ?? "").trim();
@@ -105,14 +101,10 @@ export default async (req: Request) => {
     });
   }
 
-  // Validate name length
   if (name.length < 2 || name.length > 100) {
     return new Response(
       JSON.stringify({ error: "Name must be between 2 and 100 characters" }),
-      {
-        status: 400,
-        headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
-      }
+      { status: 400, headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
     );
   }
 
@@ -147,7 +139,7 @@ export default async (req: Request) => {
           message,
           submittedAt: new Date().toISOString(),
         }),
-        signal: AbortSignal.timeout(10000), // 10 second timeout
+        signal: AbortSignal.timeout(10000),
       });
       const respText = await resp.text();
       let parsed: Record<string, unknown> | null = null;

@@ -197,6 +197,9 @@
       <h3>Apply</h3>
       <p class="modal-role" id="applyModalRole"></p>
       <form class="apply-form" id="applyForm" novalidate>
+        <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+  <label>Leave this field blank: <input type="text" name="website_url" id="honeypot" tabindex="-1" autocomplete="off"></label>
+</div>
         <label for="applyName">Full name <span aria-label="required">*</span></label>
         <input 
           type="text" 
@@ -332,10 +335,23 @@
         }
       });
 
-      // Form submission with timeout and retry logic
+          // Form submission with timeout and retry logic
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        
+
+        // Honeypot: real users never fill this in
+        const honeypot = document.getElementById('honeypot');
+        if (honeypot && honeypot.value.trim().length > 0) {
+          return; // silently drop, no error shown to a bot
+        }
+
+        // Client-side rate limit (server also enforces its own limit)
+        if (window.FLaTFormProtection && window.FLaTFormProtection.isRateLimited()) {
+          status.textContent = 'Too many submissions. Please wait an hour before trying again.';
+          status.className = 'apply-status error';
+          return;
+        }
+
         // Validate email format client-side
         const emailInput = document.getElementById('applyEmail');
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -386,7 +402,6 @@
               status.textContent = 'Thanks — your application has been received. We\'ll be in touch soon!';
               status.className = 'apply-status success';
               submitBtn.textContent = 'Submitted';
-              // Store success in localStorage
               localStorage.setItem('flatApplicationSubmitted_' + formData.email, JSON.stringify({
                 role: currentRole,
                 timestamp: new Date().toISOString()
@@ -394,10 +409,9 @@
             })
             .catch(function (error) {
               if (error.name === 'AbortError') {
-                // Timeout - retry
                 if (retryCount < maxRetries) {
                   retryCount++;
-                  const delay = retryDelay * Math.pow(2, retryCount - 1); // Exponential backoff
+                  const delay = retryDelay * Math.pow(2, retryCount - 1);
                   status.textContent = `Request timed out. Retrying in ${delay / 1000}s... (Attempt ${retryCount}/${maxRetries})`;
                   status.className = 'apply-status error';
                   setTimeout(submitWithRetry, delay);
@@ -413,8 +427,47 @@
 
         submitWithRetry();
       });
+
+        fetch('/api/apply', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+          signal: AbortSignal.timeout(10000) // 10 second timeout
+        })
+          .then(function (res) {
+            return res.json().catch(function () {
+              return {}; // handle a non-JSON error page from the server gracefully
+            }).then(function (data) {
+              return { ok: res.ok, status: res.status, data: data };
+            });
+          })
+          .then(function (result) {
+            if (!result.ok) {
+              throw new Error(result.status === 429 ? 'RATE_LIMITED' : 'SUBMIT_FAILED');
+            }
+            status.textContent = 'Thanks — your application has been received. We\'ll be in touch soon!';
+            status.className = 'apply-status success';
+            submitBtn.textContent = 'Submitted';
+            localStorage.setItem('flatApplicationSubmitted_' + formData.email, JSON.stringify({
+              role: currentRole,
+              timestamp: new Date().toISOString()
+            }));
+          })
+          .catch(function (error) {
+            if (error.message === 'RATE_LIMITED') {
+              status.textContent = 'Too many submissions. Please wait an hour before trying again.';
+            } else if (error.name === 'AbortError' || error.name === 'TimeoutError') {
+              status.textContent = 'This is taking longer than expected. Your application may not have gone through — please try again in a moment.';
+            } else {
+              console.error('FLaT application submit failed:', error);
+              status.textContent = 'Something went wrong. Please try again, or email flatsociety@greenwich.ac.uk directly.';
+            }
+            status.className = 'apply-status error';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit application';
+          });
     })();
   </script>
-
+<script src="form-protection.js"></script>
 </body>
 </html>

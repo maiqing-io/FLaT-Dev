@@ -120,8 +120,24 @@ nav.wrap{
   white-space:nowrap;
 }
 .nav-mobile-hide{ display:flex; }
+.mobile-menu-toggle{
+  display: none;
+  order: 3;
+  background: none;
+  border: none;
+  color: var(--brass-light);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 8px;
+}
+.mobile-menu-toggle:focus-visible{
+  outline: 2px solid var(--brass-light);
+  outline-offset: 2px;
+}
 @media (max-width: 720px){
   .nav-links{ display:none; }
+  .mobile-menu-toggle{ display: flex; }
 }
 
 /* ---------- Hero ---------- */

@@ -372,7 +372,8 @@
           name: document.getElementById('applyName').value,
           email: emailInput.value,
           contact: document.getElementById('applyContact').value,
-          message: document.getElementById('applyMessage').value
+          message: document.getElementById('applyMessage').value,
+          website_url: honeypot ? honeypot.value : ''
         };
 
         // Retry logic with exponential backoff
@@ -427,45 +428,6 @@
 
         submitWithRetry();
       });
-
-        fetch('/api/apply', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-          signal: AbortSignal.timeout(10000) // 10 second timeout
-        })
-          .then(function (res) {
-            return res.json().catch(function () {
-              return {}; // handle a non-JSON error page from the server gracefully
-            }).then(function (data) {
-              return { ok: res.ok, status: res.status, data: data };
-            });
-          })
-          .then(function (result) {
-            if (!result.ok) {
-              throw new Error(result.status === 429 ? 'RATE_LIMITED' : 'SUBMIT_FAILED');
-            }
-            status.textContent = 'Thanks — your application has been received. We\'ll be in touch soon!';
-            status.className = 'apply-status success';
-            submitBtn.textContent = 'Submitted';
-            localStorage.setItem('flatApplicationSubmitted_' + formData.email, JSON.stringify({
-              role: currentRole,
-              timestamp: new Date().toISOString()
-            }));
-          })
-          .catch(function (error) {
-            if (error.message === 'RATE_LIMITED') {
-              status.textContent = 'Too many submissions. Please wait an hour before trying again.';
-            } else if (error.name === 'AbortError' || error.name === 'TimeoutError') {
-              status.textContent = 'This is taking longer than expected. Your application may not have gone through — please try again in a moment.';
-            } else {
-              console.error('FLaT application submit failed:', error);
-              status.textContent = 'Something went wrong. Please try again, or email flatsociety@greenwich.ac.uk directly.';
-            }
-            status.className = 'apply-status error';
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Submit application';
-          });
     })();
   </script>
 <script src="form-protection.js"></script>

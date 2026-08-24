@@ -39,16 +39,27 @@
   </header>
 
   <main id="main-content">
-    <section class="events-section" id="first-year">
+    <section class="events-section" id="events">
       <div class="wrap">
         <div class="section-head reveal">
           <div>
             <p class="section-tag">Just getting started</p>
-            <h2 class="section-title">Our first year</h2>
+            <h2 class="section-title">Events</h2>
           </div>
         </div>
-        <div class="events-list">
-          <p class="events-empty">FLaT Society is brand new, so we don't have a past events archive yet — and we'd rather tell you that plainly than fake one. Term one is focused on getting founding members on board and running our first sessions on finance, law and technology topics. Dates are being finalised now; the moment something is confirmed, it'll appear here. Want a say in what we run first? <a href="mailto:mf9767b@gre.ac.uk,py2774p@greenwich.ac.uk">get in touch with our co-presidents</a>.</p>
+
+        <div class="events-tabs" role="tablist" aria-label="Filter events">
+          <button type="button" class="events-tab active" id="tab-upcoming" role="tab" aria-selected="true" aria-controls="panel-upcoming">Upcoming</button>
+          <button type="button" class="events-tab" id="tab-past" role="tab" aria-selected="false" aria-controls="panel-past" tabindex="-1">Past</button>
+        </div>
+
+        <div class="events-panels">
+          <div class="events-panel active" id="panel-upcoming" role="tabpanel" aria-labelledby="tab-upcoming">
+            <div class="events-list" id="upcoming-list"></div>
+          </div>
+          <div class="events-panel" id="panel-past" role="tabpanel" aria-labelledby="tab-past" hidden>
+            <div class="events-list" id="past-list"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -127,6 +138,131 @@
       requestAnimationFrame(scheduleReveal);
     }
 
+  </script>
+
+  <script>
+    (function () {
+      var tabs = {
+        upcoming: document.getElementById('tab-upcoming'),
+        past: document.getElementById('tab-past')
+      };
+      var panels = {
+        upcoming: document.getElementById('panel-upcoming'),
+        past: document.getElementById('panel-past')
+      };
+      var lists = {
+        upcoming: document.getElementById('upcoming-list'),
+        past: document.getElementById('past-list')
+      };
+      var activeTab = 'upcoming';
+
+      function switchTab(name) {
+        if (name === activeTab || !tabs[name]) return;
+        activeTab = name;
+
+        Object.keys(tabs).forEach(function (key) {
+          var isActive = key === name;
+          tabs[key].classList.toggle('active', isActive);
+          tabs[key].setAttribute('aria-selected', isActive ? 'true' : 'false');
+          tabs[key].tabIndex = isActive ? 0 : -1;
+        });
+
+        Object.keys(panels).forEach(function (key) {
+          var panel = panels[key];
+          if (key === name) {
+            panel.hidden = false;
+            panel.classList.remove('fade-slide');
+            // force reflow so the transition re-triggers
+            void panel.offsetWidth;
+            panel.classList.add('active', 'fade-slide');
+          } else {
+            panel.classList.remove('active', 'fade-slide');
+            panel.hidden = true;
+          }
+        });
+      }
+
+      tabs.upcoming.addEventListener('click', function () { switchTab('upcoming'); });
+      tabs.past.addEventListener('click', function () { switchTab('past'); });
+
+      [tabs.upcoming, tabs.past].forEach(function (tab, i, arr) {
+        tab.addEventListener('keydown', function (e) {
+          if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+          e.preventDefault();
+          var nextIndex = e.key === 'ArrowRight' ? (i + 1) % arr.length : (i - 1 + arr.length) % arr.length;
+          var nextName = arr[nextIndex] === tabs.upcoming ? 'upcoming' : 'past';
+          switchTab(nextName);
+          arr[nextIndex].focus();
+        });
+      });
+
+      function createEventCard(ev) {
+        var card = document.createElement('div');
+        card.className = 'event-card';
+
+        var date = document.createElement('div');
+        date.className = 'event-date';
+        date.textContent = ev.date || '';
+
+        var content = document.createElement('div');
+        content.className = 'event-content';
+
+        var h3 = document.createElement('h3');
+        h3.textContent = ev.title || '';
+
+        var p = document.createElement('p');
+        p.className = 'event-desc';
+        p.textContent = ev.description || '';
+
+        content.appendChild(h3);
+        content.appendChild(p);
+        card.appendChild(date);
+        card.appendChild(content);
+        return card;
+      }
+
+      function renderEmpty(container, message) {
+        container.innerHTML = '';
+        var p = document.createElement('p');
+        p.className = 'events-empty';
+        p.innerHTML = message;
+        container.appendChild(p);
+      }
+
+      function renderList(container, events) {
+        container.innerHTML = '';
+        events.forEach(function (ev) {
+          container.appendChild(createEventCard(ev));
+        });
+      }
+
+      var UPCOMING_EMPTY = 'Our first events are landing soon — we\'re finalising dates for term one. Check back shortly, or <a href="mailto:mf9767b@gre.ac.uk,py2774p@greenwich.ac.uk">get in touch with our co-presidents</a> if you\'d like a say in what we run first.';
+      var PAST_EMPTY = 'FLaT Society is brand new, so there\'s no past events archive yet — and we\'d rather tell you that plainly than fake one. The moment a session wraps up, it\'ll appear here.';
+
+      fetch('data/events.json')
+        .then(function (res) { return res.ok ? res.json() : []; })
+        .then(function (events) {
+          if (!Array.isArray(events)) events = [];
+          var upcoming = events.filter(function (e) { return e && e.status === 'upcoming'; });
+          var past = events.filter(function (e) { return e && e.status === 'past'; });
+
+          if (upcoming.length) {
+            renderList(lists.upcoming, upcoming);
+          } else {
+            renderEmpty(lists.upcoming, UPCOMING_EMPTY);
+          }
+
+          if (past.length) {
+            renderList(lists.past, past);
+          } else {
+            renderEmpty(lists.past, PAST_EMPTY);
+          }
+        })
+        .catch(function () {
+          renderEmpty(lists.upcoming, UPCOMING_EMPTY);
+          renderEmpty(lists.past, PAST_EMPTY);
+        });
+    })();
   </script>
 <script src="form-protection.js"></script>
 <script src="cookie-banner.js"></script>

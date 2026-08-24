@@ -14,11 +14,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="roles.css">
-<link rel="canonical" href="https://maiqing-io.github.io/FLaT-Dev/roles.html">
+<link rel="canonical" href="https://financelawandtech.netlify.app/roles.html">
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  
   <header class="site-header">
     <nav class="wrap">
       <a href="/" class="wordmark">FLa<em>T</em></a>
@@ -148,39 +146,11 @@
         </div>
       </div>
 
-      <div class="tech">
-        <h3>Tech &amp; implementation — languages and why we recommend them</h3>
-        <p>This site is intentionally simple and lightweight. Below are recommended languages/technologies for the front-end and back-end and the reasoning behind each choice.</p>
-        <h4>Front-end (what runs in the browser)</h4>
-        <ul>
-          <li><strong>HTML5</strong> — The semantic backbone of the site, accessible and SEO-friendly.</li>
-          <li><strong>CSS3 (custom properties)</strong> — Used for theming (variables), responsive layout and visual polish. Lightweight, fast and easy to maintain.</li>
-          <li><strong>JavaScript (ES6+)</strong> — Progressive enhancement only: small scripts for the year auto-update, reveal-on-scroll, and optional interactivity. Keeps initial load fast and the site remains usable without JavaScript.</li>
-          <li><strong>Optional frameworks</strong> — If the society wants a richer interactive app, React or Vue can be used, but they add build complexity. For content-focused sites, they are overkill and slow down initial load.</li>
-        </ul>
-
-        <h4>Back-end / hosting (where the site is served from)</h4>
-        <ul>
-          <li><strong>Static hosting (recommended)</strong> — GitHub Pages, Netlify or Vercel: zero-maintenance, free or low-cost, very fast via CDN. Forms can be handled via email links or serverless functions.</li>
-          <li><strong>Serverless functions</strong> — For collecting applications or mailing-list signups, use lightweight serverless endpoints (Node.js or Python) provided by Netlify/Vercel/AWS Lambda. No server to maintain, scales automatically.</li>
-          <li><strong>Full backend (optional)</strong> — If persistent data storage and authentication are needed, use Node.js with Express (JavaScript/TypeScript) or Python with Flask/FastAPI. Keep databases simple (PostgreSQL or SQLite).</li>
-        </ul>
-
-        <h4>Why these choices?</h4>
-        <ul>
-          <li>Accessibility &amp; performance: a content-first, semantic HTML/CSS approach ensures pages load quickly on mobile and are usable by screen readers.</li>
-          <li>Low maintenance: static sites with optional serverless endpoints minimise ongoing operational work for student committees.</li>
-          <li>Modern JS only where it helps: small, modern scripts improve UX without the overhead of a full SPA, making the site friendly to sponsors and students who prioritise speed.</li>
-          <li>Easy to extend: if the society grows, moving to a small Node/Python backend and a lightweight database is straightforward — the front-end can remain the same and call RESTful APIs.</li>
-        </ul>
-
-        <p>Applications submitted above are stored in the society's database and mirrored to our internal tracking sheet, so the committee always has a current view of submissions.</p>
-      </div>
     </section>
 
     <section style="margin-top:28px;padding-bottom:40px">
       <h2 class="section-title">Membership</h2>
-      <p class="membership-intro">You don't need a committee role to get involved — sign up by emailing us or join events listed on the main page. For sponsors or partners, contact us directly at flatsociety@greenwich.ac.uk.</p>
+      <p class="membership-intro">You don't need a committee role to get involved — sign up by emailing us or join events listed on the main page. For sponsors or partners, please contact us at mf9767b@gre.ac.uk and py2774p@greenwich.ac.uk.</p>
     </section>
   </main>
 
@@ -372,7 +342,8 @@
           name: document.getElementById('applyName').value,
           email: emailInput.value,
           contact: document.getElementById('applyContact').value,
-          message: document.getElementById('applyMessage').value
+          message: document.getElementById('applyMessage').value,
+          website_url: honeypot ? honeypot.value : ''
         };
 
         // Retry logic with exponential backoff
@@ -418,7 +389,7 @@
                   return;
                 }
               }
-              status.textContent = 'Something went wrong. Please email flatsociety@greenwich.ac.uk with your application. Error: ' + error.message;
+              status.textContent = 'Something went wrong. Please email our co-presidents at mf9767b@gre.ac.uk and py2774p@greenwich.ac.uk with your application. Error: ' + error.message;
               status.className = 'apply-status error';
               submitBtn.disabled = false;
               submitBtn.textContent = 'Submit application';
@@ -427,45 +398,6 @@
 
         submitWithRetry();
       });
-
-        fetch('/api/apply', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-          signal: AbortSignal.timeout(10000) // 10 second timeout
-        })
-          .then(function (res) {
-            return res.json().catch(function () {
-              return {}; // handle a non-JSON error page from the server gracefully
-            }).then(function (data) {
-              return { ok: res.ok, status: res.status, data: data };
-            });
-          })
-          .then(function (result) {
-            if (!result.ok) {
-              throw new Error(result.status === 429 ? 'RATE_LIMITED' : 'SUBMIT_FAILED');
-            }
-            status.textContent = 'Thanks — your application has been received. We\'ll be in touch soon!';
-            status.className = 'apply-status success';
-            submitBtn.textContent = 'Submitted';
-            localStorage.setItem('flatApplicationSubmitted_' + formData.email, JSON.stringify({
-              role: currentRole,
-              timestamp: new Date().toISOString()
-            }));
-          })
-          .catch(function (error) {
-            if (error.message === 'RATE_LIMITED') {
-              status.textContent = 'Too many submissions. Please wait an hour before trying again.';
-            } else if (error.name === 'AbortError' || error.name === 'TimeoutError') {
-              status.textContent = 'This is taking longer than expected. Your application may not have gone through — please try again in a moment.';
-            } else {
-              console.error('FLaT application submit failed:', error);
-              status.textContent = 'Something went wrong. Please try again, or email flatsociety@greenwich.ac.uk directly.';
-            }
-            status.className = 'apply-status error';
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Submit application';
-          });
     })();
   </script>
 <script src="form-protection.js"></script>

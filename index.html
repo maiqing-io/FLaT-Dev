@@ -15,11 +15,12 @@
 <meta name="twitter:title" content="FLaT Society — Finance, Law &amp; Technology">
 <meta name="twitter:description" content="Join FLaT Society at the University of Greenwich for finance, law and technology events.">
 <meta name="twitter:image" content="https://maiqing-io.github.io/FLaT-Dev/og-image.png">
-<link rel="canonical" href="https://maiqing-io.github.io/FLaT-Dev/">
+<link rel="canonical" href="https://financelawandtech.netlify.app/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="cookie-banner.css">
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>
@@ -44,17 +45,22 @@
     "https://instagram.com/flatsociety",
     "https://linkedin.com/company/flat-society"
   ],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "contactType": "General Support",
-    "email": "flatsociety@greenwich.ac.uk"
-  }
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "contactType": "General Support",
+      "email": "mf9767b@gre.ac.uk"
+    },
+    {
+      "@type": "ContactPoint",
+      "contactType": "General Support",
+      "email": "py2774p@greenwich.ac.uk"
+    }
+  ]
 }
 </script>
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
   <div class="ticker-band" aria-hidden="true">
     <div class="ticker-track" id="tickerTrack">
       <span>FCA CONSUMER DUTY</span><span class="divider">·</span>
@@ -202,6 +208,26 @@
       </div>
     </section>
 
+    <section class="founders-about">
+      <div class="wrap reveal">
+        <p class="section-tag">About the founders</p>
+        <div class="founders-about-grid">
+          <div class="founder-bio">
+            <h3>Madison Farrell</h3>
+            <p class="founder-bio-course">BA (Hons) International Business Studies with Italian, final year</p>
+            <p>Madison co-founded FLaT after noticing how much finance and fintech content assumes a level of access or background that not everyone has. She set out to build a more open way in, without the gatekeeping that often surrounds the industry.</p>
+            <a href="https://www.linkedin.com/in/madison-farrell-35493b22b" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+          <div class="founder-bio">
+            <h3>Poulome Yadav</h3>
+            <p class="founder-bio-course">LLB Law, final year</p>
+            <p>Poulome co-founded FLaT to address the same gap on the legal and legaltech side, where the field can feel closed off if you don't already know someone in it. She wanted to create a space that makes law more approachable for students without existing connections in the industry.</p>
+            <a href="https://www.linkedin.com/in/poulome-yadav-632ab4331/" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="join" id="join">
       <div class="wrap reveal">
         <p class="section-tag">Join the committee</p>
@@ -314,7 +340,7 @@
             <button type="submit" class="btn btn-primary" style="border:none; cursor:pointer; font-family: var(--font-mono);">Join FLaT</button>
           </form>
           <div class="join-links">
-            <a href="mailto:flatsociety@greenwich.ac.uk">Email</a>
+            <a href="mailto:mf9767b@gre.ac.uk,py2774p@greenwich.ac.uk">Email</a>
             <a href="#">Instagram</a>
             <a href="#">LinkedIn</a>
           </div>
@@ -415,6 +441,7 @@
       }
     });
   </script>
-
+<script src="form-protection.js"></script>
+<script src="cookie-banner.js"></script>
 </body>
 </html>

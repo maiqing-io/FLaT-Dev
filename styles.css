@@ -120,8 +120,24 @@ nav.wrap{
   white-space:nowrap;
 }
 .nav-mobile-hide{ display:flex; }
+.mobile-menu-toggle{
+  display: none;
+  order: 3;
+  background: none;
+  border: none;
+  color: var(--brass-light);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 8px;
+}
+.mobile-menu-toggle:focus-visible{
+  outline: 2px solid var(--brass-light);
+  outline-offset: 2px;
+}
 @media (max-width: 720px){
   .nav-links{ display:none; }
+  .mobile-menu-toggle{ display: flex; }
 }
 
 /* ---------- Hero ---------- */
@@ -345,6 +361,47 @@ h2.section-title{
 .founder-sig strong{ color: var(--text-on-paper); font-weight:600; }
 @media (max-width: 800px){
   .founder-grid{ grid-template-columns: 1fr; gap: 36px; }
+}
+
+/* ---------- About the founders ---------- */
+.founders-about{ background: var(--paper-dim); }
+.founders-about-grid{
+  max-width: 100ch;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  text-align: left;
+}
+.founder-bio h3{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0 0 4px;
+}
+.founder-bio-course{
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  color: var(--text-on-paper-soft);
+  margin: 0 0 14px;
+}
+.founder-bio p:not(.founder-bio-course){
+  color: var(--text-on-paper-soft);
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+.founder-bio a{
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--brass);
+}
+.founder-bio a:hover{ color: var(--brass-light); }
+@media (max-width: 800px){
+  .founders-about-grid{ grid-template-columns: 1fr; gap: 36px; }
 }
 
 /* ---------- Join ---------- */

@@ -65,6 +65,17 @@ export default async (req: Request) => {
     });
   }
 
+  // Honeypot: hidden field real users never fill in. Bots that post directly
+  // to this endpoint (skipping the client-side check) get a fake success
+  // response so they don't learn to adapt.
+  const honeypot = String(body.website_url ?? "").trim();
+  if (honeypot.length > 0) {
+    return new Response(JSON.stringify({ status: "ok" }), {
+      status: 200,
+      headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
+    });
+  }
+
   const clientIp = req.headers.get("x-forwarded-for") || req.headers.get("cf-connecting-ip") || "unknown";
   const email = String(body.email ?? "").trim();
 

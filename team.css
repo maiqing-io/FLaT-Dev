@@ -1,0 +1,116 @@
+/* Team page specific styles */
+@import url('styles.css');
+
+.hero-intro{
+  color: var(--text-on-ink-soft);
+  max-width: 60ch;
+  margin: 8px 0 0;
+  line-height: 1.6;
+}
+
+.team-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+@media (max-width: 900px){
+  .team-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 620px){
+  .team-grid{ grid-template-columns: 1fr; }
+}
+
+.team-card{
+  background: #fff;
+  border: 1px solid rgba(32,29,24,0.12);
+  border-radius: 3px;
+  padding: 24px 24px 26px;
+}
+.team-card.is-open{
+  background: transparent;
+  border-style: dashed;
+  border-color: rgba(32,29,24,0.25);
+}
+
+.team-avatar{
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--text-on-ink);
+  background: var(--brass);
+  margin-bottom: 16px;
+}
+.team-card.is-open .team-avatar{
+  background: transparent;
+  border: 1.5px dashed var(--brass);
+  color: var(--brass);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
+.team-role-tag{
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin: 0 0 6px;
+}
+
+.team-card h3{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  margin: 0 0 8px;
+  color: var(--text-on-paper);
+}
+.team-card.is-open h3{ color: var(--text-on-paper-soft); font-weight: 400; font-style: italic; }
+
+.team-card p{
+  color: var(--text-on-paper-soft);
+  font-size: 0.92rem;
+  margin: 0 0 14px;
+  line-height: 1.55;
+}
+
+.team-card a.team-apply{
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--brass);
+  border-bottom: 1px solid rgba(169,129,46,0.4);
+}
+.team-card a.team-apply:hover{ color: var(--brass-light); border-color: var(--brass-light); }
+
+/* ---------- Alumni ---------- */
+.alumni{ background: var(--paper-dim); }
+.alumni-empty{
+  border: 1px dashed rgba(32,29,24,0.25);
+  border-radius: 3px;
+  padding: 40px 32px;
+  text-align: center;
+  max-width: 52ch;
+  margin: 0 auto;
+}
+.alumni-empty p{
+  color: var(--text-on-paper-soft);
+  margin: 0;
+  font-size: 0.98rem;
+}
+.alumni-empty p.alumni-tag{
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin: 0 0 10px;
+}

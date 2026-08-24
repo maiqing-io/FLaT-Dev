@@ -24,6 +24,95 @@
   background: var(--paper-dim);
 }
 
+/* ---------- Event Tabs ---------- */
+.events-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 32px 0 28px;
+  border-bottom: 1px solid rgba(32, 29, 24, 0.14);
+}
+
+.events-tab {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-on-paper-soft);
+  padding: 10px 4px 14px;
+  position: relative;
+  transition: color 0.15s ease;
+}
+
+.events-tab + .events-tab {
+  margin-left: 20px;
+}
+
+.events-tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--brass);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.events-tab:hover {
+  color: var(--text-on-paper);
+}
+
+.events-tab.active {
+  color: var(--text-on-paper);
+}
+
+.events-tab.active::after {
+  transform: scaleX(1);
+}
+
+.events-tab:focus-visible {
+  outline: 2px solid var(--brass-light);
+  outline-offset: 2px;
+}
+
+/* ---------- Event Panels (fade/slide transition) ---------- */
+.events-panels {
+  position: relative;
+}
+
+.events-panel {
+  display: none;
+}
+
+.events-panel.active {
+  display: block;
+}
+
+.events-panel.fade-slide {
+  animation: eventsFadeSlide 0.3s ease both;
+}
+
+@keyframes eventsFadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .events-panel.fade-slide {
+    animation: none;
+  }
+}
+
 .events-list {
   display: flex;
   flex-direction: column;
@@ -91,6 +180,18 @@
   font-size: 0.95rem;
   line-height: 1.6;
   max-width: 62ch;
+}
+
+.event-desc {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 620px) {
+  .event-desc {
+    white-space: normal;
+  }
 }
 
 @media (max-width: 620px) {

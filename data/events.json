@@ -1,16 +1,1 @@
-[
-  {
-    "id": 1,
-    "title": "Example Past Event",
-    "date": "15/03/2024",
-    "description": "A sample past event to demonstrate the events section structure.",
-    "status": "past"
-  },
-  {
-    "id": 2,
-    "title": "Example Upcoming Event",
-    "date": "22/09/2026",
-    "description": "A sample upcoming event showing how events will appear once scheduled.",
-    "status": "upcoming"
-  }
-]
+[]

@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Events — FLaT Society | Finance, Law & Technology</title>
-<meta name="description" content="Explore past and upcoming events at FLaT Society, the University of Greenwich finance, law and technology student society.">
+<meta name="description" content="FLaT Society is brand new at the University of Greenwich — here's the plan for our first term.">
 <meta property="og:title" content="Events — FLaT Society">
-<meta property="og:description" content="Past and upcoming events from FLaT Society">
+<meta property="og:description" content="FLaT Society's first-year plan for term one">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,35 +34,21 @@
 
     <div class="wrap hero">
       <h1>Events</h1>
-      <p class="hero-intro">Explore our past events and see what's coming up. All events are free and open to members and non-members alike.</p>
+      <p class="hero-intro">This is our first year, so there's no history to show yet — here's the plan for term one instead.</p>
     </div>
   </header>
 
   <main id="main-content">
-    <section class="events-section" id="upcoming">
+    <section class="events-section" id="first-year">
       <div class="wrap">
         <div class="section-head reveal">
           <div>
-            <p class="section-tag">What's next</p>
-            <h2 class="section-title">Upcoming events</h2>
+            <p class="section-tag">Just getting started</p>
+            <h2 class="section-title">Our first year</h2>
           </div>
         </div>
-        <div class="events-list" id="upcomingEventsList">
-          <p class="events-empty">No events scheduled yet. Check back soon or <a href="mailto:mf9767b@gre.ac.uk,py2774p@greenwich.ac.uk">get in touch with our co-presidents</a> to hear about upcoming sessions.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="events-section events-section-alt" id="past">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <div>
-            <p class="section-tag">Archive</p>
-            <h2 class="section-title">Past events</h2>
-          </div>
-        </div>
-        <div class="events-list" id="pastEventsList">
-          <p class="events-empty">No past events yet.</p>
+        <div class="events-list">
+          <p class="events-empty">FLaT Society is brand new, so we don't have a past events archive yet — and we'd rather tell you that plainly than fake one. Term one is focused on getting founding members on board and running our first sessions on finance, law and technology topics. Dates are being finalised now; the moment something is confirmed, it'll appear here. Want a say in what we run first? <a href="mailto:mf9767b@gre.ac.uk,py2774p@greenwich.ac.uk">get in touch with our co-presidents</a>.</p>
         </div>
       </div>
     </section>
@@ -141,50 +127,6 @@
       requestAnimationFrame(scheduleReveal);
     }
 
-    // Load and display events
-    async function loadEvents() {
-      try {
-        const response = await fetch('/FLaT-Dev/data/events.json');
-        const events = await response.json();
-        displayEvents(events);
-      } catch (error) {
-        console.error('Error loading events:', error);
-      }
-    }
-
-    function displayEvents(events) {
-      const upcomingList = document.getElementById('upcomingEventsList');
-      const pastList = document.getElementById('pastEventsList');
-
-      const upcoming = events.filter(e => e.status === 'upcoming').sort((a, b) => new Date(b.date.split('/').reverse().join('-')) - new Date(a.date.split('/').reverse().join('-')));
-      const past = events.filter(e => e.status === 'past').sort((a, b) => new Date(b.date.split('/').reverse().join('-')) - new Date(a.date.split('/').reverse().join('-')));
-
-      if (upcoming.length > 0) {
-        upcomingList.innerHTML = upcoming.map(event => `
-          <div class="event-card reveal">
-            <div class="event-date">${event.date}</div>
-            <div class="event-content">
-              <h3>${event.title}</h3>
-              <p>${event.description}</p>
-            </div>
-          </div>
-        `).join('');
-      }
-
-      if (past.length > 0) {
-        pastList.innerHTML = past.map(event => `
-          <div class="event-card reveal">
-            <div class="event-date">${event.date}</div>
-            <div class="event-content">
-              <h3>${event.title}</h3>
-              <p>${event.description}</p>
-            </div>
-          </div>
-        `).join('');
-      }
-    }
-
-    loadEvents();
   </script>
 <script src="form-protection.js"></script>
 <script src="cookie-banner.js"></script>

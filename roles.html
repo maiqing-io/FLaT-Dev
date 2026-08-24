@@ -146,34 +146,6 @@
         </div>
       </div>
 
-      <div class="tech">
-        <h3>Tech &amp; implementation — languages and why we recommend them</h3>
-        <p>This site is intentionally simple and lightweight. Below are recommended languages/technologies for the front-end and back-end and the reasoning behind each choice.</p>
-        <h4>Front-end (what runs in the browser)</h4>
-        <ul>
-          <li><strong>HTML5</strong> — The semantic backbone of the site, accessible and SEO-friendly.</li>
-          <li><strong>CSS3 (custom properties)</strong> — Used for theming (variables), responsive layout and visual polish. Lightweight, fast and easy to maintain.</li>
-          <li><strong>JavaScript (ES6+)</strong> — Progressive enhancement only: small scripts for the year auto-update, reveal-on-scroll, and optional interactivity. Keeps initial load fast and the site remains usable without JavaScript.</li>
-          <li><strong>Optional frameworks</strong> — If the society wants a richer interactive app, React or Vue can be used, but they add build complexity. For content-focused sites, they are overkill and slow down initial load.</li>
-        </ul>
-
-        <h4>Back-end / hosting (where the site is served from)</h4>
-        <ul>
-          <li><strong>Static hosting (recommended)</strong> — GitHub Pages, Netlify or Vercel: zero-maintenance, free or low-cost, very fast via CDN. Forms can be handled via email links or serverless functions.</li>
-          <li><strong>Serverless functions</strong> — For collecting applications or mailing-list signups, use lightweight serverless endpoints (Node.js or Python) provided by Netlify/Vercel/AWS Lambda. No server to maintain, scales automatically.</li>
-          <li><strong>Full backend (optional)</strong> — If persistent data storage and authentication are needed, use Node.js with Express (JavaScript/TypeScript) or Python with Flask/FastAPI. Keep databases simple (PostgreSQL or SQLite).</li>
-        </ul>
-
-        <h4>Why these choices?</h4>
-        <ul>
-          <li>Accessibility &amp; performance: a content-first, semantic HTML/CSS approach ensures pages load quickly on mobile and are usable by screen readers.</li>
-          <li>Low maintenance: static sites with optional serverless endpoints minimise ongoing operational work for student committees.</li>
-          <li>Modern JS only where it helps: small, modern scripts improve UX without the overhead of a full SPA, making the site friendly to sponsors and students who prioritise speed.</li>
-          <li>Easy to extend: if the society grows, moving to a small Node/Python backend and a lightweight database is straightforward — the front-end can remain the same and call RESTful APIs.</li>
-        </ul>
-
-        <p>Applications submitted above are stored in the society's database and mirrored to our internal tracking sheet, so the committee always has a current view of submissions.</p>
-      </div>
     </section>
 
     <section style="margin-top:28px;padding-bottom:40px">

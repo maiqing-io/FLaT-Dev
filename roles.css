@@ -159,35 +159,6 @@
   to { transform: rotate(360deg); }
 }
 
-.tech {
-  background: rgba(243, 239, 226, 0.5);
-  padding: 28px;
-  border-radius: 4px;
-  margin-top: 44px;
-}
-.tech h3 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  margin: 0 0 8px;
-}
-.tech h4 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  margin: 14px 0 8px;
-}
-.tech p {
-  color: rgba(32, 29, 24, 0.7);
-  margin: 0 0 12px;
-}
-.tech ul {
-  margin: 0 0 12px;
-  padding-left: 24px;
-}
-.tech li {
-  margin-bottom: 8px;
-  line-height: 1.6;
-}
-
 .section-tag {
   font-family: var(--font-mono);
   font-size: 0.72rem;

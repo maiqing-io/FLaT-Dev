@@ -138,21 +138,21 @@
           <div class="article reveal">
             <div class="article-mark">§ Article I</div>
             <div>
-              <h3>Finance × Technology</h3>
+              <h3><button type="button" class="article-title-btn" data-article-index="0">Finance × Technology</button></h3>
               <p>How fintech, algorithmic trading and digital assets are changing what a career in financial services actually looks like. We cover open banking, RegTech and the shift toward AI-driven advisory.</p>
             </div>
           </div>
           <div class="article reveal">
             <div class="article-mark">§ Article II</div>
             <div>
-              <h3>Law × Technology</h3>
+              <h3><button type="button" class="article-title-btn" data-article-index="1">Law × Technology</button></h3>
               <p>How legal practice is adapting to automation, AI governance and the regulatory questions that come with it. We look at legaltech tools, data protection and how firms are having to rethink contract review and due diligence.</p>
             </div>
           </div>
           <div class="article reveal">
             <div class="article-mark">§ Article III</div>
             <div>
-              <h3>Financial &amp; legal literacy</h3>
+              <h3><button type="button" class="article-title-btn" data-article-index="2">Financial &amp; legal literacy</button></h3>
               <p>Not everyone in the room is aiming for a career in finance or law, and that's fine. This strand covers the basics that are useful regardless of where you end up: how contracts work, what financial regulation actually tries to do, and where the two meet.</p>
             </div>
           </div>
@@ -359,6 +359,13 @@
     </div>
   </footer>
 
+  <div class="modal-overlay" id="articleModal">
+    <div class="modal-card modal-card-wide">
+      <button type="button" class="modal-close" id="articleModalClose" aria-label="Close article">&times;</button>
+      <div id="articleModalContent"></div>
+    </div>
+  </div>
+
   <script>
     document.getElementById('year').textContent = '© ' + new Date().getFullYear();
 
@@ -443,6 +450,190 @@
         }
       }
     });
+  </script>
+
+  <script>
+    (function () {
+      var ARTICLES = [
+        {
+          eyebrow: 'ARTICLE I · FINANCE & TECHNOLOGY',
+          title: 'How fintech, open banking and AI are reshaping financial services careers',
+          meta: 'Article I · 4 min read · Finance & Technology',
+          sections: [
+            {
+              heading: 'The Bigger Picture',
+              paragraphs: [
+                'A decade ago, a career in financial services meant one of a handful of well-worn paths: retail banking, asset management, insurance, perhaps a graduate scheme at one of the large investment banks. That map has been substantially redrawn, not by a single disruptive event but by the steady, compounding effect of infrastructure change, and it is worth understanding what has actually shifted rather than relying on the usual "fintech is exciting" framing.',
+                'Start with scale. The UK remains Europe\'s leading fintech hub and the second-largest fintech market globally, behind only the United States, with UK fintech attracting around £2.6 billion of investment in 2025 according to Innovate Finance. Momentum has continued into 2026: UK fintech investments recorded $1.9 billion in total funding across 67 deals in the first quarter of 2026, a 32% increase on the same period in 2025. This is not simply venture capital chasing a trend; it reflects a sector that has moved from proving a concept to generating recurring revenue at scale.'
+              ]
+            },
+            {
+              heading: 'Open Banking as Infrastructure',
+              paragraphs: [
+                'The clearest evidence of that maturity is open banking, which has gone from regulatory experiment to everyday infrastructure faster than most predicted. Consumer adoption reached almost the same level as small businesses for the first time since its 2018 launch, with a record adoption rate of one in five consumers and businesses using it as of March 2025, up from just one in seventeen in March 2021. By July, that figure had reached 15.16 million users, nearly one in three UK adults, its fastest growth yet. For anyone starting a career in financial services now, open banking APIs are not a specialist interest; they are the plumbing that most new financial products are built on.'
+              ]
+            },
+            {
+              heading: 'Where AI Regulation Is Heading',
+              paragraphs: [
+                'Artificial intelligence has moved just as quickly, though the regulatory story here is more interesting than the technology itself. The FCA and Bank of England\'s third joint survey confirmed that three out of every four UK financial services firms are already using artificial intelligence. Rather than legislate for AI specifically, the FCA and Bank of England have adopted a technology-agnostic approach to supervision, neither prescribing nor prohibiting particular technologies, applying existing frameworks such as the Consumer Duty to AI-driven decisions in the same way they apply to human ones. Its AI Live Testing sandbox welcomed its first cohort of firms in October 2025, with a second cohort expected in April 2026, giving firms controlled access to synthetic data to trial AI-driven products before they reach the public. A parallel review, the FCA\'s Mills Review into the long-term impact of AI on retail financial services, is expected to report a series of recommendations to the FCA board in summer 2026. The practical upshot for anyone entering the sector is that technical fluency in AI is no longer separable from regulatory fluency; the two increasingly sit in the same job.'
+              ]
+            },
+            {
+              heading: 'RegTech and the Compliance Shift',
+              paragraphs: [
+                'That overlap is also what is driving demand for RegTech. The FCA\'s regulatory sandbox offers a safe space for RegTech firms to test solutions with real consumers under direct regulator oversight, and initiatives like the Consumer Duty are pushing firms towards demonstrating robust, near-real-time compliance rather than periodic review, making the tools used to monitor and evidence that compliance a growth area in their own right.'
+              ]
+            },
+            {
+              heading: 'Digital Assets Enter the Regulatory Perimeter',
+              paragraphs: [
+                'Cryptoassets have spent most of the past decade sitting largely outside UK financial regulation. That has now changed: the Financial Services and Markets Act 2000 (Cryptoassets) Regulations 2026, made by Parliament on 4 February 2026, brought cryptoassets within the FCA\'s regulatory remit for the first time. The FCA published its landmark policy statements on 30 June 2026, with the authorisation gateway for firms opening on 30 September 2026, and the substantive regime is expected to come fully into force on 25 October 2027. Whatever view one takes on crypto as an asset class, its shift from unregulated curiosity to a supervised, licensed activity is itself the more significant development, and one that will shape a meaningful share of financial services hiring over the next few years.'
+              ]
+            }
+          ],
+          keyTakeaway: 'The line between a \'finance\' career and a \'technology\' career is disappearing, evidenced by open banking\'s shift into core infrastructure, AI\'s arrival inside existing regulatory frameworks rather than a rulebook of its own, and cryptoassets moving from unregulated curiosity to licensed activity. For students weighing where to specialise, regulatory fluency is becoming as valuable as technical skill.'
+        },
+        {
+          eyebrow: 'ARTICLE II · LAW & TECHNOLOGY',
+          title: 'Law × Technology',
+          meta: 'Article II · Coming soon · Law & Technology',
+          pending: true
+        },
+        {
+          eyebrow: 'ARTICLE III · FINANCIAL & LEGAL LITERACY',
+          title: 'What the evidence says about why this strand matters',
+          meta: 'Article III · 4 min read · Financial & Legal Literacy',
+          sections: [
+            {
+              heading: 'What Young People Say',
+              paragraphs: [
+                'Not every student who ends up in this room is aiming for a career in finance or law, and this strand of FLaT\'s work is built around that fact rather than around it. Financial and legal literacy is not a watered-down version of the other two pillars; it is arguably the more urgent of the three, because the evidence suggests most people are entering adult life without it.',
+                'The London Foundation for Banking & Finance\'s 2025/26 review found that only 19% of young people surveyed could answer basic financial literacy questions, and that 64% felt anxious about money. The gap is not for lack of interest: 80% of those young people wanted to learn more about finance. What they lack is access. Only 9% identified school as their main source of financial understanding, with even fewer, just 2%, citing banks; the overwhelming majority are left to work it out from parents, friends, or increasingly, social media.'
+              ]
+            },
+            {
+              heading: 'The Gap Doesn\'t Close at 18',
+              paragraphs: [
+                'Santander UK research found that only one in four young adults report having received any financial education at school, leaving approximately four million without a fundamental understanding of money management. A September 2025 survey of 2,001 UK adults by Shepherds Friendly, testing knowledge across ISAs, investing, insurance and income protection, found that only 9% of 18 to 24 year olds passed, compared with 34% of those aged 55 and over. Financial literacy, in other words, is not something that arrives automatically with age or income; it has to be taught, and at present it largely is not.'
+              ]
+            },
+            {
+              heading: 'Where Contract Law Comes In',
+              paragraphs: [
+                'Legal literacy sits alongside this gap rather than separate from it, because so much of what determines whether someone gets a fair outcome from a financial product is written into a contract most people never read closely. The Consumer Rights Act 2015 sets out the test directly: a contract term is unfair, and therefore not binding on the consumer, if it causes a significant imbalance in the parties\' rights and obligations to the consumer\'s detriment, contrary to the requirement of good faith. For a term concerning price or subject matter to be exempt from that fairness test, it must be both transparent, expressed in plain and intelligible language, and prominent, brought to the consumer\'s attention in a way an average consumer would notice. Guidance from the Competition and Markets Authority on how this test is applied was itself updated as recently as July 2026. Knowing that such a test exists, and roughly what it requires, is the difference between reading a set of terms and conditions and actually understanding what one is agreeing to.'
+              ]
+            },
+            {
+              heading: 'Regulation Reaches the Same Conclusion',
+              paragraphs: [
+                'The FCA\'s Consumer Duty sets a consumer principle requiring firms to act to deliver good outcomes for retail customers, moving beyond simply avoiding misleading customers towards actively supporting their understanding of what they are buying. Its own consumer understanding review, published 13 March 2026, found that sales data and the absence of complaints do not prove that customers actually understood their products, an admission, from the regulator itself, that comprehension cannot be assumed. If the FCA no longer takes financial understanding for granted among adult consumers dealing with regulated firms, there is little reason to assume students arrive at university with it either.'
+              ]
+            }
+          ],
+          keyTakeaway: 'The evidence, from young people\'s own survey responses to the FCA\'s own findings, points the same way: financial and legal understanding cannot be assumed, it has to be taught. This strand of FLaT exists for exactly that reason, regardless of what career, if any, someone in the room is heading towards.'
+        }
+      ];
+
+      var modal = document.getElementById('articleModal');
+      var modalClose = document.getElementById('articleModalClose');
+      var modalContent = document.getElementById('articleModalContent');
+      var lastFocusedElement = null;
+
+      function renderArticle(article) {
+        modalContent.innerHTML = '';
+
+        var eyebrow = document.createElement('p');
+        eyebrow.className = 'article-modal-eyebrow';
+        eyebrow.textContent = article.eyebrow;
+        modalContent.appendChild(eyebrow);
+
+        var title = document.createElement('h3');
+        title.className = 'article-modal-title';
+        title.textContent = article.title;
+        modalContent.appendChild(title);
+
+        var meta = document.createElement('p');
+        meta.className = 'article-modal-meta';
+        meta.textContent = article.meta;
+        modalContent.appendChild(meta);
+
+        var hr = document.createElement('hr');
+        hr.className = 'article-modal-divider';
+        modalContent.appendChild(hr);
+
+        if (article.pending) {
+          var pending = document.createElement('p');
+          pending.className = 'article-modal-pending';
+          pending.textContent = 'This report is being finalised and will be added soon.';
+          modalContent.appendChild(pending);
+          return;
+        }
+
+        article.sections.forEach(function (section) {
+          var sectionEl = document.createElement('div');
+          sectionEl.className = 'article-modal-section';
+
+          var heading = document.createElement('h3');
+          heading.textContent = section.heading;
+          sectionEl.appendChild(heading);
+
+          section.paragraphs.forEach(function (paragraph) {
+            var p = document.createElement('p');
+            p.textContent = paragraph;
+            sectionEl.appendChild(p);
+          });
+
+          modalContent.appendChild(sectionEl);
+        });
+
+        if (article.keyTakeaway) {
+          var takeaway = document.createElement('div');
+          takeaway.className = 'article-modal-takeaway';
+          var takeawayP = document.createElement('p');
+          var strong = document.createElement('strong');
+          strong.textContent = 'Key takeaway: ';
+          takeawayP.appendChild(strong);
+          takeawayP.appendChild(document.createTextNode(article.keyTakeaway));
+          takeaway.appendChild(takeawayP);
+          modalContent.appendChild(takeaway);
+        }
+      }
+
+      function openArticleModal(index) {
+        var article = ARTICLES[index];
+        if (!article) return;
+        renderArticle(article);
+        lastFocusedElement = document.activeElement;
+        modal.classList.add('open');
+        setTimeout(function () { modalClose.focus(); }, 100);
+      }
+
+      function closeArticleModal() {
+        modal.classList.remove('open');
+        if (lastFocusedElement && lastFocusedElement.focus) {
+          lastFocusedElement.focus();
+        }
+      }
+
+      document.querySelectorAll('.article-title-btn[data-article-index]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          openArticleModal(parseInt(btn.getAttribute('data-article-index'), 10));
+        });
+      });
+
+      modalClose.addEventListener('click', closeArticleModal);
+
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeArticleModal();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('open')) {
+          closeArticleModal();
+        }
+      });
+    })();
   </script>
 <script src="form-protection.js"></script>
 <script src="cookie-banner.js"></script>

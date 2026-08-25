@@ -724,6 +724,35 @@ footer{
   font-style: italic;
 }
 
+.article-modal-references{
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(32,29,24,0.18);
+}
+.article-modal-references h3{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 0 0 12px;
+  color: var(--text-on-paper-soft);
+}
+.article-modal-references ol{
+  margin: 0;
+  padding-left: 1.2em;
+  list-style-position: outside;
+}
+.article-modal-references li{
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-on-paper-soft);
+  margin: 0 0 10px;
+  word-break: break-word;
+}
+.article-modal-references li:last-child{ margin-bottom: 0; }
+.article-modal-references li a{
+  color: var(--brass);
+}
+
 @media (max-width: 640px){
   .article-modal-title{ font-size: 1.5rem; }
 }

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="description" content="Page not found — FLaT Society, the University of Greenwich finance, law and technology society.">
+<meta property="og:title" content="Page not found — FLaT Society">
+<meta property="og:description" content="The page you're looking for doesn't exist on the FLaT Society site.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://financelawandtech.netlify.app/assets/og-image.png">
+<meta property="og:url" content="https://financelawandtech.netlify.app/404.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://financelawandtech.netlify.app/assets/og-image.png">
+<title>Page not found — FLaT Society</title>
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="cookie-banner.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="wrap">
+      <a href="/" class="wordmark">FLa<em>T</em></a>
+      <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#focus">Focus</a></li>
+        <li><a href="/#programme">Programme</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="roles.html">Roles</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="/#join">Join</a></li>
+      </ul>
+      <a href="roles.html" class="nav-cta">Join FLaT</a>
+    </nav>
+
+    <div class="wrap hero">
+      <h1>Page not found</h1>
+      <p class="hero-intro">There's nothing at this address. It may have moved, or the link might be wrong.</p>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="about">
+      <div class="wrap about-grid">
+        <div class="reveal">
+          <p>Try one of the links in the menu above, or head back to the homepage.</p>
+          <p><a href="/" class="btn btn-primary">Back to homepage</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <span>FLaT — Finance, Law &amp; Technology Society, University of Greenwich</span>
+      <span><a href="privacy.html">Privacy</a></span>
+      <span id="year">© 2026</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = '© ' + new Date().getFullYear();
+
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.contains('mobile-open');
+        navLinks.classList.toggle('mobile-open', !isOpen);
+        mobileMenuToggle.setAttribute('aria-expanded', !isOpen);
+      });
+
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('mobile-open');
+          mobileMenuToggle.setAttribute('aria-expanded', false);
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('mobile-open')) {
+          navLinks.classList.remove('mobile-open');
+          mobileMenuToggle.setAttribute('aria-expanded', false);
+        }
+      });
+    }
+  </script>
+<script src="form-protection.js"></script>
+<script src="cookie-banner.js"></script>
+</body>
+</html>

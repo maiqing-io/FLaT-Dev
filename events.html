@@ -9,6 +9,7 @@
 <meta property="og:description" content="FLaT Society's first-year plan for term one">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://financelawandtech.netlify.app/assets/og-image.png">
+<meta property="og:url" content="https://financelawandtech.netlify.app/events.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://financelawandtech.netlify.app/assets/og-image.png">
 <link rel="icon" href="/assets/favicon.ico" sizes="any">
@@ -78,14 +79,15 @@
         <p class="join-intro">Sign up to hear about upcoming events and sessions from FLaT.</p>
 
         <div class="join-secondary" style="border-top: none; padding-top: 0;">
-          <form class="join-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Thanks, we\'ll be in touch';">
-            <input type="email" required placeholder="your.email@greenwich.ac.uk" aria-label="Email address">
+          <form class="join-form" id="updatesForm">
+            <input type="email" id="updatesEmail" required placeholder="your.email@greenwich.ac.uk" aria-label="Email address">
             <button type="submit" class="btn btn-primary" style="border:none; cursor:pointer; font-family: var(--font-mono);">Join updates</button>
           </form>
+          <p class="apply-status" id="updatesStatus" role="status" aria-live="polite"></p>
           <div class="join-links">
             <a href="mailto:mf9767b@gre.ac.uk,py2774p@greenwich.ac.uk" target="_blank" rel="noopener noreferrer">Email</a>
-            <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://instagram.com/flatsociety" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://linkedin.com/company/flat-society" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </div>
         </div>
       </div>
@@ -95,6 +97,7 @@
   <footer>
     <div class="wrap footer-row">
       <span>FLaT — Finance, Law &amp; Technology Society, University of Greenwich</span>
+      <span><a href="privacy.html">Privacy</a></span>
       <span id="year">© 2026</span>
     </div>
   </footer>
@@ -276,6 +279,61 @@
           renderEmpty(lists.upcoming, UPCOMING_EMPTY);
           renderEmpty(lists.past, PAST_EMPTY);
         });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var form = document.getElementById('updatesForm');
+      if (!form) return;
+      var status = document.getElementById('updatesStatus');
+      var submitBtn = form.querySelector('button');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = document.getElementById('updatesEmail').value;
+
+        if (window.FLaTFormProtection && window.FLaTFormProtection.isRateLimited()) {
+          status.textContent = 'Too many submissions. Please wait an hour before trying again.';
+          status.className = 'apply-status error';
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting…';
+        status.textContent = '';
+        status.className = 'apply-status';
+
+        fetch('/api/apply', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            role: 'Event updates',
+            name: 'Event updates signup',
+            email: email,
+            contact: '',
+            message: ''
+          }),
+          signal: AbortSignal.timeout(10000)
+        })
+          .then(function (res) {
+            return res.json().then(function (data) { return { ok: res.ok, status: res.status, data: data }; });
+          })
+          .then(function (result) {
+            if (!result.ok) {
+              throw new Error(result.data && result.data.error ? result.data.error : 'Submission failed');
+            }
+            status.textContent = 'Thanks, we\'ll be in touch.';
+            status.className = 'apply-status success';
+            submitBtn.textContent = 'Thanks, we\'ll be in touch';
+          })
+          .catch(function (error) {
+            status.textContent = 'Something went wrong. Please email us at mf9767b@gre.ac.uk and py2774p@greenwich.ac.uk instead. Error: ' + error.message;
+            status.className = 'apply-status error';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Join updates';
+          });
+      });
     })();
   </script>
 <script src="form-protection.js"></script>

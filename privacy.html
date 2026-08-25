@@ -9,6 +9,7 @@
 <meta property="og:description" content="Privacy Policy for FLaT Society, the University of Greenwich finance, law and technology student society.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://financelawandtech.netlify.app/assets/og-image.png">
+<meta property="og:url" content="https://financelawandtech.netlify.app/privacy.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://financelawandtech.netlify.app/assets/og-image.png">
 <link rel="icon" href="/assets/favicon.ico" sizes="any">
@@ -26,8 +27,14 @@
       <a href="/" class="wordmark">FLa<em>T</em></a>
       <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
       <ul class="nav-links" id="navLinks">
-        <li><a href="/">Home</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#focus">Focus</a></li>
+        <li><a href="/#programme">Programme</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="roles.html">Roles</a></li>
         <li><a href="reports.html">Reports</a></li>
+        <li><a href="/#join">Join</a></li>
       </ul>
       <a href="/" class="nav-cta">Back to site</a>
     </nav>
@@ -42,93 +49,61 @@
     <section class="about">
       <div class="wrap about-grid">
         <div class="reveal">
-          <p><strong>Last updated: 21 August 2026</strong></p>
+          <p><strong>Last updated: 25 August 2026</strong></p>
 
           <h2>1. Introduction</h2>
-          <p>FLaT Society ("we", "us", or "our") operates the https://financelawandtech.netlify.app website. This page informs you of our policies regarding the collection, use and disclosure of personal data when you use our site and the choices you have associated with that data.</p>
+          <p>FLaT Society ("we", "us", or "our") operates the https://financelawandtech.netlify.app website. This page explains, plainly, what data the site actually collects and where it goes. It's written to match how the site is built, not as a generic template.</p>
 
           <h2>2. What Data We Collect</h2>
-          <p>We collect data only when you choose to provide it:</p>
+          <p>We collect data only when you choose to provide it, through the committee application form or the "get updates" sign-up forms on the homepage and events page:</p>
           <ul>
-            <li><strong>Email addresses</strong> — when you sign up to join FLaT or receive event updates</li>
-            <li><strong>Names</strong> — when you apply for committee roles or submit forms</li>
-            <li><strong>Optional contact info</strong> — Telegram or LinkedIn handles (if you choose to provide)</li>
-            <li><strong>Form messages</strong> — optional text you submit with applications</li>
-            <li><strong>Analytics data</strong> — via Google Analytics: page views, scroll depth, button clicks, device type</li>
+            <li><strong>Name</strong> — required for committee applications</li>
+            <li><strong>Email address</strong> — required, so we can respond to your application or send you updates</li>
+            <li><strong>Optional contact info</strong> — a Telegram or LinkedIn handle, if you choose to give one</li>
+            <li><strong>Message</strong> — optional free text you add to a committee application</li>
+          </ul>
+          <p>We do not use any analytics or tracking tools. No page-view, click, or visitor-behaviour data is collected about you as an individual.</p>
+
+          <h2>3. Where This Data Is Stored</h2>
+          <p>When you submit a form, the data is sent to a Netlify Function which:</p>
+          <ul>
+            <li>Stores it in a Netlify Database (a hosted Postgres database tied to this site), and</li>
+            <li>Forwards a copy to a Google Sheet that our committee uses to track and follow up on applications.</li>
+          </ul>
+          <p>Both copies exist so the committee can review applications even if one system is temporarily unavailable. If you'd like your data removed from either, contact us using the details in section 8 and we'll delete both copies.</p>
+
+          <h2>4. Rate-Limit Logging</h2>
+          <p>To stop the application form being spammed, our server briefly records how many submissions have come from a given IP address, and from a given IP address and email combination, in a Netlify Blobs store. This is a rolling hourly count and timestamp, not a log of your browsing activity, and it is not linked to your name or the content of any application. Entries are overwritten as the hourly window resets and are not kept as a historical record.</p>
+
+          <h2>5. Cookies &amp; the Cookie Banner</h2>
+          <p>The site shows a cookie banner on your first visit, offering "Accept All" or "Decline Analytics". Your choice is saved in a cookie and in your browser's local storage for 365 days so we don't ask again. At present this choice doesn't change what the site does, because no analytics are running either way — the banner and the underlying consent code are in place ahead of adding analytics in future, not because analytics are active today.</p>
+          <p>The committee application form also uses your browser's local storage to remember which roles you've already applied for, so you don't get shown the application form twice by mistake for the same role.</p>
+
+          <h2>6. Analytics</h2>
+          <p>We do not currently run Google Analytics or any other analytics or tracking service. Nothing about your visit — pages viewed, time on site, device, location — is collected or sent to a third party for analytics purposes.</p>
+
+          <h2>7. Security Headers &amp; Form Protection</h2>
+          <p>The site sets standard security headers (a Content Security Policy, X-Frame-Options, X-Content-Type-Options, Strict-Transport-Security) to reduce the risk of common web attacks, and the application form includes a hidden honeypot field and basic rate limiting to cut down on automated spam submissions. If your genuine submission is ever blocked by this, email us directly using the details below.</p>
+
+          <h2>8. Third-Party Services</h2>
+          <p>We use the following third-party services, each governed by its own privacy policy:</p>
+          <ul>
+            <li><strong>Google Fonts</strong> — loads the typefaces used on this site from Google's servers</li>
+            <li><strong>Google Sheets / Apps Script</strong> — receives a copy of committee applications, and (separately) serves the list of published reports shown on the Reports page</li>
+            <li><strong>Netlify</strong> — hosts the site, the application form's backend, the database, and the rate-limit store</li>
           </ul>
 
-          <h2>3. How We Use Your Data</h2>
-          <p><strong>Email and form data:</strong> Used only to contact you about your application or to send event announcements you've signed up for.</p>
-          <p><strong>Analytics:</strong> To understand how users interact with our site, improve site performance, and measure the success of events and promotions.</p>
-          <p><strong>Retention:</strong> We retain your email for as long as you remain an active member. You can request deletion at any time by emailing our co-presidents at mf9767b@gre.ac.uk and py2774p@greenwich.ac.uk.</p>
-
-          <h2>4. Security Headers</h2>
-          <p>Our site implements industry-standard security headers to protect against common web attacks, including:</p>
-          <ul>
-            <li>Content Security Policy (CSP) — restricts where scripts and styles can load from</li>
-            <li>X-Frame-Options — prevents clickjacking attacks</li>
-            <li>X-Content-Type-Options — prevents MIME type sniffing</li>
-            <li>Strict-Transport-Security — enforces HTTPS-only connections</li>
-          </ul>
-
-          <h2>5. Form Protection</h2>
-          <p>Our forms include spam protection measures to prevent automated abuse. If your submission is blocked, please try again or contact our co-presidents directly at mf9767b@gre.ac.uk and py2774p@greenwich.ac.uk.</p>
-
-          <h2>6. Cookies &amp; Google Analytics</h2>
-          <p>We use Google Analytics 4 to track anonymous usage data. This includes:</p>
-          <ul>
-            <li>Pages you visit</li>
-            <li>Time spent on the site</li>
-            <li>Device and browser type</li>
-            <li>General location (country-level, not precise)</li>
-          </ul>
-          <p>Google Analytics uses cookies with the following settings:</p>
-          <ul>
-            <li>IP addresses are anonymized</li>
-            <li>SameSite=None; Secure</li>
-            <li>No personally identifiable information is sent to Google</li>
-          </ul>
-          <p>You can opt out of Google Analytics by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a>.</p>
-
-          <h2>7. Third-Party Services</h2>
-          <p>We use the following third-party services:</p>
-          <ul>
-            <li><strong>Google Fonts</strong> — loads typefaces from Google servers</li>
-            <li><strong>Google Analytics</strong> — anonymous usage tracking</li>
-            <li><strong>Netlify</strong> — hosts our website</li>
-          </ul>
-          <p>Each has its own privacy policy. We recommend reviewing them.</p>
-
-          <h2>8. Your Rights</h2>
-          <p>Under UK and EU data protection law, you have the right to:</p>
-          <ul>
-            <li>Access your personal data</li>
-            <li>Request correction or deletion</li>
-            <li>Opt out of marketing communications</li>
-            <li>Withdraw consent for data use</li>
-          </ul>
-          <p>To exercise these rights, please contact us at mf9767b@gre.ac.uk and py2774p@greenwich.ac.uk with your request.</p>
-
-          <h2>9. Legal Basis</h2>
-          <p>We process your data based on:</p>
-          <ul>
-            <li><strong>Consent</strong> — when you sign up for emails or submit forms</li>
-            <li><strong>Legitimate interest</strong> — to improve our site and understand member needs</li>
-            <li><strong>Legal obligation</strong> — if required by law or University policy</li>
-          </ul>
+          <h2>9. Your Rights</h2>
+          <p>Under UK data protection law, you have the right to access the data we hold about you, ask us to correct or delete it, and withdraw consent at any time. To exercise any of these, email our co-presidents at mf9767b@gre.ac.uk and py2774p@greenwich.ac.uk and we'll action it in both the database and the Google Sheet.</p>
 
           <h2>10. Children's Privacy</h2>
-          <p>Our site is not intended for children under 13. We do not knowingly collect data from children under this age. If we become aware of such collection, we will delete it immediately.</p>
+          <p>This site is aimed at university students and isn't intended for children under 13. We don't knowingly collect data from anyone under that age.</p>
 
           <h2>11. Policy Changes</h2>
-          <p>We may update this policy occasionally. Changes will be posted on this page with an updated "Last updated" date. Continued use of the site means you accept the new policy.</p>
+          <p>If what the site actually collects or does with data changes, we'll update this page and the "Last updated" date above to match.</p>
 
           <h2>12. Contact Us</h2>
-          <p>If you have questions about this privacy policy or how we handle your data, contact us at:</p>
-          <ul>
-            <li><strong>Co-president emails:</strong> mf9767b@gre.ac.uk and py2774p@greenwich.ac.uk</li>
-            <li><strong>University of Greenwich</strong></li>
-          </ul>
+          <p>Questions about this policy or how your data is handled: mf9767b@gre.ac.uk and py2774p@greenwich.ac.uk, or via the University of Greenwich Students' Union.</p>
 
           <p style="margin-top: 48px; font-size: 0.9rem; color: var(--text-on-paper-soft);">This privacy policy applies to the FLaT Society website. If you have concerns about how the University of Greenwich handles your data, contact their Data Protection Officer.</p>
         </div>

@@ -11,8 +11,7 @@
     banner.innerHTML = `
       <div class="cookie-banner-content">
         <p class="cookie-banner-text">
-          We use cookies and analytics to understand how you use our site and improve your experience. 
-          By continuing, you accept our use of cookies. See our <a href="https://financelawandtech.netlify.app/privacy.html" target="_blank">privacy policy</a> for details.
+          This site uses a small amount of local storage and cookies to remember your preferences, and may use analytics in future to understand how the site is used. No analytics are active today. See our <a href="https://financelawandtech.netlify.app/privacy.html" target="_blank">privacy policy</a> for details.
         </p>
       </div>
       <div class="cookie-banner-actions">

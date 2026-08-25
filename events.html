@@ -83,9 +83,9 @@
             <button type="submit" class="btn btn-primary" style="border:none; cursor:pointer; font-family: var(--font-mono);">Join updates</button>
           </form>
           <div class="join-links">
-            <a href="mailto:mf9767b@gre.ac.uk,py2774p@greenwich.ac.uk">Email</a>
-            <a href="#">Instagram</a>
-            <a href="#">LinkedIn</a>
+            <a href="mailto:mf9767b@gre.ac.uk,py2774p@greenwich.ac.uk" target="_blank" rel="noopener noreferrer">Email</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </div>
         </div>
       </div>
@@ -108,16 +108,23 @@
     
     if (mobileMenuToggle) {
       mobileMenuToggle.addEventListener('click', () => {
-        const isOpen = navLinks.style.display === 'flex';
-        navLinks.style.display = isOpen ? 'none' : 'flex';
+        const isOpen = navLinks.classList.contains('mobile-open');
+        navLinks.classList.toggle('mobile-open', !isOpen);
         mobileMenuToggle.setAttribute('aria-expanded', !isOpen);
       });
 
       document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
-          navLinks.style.display = 'none';
+          navLinks.classList.remove('mobile-open');
           mobileMenuToggle.setAttribute('aria-expanded', false);
         });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('mobile-open')) {
+          navLinks.classList.remove('mobile-open');
+          mobileMenuToggle.setAttribute('aria-expanded', false);
+        }
       });
     }
 
@@ -243,7 +250,7 @@
         });
       }
 
-      var UPCOMING_EMPTY = 'Our first events are landing soon — we\'re finalising dates for term one. Check back shortly, or <a href="mailto:mf9767b@gre.ac.uk,py2774p@greenwich.ac.uk">get in touch with our co-presidents</a> if you\'d like a say in what we run first.';
+      var UPCOMING_EMPTY = 'Our first events are landing soon — we\'re finalising dates for term one. Check back shortly, or <a href="mailto:mf9767b@gre.ac.uk,py2774p@greenwich.ac.uk" target="_blank" rel="noopener noreferrer">get in touch with our co-presidents</a> if you\'d like a say in what we run first.';
       var PAST_EMPTY = 'FLaT Society is brand new, so there\'s no past events archive yet — and we\'d rather tell you that plainly than fake one. The moment a session wraps up, it\'ll appear here.';
 
       fetch('data/events.json')

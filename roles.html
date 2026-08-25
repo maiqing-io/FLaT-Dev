@@ -173,6 +173,10 @@
       <button type="button" class="modal-close" id="applyModalClose" aria-label="Close application modal">&times;</button>
       <h3>Apply</h3>
       <p class="modal-role" id="applyModalRole"></p>
+      <div class="apply-already" id="applyAlready" hidden>
+        <p>You've already applied for this role, we'll be in touch.</p>
+        <button type="button" class="apply-again-btn" id="applyAgainBtn">Apply again anyway</button>
+      </div>
       <form class="apply-form" id="applyForm" novalidate>
         <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
   <label>Leave this field blank: <input type="text" name="website_url" id="honeypot" tabindex="-1" autocomplete="off"></label>
@@ -234,17 +238,24 @@
     
     if (mobileMenuToggle) {
       mobileMenuToggle.addEventListener('click', () => {
-        const isOpen = navLinks.style.display === 'flex';
-        navLinks.style.display = isOpen ? 'none' : 'flex';
+        const isOpen = navLinks.classList.contains('mobile-open');
+        navLinks.classList.toggle('mobile-open', !isOpen);
         mobileMenuToggle.setAttribute('aria-expanded', !isOpen);
       });
 
       // Close mobile menu when a link is clicked
       document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
-          navLinks.style.display = 'none';
+          navLinks.classList.remove('mobile-open');
           mobileMenuToggle.setAttribute('aria-expanded', false);
         });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('mobile-open')) {
+          navLinks.classList.remove('mobile-open');
+          mobileMenuToggle.setAttribute('aria-expanded', false);
+        }
       });
     }
 
@@ -266,8 +277,36 @@
       var status = document.getElementById('applyStatus');
       var submitBtn = document.getElementById('applySubmit');
       var modalClose = document.getElementById('applyModalClose');
+      var alreadyEl = document.getElementById('applyAlready');
+      var applyAgainBtn = document.getElementById('applyAgainBtn');
       var currentRole = '';
       var lastFocusedElement = null;
+
+      function findExistingSubmission(role) {
+        for (var i = 0; i < localStorage.length; i++) {
+          var key = localStorage.key(i);
+          if (!key || key.indexOf('flatApplicationSubmitted_') !== 0) continue;
+          try {
+            var data = JSON.parse(localStorage.getItem(key));
+            if (data && data.role === role) return data;
+          } catch (e) {
+            // ignore malformed entries
+          }
+        }
+        return null;
+      }
+
+      function showForm() {
+        alreadyEl.hidden = true;
+        form.hidden = false;
+        setTimeout(function () { document.getElementById('applyName').focus(); }, 100);
+      }
+
+      function showAlreadyApplied() {
+        alreadyEl.hidden = false;
+        form.hidden = true;
+        setTimeout(function () { applyAgainBtn.focus(); }, 100);
+      }
 
       function openModal(role) {
         currentRole = role;
@@ -280,8 +319,12 @@
         submitBtn.textContent = 'Submit application';
         lastFocusedElement = document.activeElement;
         modal.classList.add('open');
-        // Focus first form field
-        setTimeout(() => document.getElementById('applyName').focus(), 100);
+
+        if (findExistingSubmission(role)) {
+          showAlreadyApplied();
+        } else {
+          showForm();
+        }
       }
 
       function closeModal() {
@@ -297,6 +340,8 @@
           openModal(btn.getAttribute('data-role'));
         });
       });
+
+      applyAgainBtn.addEventListener('click', showForm);
 
       modalClose.addEventListener('click', closeModal);
       

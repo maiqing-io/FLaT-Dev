@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Read published committee reports from FLaT Society, the University of Greenwich finance, law and technology society.">
+<meta property="og:title" content="Reports — FLaT Society">
+<meta property="og:description" content="Published committee reports from FLaT Society.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<title>Reports — FLaT Society</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="reports.css">
+<link rel="canonical" href="https://financelawandtech.netlify.app/reports.html">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="wrap">
+      <a href="/" class="wordmark">FLa<em>T</em></a>
+      <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#focus">Focus</a></li>
+        <li><a href="/#programme">Programme</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="roles.html">Roles</a></li>
+        <li><a href="reports.html">Reports</a></li>
+      </ul>
+      <a href="roles.html" class="nav-cta">Join FLaT</a>
+    </nav>
+
+    <div class="wrap hero">
+      <h1>Committee reports</h1>
+      <p class="hero-intro">Published reports from the FLaT Society committee. Select a report to read it.</p>
+    </div>
+  </header>
+
+  <main class="wrap" id="main-content">
+    <section id="reports">
+      <p class="section-tag">Transparency</p>
+      <h2 class="section-title">Published reports</h2>
+
+      <div class="reports-list" id="reportsList" aria-live="polite">
+        <p class="reports-loading">Loading reports&hellip;</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <span>FLaT — Finance, Law &amp; Technology Society, University of Greenwich</span>
+      <span id="year">© 2026</span>
+    </div>
+  </footer>
+
+  <div class="modal-overlay" id="reportModal">
+    <div class="modal-card modal-card-wide">
+      <button type="button" class="modal-close" id="reportModalClose" aria-label="Close report">&times;</button>
+      <h3 id="reportModalTitle">Report</h3>
+      <div class="report-frame-wrap">
+        <iframe id="reportModalFrame" title="Report document" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = '© ' + new Date().getFullYear();
+
+    // Mobile menu toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener('click', () => {
+        const isOpen = navLinks.style.display === 'flex';
+        navLinks.style.display = isOpen ? 'none' : 'flex';
+        mobileMenuToggle.setAttribute('aria-expanded', !isOpen);
+      });
+
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.style.display = 'none';
+          mobileMenuToggle.setAttribute('aria-expanded', false);
+        });
+      });
+    }
+  </script>
+
+  <script>
+    (function () {
+      var REPORTS_URL = 'https://script.google.com/macros/s/AKfycbwkJXYCspcwfojOLRZE9fonB8gbajlDGM2osCLkRiNk4W5XYw4lGcxJHRnNJ17BZmj4UQ/exec';
+
+      var listEl = document.getElementById('reportsList');
+      var modal = document.getElementById('reportModal');
+      var modalClose = document.getElementById('reportModalClose');
+      var modalTitle = document.getElementById('reportModalTitle');
+      var modalFrame = document.getElementById('reportModalFrame');
+      var lastFocusedElement = null;
+
+      function showEmpty() {
+        listEl.innerHTML = '<p class="reports-empty">No reports published yet. Check back soon.</p>';
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function normaliseReports(data) {
+        var raw = Array.isArray(data) ? data : (data && Array.isArray(data.reports) ? data.reports : null);
+        if (!raw) return [];
+        return raw
+          .map(function (r) {
+            if (!r || typeof r !== 'object') return null;
+            var url = r.url || r.link || r.href;
+            if (!url) return null;
+            return {
+              title: r.title || r.name || 'Untitled report',
+              date: r.date || r.published || '',
+              url: url
+            };
+          })
+          .filter(Boolean);
+      }
+
+      function renderReports(reports) {
+        if (!reports.length) {
+          showEmpty();
+          return;
+        }
+
+        listEl.innerHTML = '';
+        reports.forEach(function (report) {
+          var card = document.createElement('div');
+          card.className = 'report-card';
+
+          var content = document.createElement('div');
+          content.className = 'report-content';
+
+          if (report.date) {
+            var dateEl = document.createElement('p');
+            dateEl.className = 'report-date';
+            dateEl.textContent = report.date;
+            content.appendChild(dateEl);
+          }
+
+          var titleEl = document.createElement('h3');
+          titleEl.textContent = report.title;
+          content.appendChild(titleEl);
+
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'report-read-btn';
+          btn.textContent = 'Read report';
+          btn.addEventListener('click', function () {
+            openReport(report);
+          });
+
+          card.appendChild(content);
+          card.appendChild(btn);
+          listEl.appendChild(card);
+        });
+      }
+
+      function openReport(report) {
+        lastFocusedElement = document.activeElement;
+        modalTitle.textContent = report.title;
+        modalFrame.src = report.url;
+        modal.classList.add('open');
+      }
+
+      function closeModal() {
+        modal.classList.remove('open');
+        modalFrame.src = '';
+        if (lastFocusedElement && lastFocusedElement.focus) {
+          lastFocusedElement.focus();
+        }
+      }
+
+      modalClose.addEventListener('click', closeModal);
+
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('open')) {
+          closeModal();
+        }
+      });
+
+      fetch(REPORTS_URL)
+        .then(function (res) {
+          if (!res.ok) throw new Error('Request failed');
+          return res.json();
+        })
+        .then(function (data) {
+          renderReports(normaliseReports(data));
+        })
+        .catch(function () {
+          showEmpty();
+        });
+    })();
+  </script>
+</body>
+</html>

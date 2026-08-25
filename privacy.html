@@ -36,7 +36,7 @@
           <p><strong>Last updated: 21 August 2026</strong></p>
 
           <h2>1. Introduction</h2>
-          <p>FLaT Society ("we", "us", or "our") operates the https://maiqing-io.github.io/FLaT-Dev website. This page informs you of our policies regarding the collection, use and disclosure of personal data when you use our site and the choices you have associated with that data.</p>
+          <p>FLaT Society ("we", "us", or "our") operates the https://financelawandtech.netlify.app website. This page informs you of our policies regarding the collection, use and disclosure of personal data when you use our site and the choices you have associated with that data.</p>
 
           <h2>2. What Data We Collect</h2>
           <p>We collect data only when you choose to provide it:</p>
@@ -86,7 +86,7 @@
           <ul>
             <li><strong>Google Fonts</strong> — loads typefaces from Google servers</li>
             <li><strong>Google Analytics</strong> — anonymous usage tracking</li>
-            <li><strong>GitHub Pages</strong> — hosts our website</li>
+            <li><strong>Netlify</strong> — hosts our website</li>
           </ul>
           <p>Each has its own privacy policy. We recommend reviewing them.</p>
 
@@ -142,16 +142,23 @@
     
     if (mobileMenuToggle) {
       mobileMenuToggle.addEventListener('click', () => {
-        const isOpen = navLinks.style.display === 'flex';
-        navLinks.style.display = isOpen ? 'none' : 'flex';
+        const isOpen = navLinks.classList.contains('mobile-open');
+        navLinks.classList.toggle('mobile-open', !isOpen);
         mobileMenuToggle.setAttribute('aria-expanded', !isOpen);
       });
 
       document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
-          navLinks.style.display = 'none';
+          navLinks.classList.remove('mobile-open');
           mobileMenuToggle.setAttribute('aria-expanded', false);
         });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('mobile-open')) {
+          navLinks.classList.remove('mobile-open');
+          mobileMenuToggle.setAttribute('aria-expanded', false);
+        }
       });
     }
   </script>

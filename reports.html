@@ -65,6 +65,7 @@
     <div class="modal-card modal-card-wide">
       <button type="button" class="modal-close" id="reportModalClose" aria-label="Close report">&times;</button>
       <h3 id="reportModalTitle">Report</h3>
+      <a id="reportModalOpenNew" class="report-open-new" href="#" target="_blank" rel="noopener noreferrer">Open in new tab &#8599;</a>
       <div class="report-frame-wrap">
         <iframe id="reportModalFrame" title="Report document" loading="lazy"></iframe>
       </div>
@@ -80,16 +81,23 @@
 
     if (mobileMenuToggle) {
       mobileMenuToggle.addEventListener('click', () => {
-        const isOpen = navLinks.style.display === 'flex';
-        navLinks.style.display = isOpen ? 'none' : 'flex';
+        const isOpen = navLinks.classList.contains('mobile-open');
+        navLinks.classList.toggle('mobile-open', !isOpen);
         mobileMenuToggle.setAttribute('aria-expanded', !isOpen);
       });
 
       document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
-          navLinks.style.display = 'none';
+          navLinks.classList.remove('mobile-open');
           mobileMenuToggle.setAttribute('aria-expanded', false);
         });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('mobile-open')) {
+          navLinks.classList.remove('mobile-open');
+          mobileMenuToggle.setAttribute('aria-expanded', false);
+        }
       });
     }
   </script>
@@ -103,6 +111,7 @@
       var modalClose = document.getElementById('reportModalClose');
       var modalTitle = document.getElementById('reportModalTitle');
       var modalFrame = document.getElementById('reportModalFrame');
+      var modalOpenNew = document.getElementById('reportModalOpenNew');
       var lastFocusedElement = null;
 
       function showEmpty() {
@@ -177,12 +186,14 @@
         lastFocusedElement = document.activeElement;
         modalTitle.textContent = report.title;
         modalFrame.src = report.url;
+        modalOpenNew.href = report.url;
         modal.classList.add('open');
       }
 
       function closeModal() {
         modal.classList.remove('open');
         modalFrame.src = '';
+        modalOpenNew.href = '#';
         if (lastFocusedElement && lastFocusedElement.focus) {
           lastFocusedElement.focus();
         }

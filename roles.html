@@ -158,7 +158,7 @@
 
     </section>
 
-    <section style="margin-top:28px;padding-bottom:40px">
+    <section class="section-spaced">
       <h2 class="section-title">Membership</h2>
       <p class="membership-intro">You don't need a committee role to get involved — sign up by emailing us or join events listed on the main page. For sponsors or partners, please contact us at mf9767b@gre.ac.uk and py2774p@greenwich.ac.uk.</p>
     </section>
@@ -182,7 +182,7 @@
         <button type="button" class="apply-again-btn" id="applyAgainBtn">Apply again anyway</button>
       </div>
       <form class="apply-form" id="applyForm" novalidate>
-        <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+        <div class="offscreen" aria-hidden="true">
   <label>Leave this field blank: <input type="text" name="website_url" id="honeypot" tabindex="-1" autocomplete="off"></label>
 </div>
         <label for="applyName">Full name <span aria-label="required">*</span></label>
@@ -195,7 +195,7 @@
           maxlength="100"
           aria-describedby="nameHint"
         >
-        <small id="nameHint" style="color: rgba(32,29,24,0.6); display: block; margin-top: 2px;">2-100 characters</small>
+        <small id="nameHint" class="field-hint">2-100 characters</small>
 
         <label for="applyEmail">Email <span aria-label="required">*</span></label>
         <input 
@@ -206,7 +206,7 @@
           maxlength="100"
           aria-describedby="emailHint"
         >
-        <small id="emailHint" style="color: rgba(32,29,24,0.6); display: block; margin-top: 2px;">We'll only use this to contact you about your application</small>
+        <small id="emailHint" class="field-hint">We'll only use this to contact you about your application</small>
 
         <label for="applyContact">Telegram / LinkedIn (optional)</label>
         <input 
@@ -223,7 +223,7 @@
           maxlength="400"
           aria-describedby="messageHint"
         ></textarea>
-        <small id="messageHint" style="color: rgba(32,29,24,0.6); display: block; margin-top: 2px;">
+        <small id="messageHint" class="field-hint">
           <span id="charCount">0</span>/400 characters
         </small>
 

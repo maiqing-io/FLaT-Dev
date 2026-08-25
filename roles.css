@@ -190,6 +190,31 @@
 }
 
 
+.roles-grid{
+  color: var(--text-on-paper);
+}
+.role-card{
+  background: #FFFFFF;
+  border: 1px solid rgba(32, 29, 24, 0.12);
+  box-shadow: 0 1px 3px rgba(32, 29, 24, 0.06);
+}
+.role-tag{
+  color: var(--brass);
+}
+.role-card h3{
+  color: var(--text-on-paper);
+}
+.role-card p.role-desc,
+.role-card > p:not(.role-tag):not(.role-focus-label){
+  color: var(--text-on-paper-soft);
+}
+.role-focus-label{
+  color: var(--text-on-paper-soft);
+}
+.role-focus{
+  color: var(--text-on-paper-soft);
+}
+
 @media (max-width: 480px) {
   .modal-card {
     padding: 16px;

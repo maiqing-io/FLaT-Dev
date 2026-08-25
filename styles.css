@@ -767,3 +767,33 @@ footer{
 @media (prefers-reduced-motion: reduce){
   .reveal{ opacity:1; transform:none; transition:none; }
 }
+
+/* ---------- Inline-style replacements (kept out of markup for CSP style-src) ---------- */
+.footnote-muted{
+  margin-top: 48px;
+  font-size: 0.9rem;
+  color: var(--text-on-paper-soft);
+}
+.no-border-top{
+  border-top: none;
+  padding-top: 0;
+}
+.btn-unstyled{
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+}
+.section-spaced{
+  margin-top: 28px;
+  padding-bottom: 40px;
+}
+.offscreen{
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+}
+.field-hint{
+  color: rgba(32,29,24,0.6);
+  display: block;
+  margin-top: 2px;
+}

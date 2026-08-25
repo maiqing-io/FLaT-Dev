@@ -76,6 +76,13 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="articleReportModal">
+    <div class="modal-card modal-card-wide">
+      <button type="button" class="modal-close" id="articleReportModalClose" aria-label="Close report">&times;</button>
+      <div id="articleReportModalContent"></div>
+    </div>
+  </div>
+
   <script>
     document.getElementById('year').textContent = '© ' + new Date().getFullYear();
 
@@ -110,6 +117,75 @@
     (function () {
       var REPORTS_URL = 'https://script.google.com/macros/s/AKfycbwkJXYCspcwfojOLRZE9fonB8gbajlDGM2osCLkRiNk4W5XYw4lGcxJHRnNJ17BZmj4UQ/exec';
 
+      // "Native" reports are stored directly in this file as full text and open as an
+      // in-page article (reusing the article-modal-* pattern from index.html), rather
+      // than fetching a Google Drive PDF into an iframe like the Sheet-backed reports do.
+      var NATIVE_REPORTS = [
+        {
+          kind: 'native',
+          title: 'Who Regulates the Algorithm? Comparing the UK and EU\'s Approaches to AI in Financial Services',
+          author: 'Madison Farrell',
+          date: 'August 2026',
+          wordCount: '1,756 words',
+          readingTime: '9 min read',
+          summary: 'Why the UK\'s principles-based model and the EU\'s prescriptive AI Act have run into two different kinds of trouble in 2026, and what each would need to borrow from the other.',
+          eyebrow: 'COMMITTEE REPORT · AI IN FINANCIAL SERVICES',
+          meta: 'Madison Farrell · 1,756 words · 9 min read',
+          sections: [
+            {
+              heading: 'Introduction',
+              paragraphs: [
+                'The UK and the EU have taken visibly different routes to regulating artificial intelligence in financial services. The UK has, so far, declined to write a single AI-specific rule for the sector. The EU has done the opposite, naming particular financial AI applications directly in law and attaching a detailed compliance regime to them. The temptation is to treat this as a simple contrast: flexible versus prescriptive, principles versus rules, the common-law instinct against the civil-law one. That framing is not wrong, but it is incomplete, and it misses what has actually happened over the course of 2026, a year in which both regimes met the practical limits of the philosophy each had chosen. The EU\'s model, built to bind the technology itself, has just been forced to delay its own central obligations by sixteen months because the infrastructure needed to enforce them was not ready. The UK\'s model, built to bind only regulated firms, has just published its first serious self-examination and concluded that the framework holds, while simultaneously admitting that a meaningful share of consumers are already taking financial advice from tools sitting entirely outside that framework. Neither jurisdiction has solved the problem. Each has inherited the particular weakness that its chosen regulatory philosophy was always going to produce, and comparing the two is more useful as an exercise in seeing that weakness clearly than in declaring a winner.'
+              ]
+            },
+            {
+              heading: 'The UK — Extending the Existing Perimeter',
+              paragraphs: [
+                'The UK\'s approach rests on a single, repeated design choice: do not write new rules for AI, apply the rules that already exist. The Bank of England and the Financial Conduct Authority have described this as a technology-agnostic stance, one that neither prescribes nor prohibits particular technologies, preferring instead to hold firms to existing outcome-based obligations regardless of the technology used to meet them. The clearest expression of this is the Consumer Duty, which does not mention AI at all but requires firms to act to deliver good outcomes for retail customers, a standard that applies as much to an AI-generated recommendation as to a human adviser\'s. For banks specifically, the Prudential Regulation Authority\'s SS1/23, published in May 2023 and in effect since May 2024, applies the same logic to model governance: five principles covering identification, governance, development, validation and mitigation, deliberately worded to capture machine learning models without ever using the words "artificial intelligence" as a trigger for a separate regime.',
+                'This approach was tested properly for the first time in 2026. In January, the FCA Board commissioned a review, led by executive director Sheldon Mills, into how far-reaching AI could reshape retail financial services by 2030. The review ran a call for input, drew on over 140 written submissions and commissioned a survey of more than 5,000 UK retail financial services consumers. It reported on 6 July 2026, and its central conclusion was that the existing framework remains fit for purpose: no AI-specific rules, no wholesale reform, with the Consumer Duty and the Senior Managers Regime confirmed as the anchors of accountability even as AI systems take on more autonomous roles. That confirmation was not, however, unqualified. The review\'s own consumer research found that one in five UK adults were already open to AI making financial decisions for them, and that around 26% already trusted general-purpose tools such as ChatGPT, Claude or Gemini for financial advice, frequently with limited awareness that the formal routes to redress available for regulated advice would not apply to them. The review\'s response was not to extend the Consumer Duty to cover these tools directly, since it cannot, as their providers are not regulated financial services firms. Instead, it recommended that the FCA launch a dedicated review, within three to six months, into the scale and impact of general-purpose AI tools operating outside the regulatory perimeter altogether.',
+                'That recommendation is the tell. A principles-based regime built around binding firms rather than technologies is, by construction, unable to reach activity happening outside the perimeter of who counts as a firm, no matter how sophisticated its principles are. The Mills Review did not find a flaw in the Consumer Duty. It found the edge of what the Consumer Duty, or any firm-based regime, can be made to cover.'
+              ]
+            },
+            {
+              heading: 'The EU — Naming the Risk in Advance',
+              paragraphs: [
+                'The EU\'s AI Act takes the opposite starting point. Rather than binding firms and trusting outcomes-based principles to apply as circumstances demand, it classifies specific AI applications as high-risk in advance and attaches a fixed set of obligations to that classification wherever it applies, regardless of who is deploying the system. For financial services, that classification sits in Annex III, point 5, which the Act places within the broader category of access to essential private services. Point 5(b) covers AI systems used to evaluate the creditworthiness of natural persons or to establish their credit score, with an explicit carve-out for systems used solely to detect financial fraud. Point 5(c) does the same for risk assessment and pricing in life and health insurance, a narrower scope than it first appears, since property, casualty and general commercial insurance pricing fall outside it entirely. A narrow exemption exists under Article 6(3) for systems posing no significant risk of harm, but for consumer credit decisions that exemption has, in practice, proven difficult to rely on, since a model that genuinely influences whether someone is extended credit is exactly the kind of system the Article was written to catch.',
+                'Where a system does fall within Annex III, the obligations that follow are substantial and specific: a conformity assessment before the system reaches the market, documented risk management processes, technical documentation, human oversight arrangements and bias testing, assessed against harmonised technical standards and, for many systems, verified by an independent notified body. This is regulation that specifies not just the outcome required but a considerable part of the process for achieving it, the near-opposite of the UK\'s approach.',
+                'The difficulty is that this model requires an entire compliance ecosystem to exist before it can function at all: harmonised standards from European standardisation bodies, notified bodies accredited to carry out conformity assessments, and national market surveillance authorities designated and resourced to enforce the regime. By late 2025, it was clear that ecosystem was not ready. The European Commission published a proposal, the Digital Omnibus on AI, on 19 November 2025, to defer the high-risk obligations originally due to apply from 2 August 2026. After stalled negotiations in April 2026, the Council and Parliament reached a political agreement on 7 May, formally adopted the following weeks, and the Omnibus entered into force on 27 July 2026. Under the revised timeline, high-risk obligations for stand-alone Annex III systems, including the credit scoring and insurance pricing provisions relevant to financial services, now apply from 2 December 2027, a deferral of sixteen months. Obligations embedded in already-regulated products under Annex I move further still, to August 2028. Notably, the Act\'s transparency requirements, including the duty to disclose that a person is interacting with an AI system, were not part of the deferral and remain live from August 2026, meaning the Act\'s most process-heavy obligations were the ones postponed, while its simplest, disclosure-based ones were not.'
+              ]
+            },
+            {
+              heading: 'Where Theory Meets 2026 — Two Different Failure Modes',
+              paragraphs: [
+                'This is not simply a story of one jurisdiction moving faster than the other. It maps onto a long-running debate in regulatory theory about what each approach actually costs. Academic work comparing rules-based and principles-based financial regulation, notably Frantz and Instefjord\'s analysis for the London School of Economics, has argued that principles-based systems offer clarity about the regulatory objective while leaving firms to reverse-engineer what compliance actually requires at the firm level, an ambiguity that generates real social cost, particularly under regulatory competition. Rules-based systems invert that trade-off: clarity about the compliance process itself, at the cost of a harder problem in translating detailed rules into the regulatory objective they were meant to serve, and, as 2026 has demonstrated, at the cost of needing the machinery to enforce those rules to actually exist on schedule.',
+                'Read against that framework, both jurisdictions\' 2026 experiences look less like isolated events and more like textbook illustrations of the trade-off each model was always going to face. The UK\'s principles-based approach required no new enforcement infrastructure, no conformity bodies, no harmonised standards, because it never specified a process to certify against in the first place; it simply extended supervisory expectations it already had the machinery to enforce. That is precisely why it could be reaffirmed in a matter of months rather than delayed by over a year. But the same design choice is what leaves a general-purpose AI chatbot advising a consumer on their pension entirely outside the regime\'s reach, because the regime was built to bind firms, and that chatbot\'s provider is not one. The EU\'s model can, in principle, reach that exact chatbot, because it binds systems meeting a defined technical description rather than firms holding a particular authorisation. But building a Union-wide certification and enforcement apparatus capable of actually assessing those systems against harmonised standards, across twenty-seven member states, on a fixed statutory calendar, has proven to be a substantially harder practical problem than writing the classification itself.',
+                'Put simply: the UK\'s gap is a perimeter problem, defined by who the rules bind. The EU\'s gap is an infrastructure problem, defined by when the rules can actually be enforced. Both are boundary failures. Neither is a design flaw unique to one jurisdiction; each is the specific cost that regulatory theory predicts for the specific choice each jurisdiction made.'
+              ]
+            },
+            {
+              heading: 'Conclusion',
+              paragraphs: [
+                'Neither the UK nor the EU has produced a regime that fully answers the question posed by AI in financial services, and the more interesting comparison is not which one is closer to succeeding but what each would need to borrow from the other to close its own gap. The UK\'s Mills Review has already gestured at this, recommending a perimeter review specifically because its principles-based model cannot, by itself, reach activity outside the regulated sector, an acknowledgement that outcome-based regulation eventually needs a harder edge somewhere. The EU\'s Digital Omnibus, in turn, is itself an admission that specifying the rules in exhaustive detail counts for little if the apparatus to enforce them cannot be built to schedule, a lesson in the practical limits of ex-ante prescription that principles-based regulators have long used as their central argument against it. The next eighteen months, as the EU\'s December 2027 deadline approaches and the FCA\'s promised perimeter review takes shape, will be a genuine test of whether either regulator is willing to make that adjustment, or whether both simply continue managing the particular blind spot their founding philosophy built in from the start.'
+              ]
+            }
+          ],
+          references: [
+            'Aveni.ai (2026) Mills Review: Key Takeaways. Available at: https://aveni.ai/blog/mills-review-takeaways/ (Accessed: 25 August 2026).',
+            'Bank of England (2023) SS1/23 – Model risk management principles for banks. Available at: https://www.bankofengland.co.uk/prudential-regulation/publication/2023/may/model-risk-management-principles-for-banks-ss (Accessed: 25 August 2026).',
+            'DLA Piper (2026) The Digital AI Omnibus: Proposed deferral of high risk AI obligations under the AI Act. Available at: https://knowledge.dlapiper.com/dlapiperknowledge/globalemploymentlatestdevelopments/2026/The-Digital-AI-Omnibus-Proposed-deferral-of-high-risk-AI-obligations-under-the-AI-Act (Accessed: 25 August 2026).',
+            'European Union (2024) Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act), Annex III. Available at: https://artificialintelligenceact.eu/annex/3/ (Accessed: 25 August 2026).',
+            'FCA (2026) FCA publishes landmark review into impact of AI on retail financial services. Available at: https://www.fca.org.uk/news/press-releases/fca-publishes-landmark-review-impact-ai-retail-financial-services (Accessed: 25 August 2026).',
+            'Frantz, P. and Instefjord, N. (2015) Rules vs principles based financial regulation. London School of Economics and Political Science. Available at: http://eprints.lse.ac.uk/87889/ (Accessed: 25 August 2026).',
+            'Freshfields (2026) From assistant to decision-maker: the FCA\'s Mills Review charts AI\'s path through retail financial services. Available at: https://www.freshfields.com/en/our-thinking/briefings/2026/07/from-assistant-to-decision-maker-the-fcas-mills-review-charts-ais-path-through-retail-financial-services (Accessed: 25 August 2026).',
+            'Gibson Dunn (2026) EU AI Act Omnibus Agreement — Postponed High-Risk Deadlines and Other Key Changes. Available at: https://www.gibsondunn.com/eu-ai-act-omnibus-agreement-postponed-high-risk-deadlines-and-other-key-changes/ (Accessed: 25 August 2026).',
+            'Lexara Advisory (2026) Annex III High-Risk Classification for New York Financial Services. Available at: https://lexaraadvisory.com/annex-iii-high-risk-new-york-financial-services.html (Accessed: 25 August 2026).',
+            'Modulos (2026) Operationalise EU AI Act in Financial Services. Available at: https://www.modulos.ai/industries/financial-services/ (Accessed: 25 August 2026).',
+            'TLT LLP (2026) The Bank of England and PRA set out plans for safe AI innovation: What firms need to know. Available at: https://www.tlt.com/insights-and-events/insight/the-bank-of-england-and-pra-set-out-plans-for-safe-ai-innovation-what-firms-need-to-know (Accessed: 25 August 2026).'
+          ],
+          keyTakeaway: 'The UK\'s principles-based model and the EU\'s prescriptive AI Act have each run into the specific weakness their own philosophy was always going to produce: a perimeter problem for the UK, where firm-based rules cannot reach general-purpose tools consumers already trust with financial decisions, and an infrastructure problem for the EU, where a detailed rulebook has had to be delayed sixteen months because the machinery to enforce it was not ready. Each regime would need to borrow the other\'s instinct, a harder edge for the UK and more realism about enforcement timelines for the EU, to close its own gap.'
+        }
+      ];
+
       var listEl = document.getElementById('reportsList');
       var modal = document.getElementById('reportModal');
       var modalClose = document.getElementById('reportModalClose');
@@ -118,16 +194,12 @@
       var modalOpenNew = document.getElementById('reportModalOpenNew');
       var lastFocusedElement = null;
 
+      var articleModal = document.getElementById('articleReportModal');
+      var articleModalClose = document.getElementById('articleReportModalClose');
+      var articleModalContent = document.getElementById('articleReportModalContent');
+
       function showEmpty() {
         listEl.innerHTML = '<p class="reports-empty">No reports published yet. Check back soon.</p>';
-      }
-
-      function escapeHtml(str) {
-        return String(str)
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;');
       }
 
       function normaliseReports(data) {
@@ -139,8 +211,10 @@
             var url = r.url || r.link || r.href;
             if (!url) return null;
             return {
+              kind: 'sheet',
               title: r.title || r.name || 'Untitled report',
               date: r.date || r.published || '',
+              summary: r.summary || r.description || '',
               url: url
             };
           })
@@ -172,6 +246,13 @@
           titleEl.textContent = report.title;
           content.appendChild(titleEl);
 
+          if (report.summary) {
+            var summaryEl = document.createElement('p');
+            summaryEl.className = 'report-summary';
+            summaryEl.textContent = report.summary;
+            content.appendChild(summaryEl);
+          }
+
           var btn = document.createElement('button');
           btn.type = 'button';
           btn.className = 'report-read-btn';
@@ -187,6 +268,14 @@
       }
 
       function openReport(report) {
+        if (report.kind === 'native') {
+          openArticleReport(report);
+        } else {
+          openFrameReport(report);
+        }
+      }
+
+      function openFrameReport(report) {
         lastFocusedElement = document.activeElement;
         modalTitle.textContent = report.title;
         modalFrame.src = report.url;
@@ -209,9 +298,103 @@
         if (e.target === modal) closeModal();
       });
 
+      // ---- Native, in-page article reports ----
+
+      function renderArticleReport(report) {
+        articleModalContent.innerHTML = '';
+
+        var eyebrow = document.createElement('p');
+        eyebrow.className = 'article-modal-eyebrow';
+        eyebrow.textContent = report.eyebrow;
+        articleModalContent.appendChild(eyebrow);
+
+        var title = document.createElement('h3');
+        title.className = 'article-modal-title';
+        title.textContent = report.title;
+        articleModalContent.appendChild(title);
+
+        var meta = document.createElement('p');
+        meta.className = 'article-modal-meta';
+        meta.textContent = report.meta;
+        articleModalContent.appendChild(meta);
+
+        var hr = document.createElement('hr');
+        hr.className = 'article-modal-divider';
+        articleModalContent.appendChild(hr);
+
+        report.sections.forEach(function (section) {
+          var sectionEl = document.createElement('div');
+          sectionEl.className = 'article-modal-section';
+
+          var heading = document.createElement('h3');
+          heading.textContent = section.heading;
+          sectionEl.appendChild(heading);
+
+          section.paragraphs.forEach(function (paragraph) {
+            var p = document.createElement('p');
+            p.textContent = paragraph;
+            sectionEl.appendChild(p);
+          });
+
+          articleModalContent.appendChild(sectionEl);
+        });
+
+        if (report.keyTakeaway) {
+          var takeaway = document.createElement('div');
+          takeaway.className = 'article-modal-takeaway';
+          var takeawayP = document.createElement('p');
+          var strong = document.createElement('strong');
+          strong.textContent = 'Key takeaway: ';
+          takeawayP.appendChild(strong);
+          takeawayP.appendChild(document.createTextNode(report.keyTakeaway));
+          takeaway.appendChild(takeawayP);
+          articleModalContent.appendChild(takeaway);
+        }
+
+        if (report.references && report.references.length) {
+          var refsWrap = document.createElement('div');
+          refsWrap.className = 'article-modal-references';
+
+          var refsHeading = document.createElement('h3');
+          refsHeading.textContent = 'References';
+          refsWrap.appendChild(refsHeading);
+
+          var refsList = document.createElement('ol');
+          report.references.forEach(function (ref) {
+            var li = document.createElement('li');
+            li.textContent = ref;
+            refsList.appendChild(li);
+          });
+          refsWrap.appendChild(refsList);
+
+          articleModalContent.appendChild(refsWrap);
+        }
+      }
+
+      function openArticleReport(report) {
+        lastFocusedElement = document.activeElement;
+        renderArticleReport(report);
+        articleModal.classList.add('open');
+        setTimeout(function () { articleModalClose.focus(); }, 100);
+      }
+
+      function closeArticleModal() {
+        articleModal.classList.remove('open');
+        if (lastFocusedElement && lastFocusedElement.focus) {
+          lastFocusedElement.focus();
+        }
+      }
+
+      articleModalClose.addEventListener('click', closeArticleModal);
+
+      articleModal.addEventListener('click', function (e) {
+        if (e.target === articleModal) closeArticleModal();
+      });
+
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && modal.classList.contains('open')) {
-          closeModal();
+        if (e.key === 'Escape') {
+          if (modal.classList.contains('open')) closeModal();
+          if (articleModal.classList.contains('open')) closeArticleModal();
         }
       });
 
@@ -221,10 +404,10 @@
           return res.json();
         })
         .then(function (data) {
-          renderReports(normaliseReports(data));
+          renderReports(NATIVE_REPORTS.concat(normaliseReports(data)));
         })
         .catch(function () {
-          showEmpty();
+          renderReports(NATIVE_REPORTS);
         });
     })();
   </script>

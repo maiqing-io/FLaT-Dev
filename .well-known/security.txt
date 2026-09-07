@@ -1,5 +1,4 @@
-Contact: mailto:mf9767b@gre.ac.uk
-Contact: mailto:py2774p@greenwich.ac.uk
+Contact: mailto:flatsociety.greenwich@gmail.com
 Expires: 2027-08-24T00:00:00.000Z
 Preferred-Languages: en
 Canonical: https://maiqing-io.github.io/FLaT-Dev/.well-known/security.txt

@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "id": "student-finance-actually-explained",
+    "title": "Student Finance, Actually Explained",
+    "date": "Date TBC",
+    "time": "Time TBC",
+    "location": "Room TBC, Greenwich campus",
+    "description": "A practical first-week workshop on reading your student finance statement, budgeting a loan that arrives in three termly instalments rather than monthly, how a student overdraft actually works, and council tax exemption. Open floor for questions specific to your situation. No prior knowledge needed.",
+    "status": "upcoming"
+  },
+  {
+    "id": "flat-quiz-night",
+    "title": "FLaT Quiz Night",
+    "date": "TBC",
+    "time": "TBC",
+    "location": "TBC, Greenwich Campus",
+    "description": "Finance, law and tech trivia in teams of 4–6, prizes for the winning team. A relaxed way to meet other members after the term's first session.",
+    "status": "upcoming"
+  }
+]

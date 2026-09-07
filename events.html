@@ -215,6 +215,9 @@
       function createEventCard(ev) {
         var card = document.createElement('div');
         card.className = 'event-card';
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-expanded', 'false');
 
         var date = document.createElement('div');
         date.className = 'event-date';
@@ -226,14 +229,45 @@
         var h3 = document.createElement('h3');
         h3.textContent = ev.title || '';
 
+        var meta = document.createElement('p');
+        meta.className = 'event-meta';
+        var metaParts = [];
+        if (ev.time) metaParts.push(ev.time);
+        if (ev.location) metaParts.push(ev.location);
+        meta.textContent = metaParts.join(' · ');
+
         var p = document.createElement('p');
         p.className = 'event-desc';
         p.textContent = ev.description || '';
 
+        var toggle = document.createElement('span');
+        toggle.className = 'event-toggle';
+        toggle.textContent = 'Read more';
+
         content.appendChild(h3);
+        if (metaParts.length) content.appendChild(meta);
         content.appendChild(p);
+        content.appendChild(toggle);
         card.appendChild(date);
         card.appendChild(content);
+
+        function setExpanded(expanded) {
+          card.classList.toggle('expanded', expanded);
+          card.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+          toggle.textContent = expanded ? 'Show less' : 'Read more';
+        }
+
+        card.addEventListener('click', function () {
+          setExpanded(!card.classList.contains('expanded'));
+        });
+
+        card.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setExpanded(!card.classList.contains('expanded'));
+          }
+        });
+
         return card;
       }
 

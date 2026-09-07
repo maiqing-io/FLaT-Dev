@@ -148,11 +148,17 @@
   border: 1px solid rgba(32, 29, 24, 0.12);
   border-radius: 3px;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
 }
 
 .event-card:hover {
   box-shadow: 0 4px 16px rgba(32, 29, 24, 0.08);
   transform: translateY(-2px);
+}
+
+.event-card:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
 }
 
 .event-date {
@@ -182,15 +188,43 @@
   max-width: 62ch;
 }
 
+.event-meta {
+  margin: 0 0 8px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--brass);
+}
+
 .event-desc {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.event-card.expanded .event-desc {
+  overflow: visible;
+  text-overflow: initial;
+  white-space: normal;
+}
+
+.event-toggle {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--brass);
+}
+
 @media (max-width: 620px) {
   .event-desc {
     white-space: normal;
+  }
+
+  .event-toggle {
+    display: none;
   }
 }
 

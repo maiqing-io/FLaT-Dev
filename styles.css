@@ -528,6 +528,7 @@ h2.section-title{
   max-width: 46ch;
   margin: 0 auto 28px;
 }
+.join-secondary .btn{ margin-bottom: 28px; }
 .join-form{
   display:flex;
   justify-content:center;

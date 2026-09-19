@@ -215,6 +215,7 @@
       function createEventCard(ev) {
         var card = document.createElement('div');
         card.className = 'event-card';
+        if (ev.host) card.classList.add('event-card-partner');
         card.tabIndex = 0;
         card.setAttribute('role', 'button');
         card.setAttribute('aria-expanded', 'false');
@@ -225,6 +226,13 @@
 
         var content = document.createElement('div');
         content.className = 'event-content';
+
+        if (ev.host) {
+          var hostBadge = document.createElement('p');
+          hostBadge.className = 'event-host-badge';
+          hostBadge.textContent = 'Hosted by ' + ev.host + ', FLaT members get priority access';
+          content.appendChild(hostBadge);
+        }
 
         var h3 = document.createElement('h3');
         h3.textContent = ev.title || '';
@@ -240,14 +248,28 @@
         p.className = 'event-desc';
         p.textContent = ev.description || '';
 
-        var toggle = document.createElement('span');
-        toggle.className = 'event-toggle';
-        toggle.textContent = 'Read more';
-
         content.appendChild(h3);
         if (metaParts.length) content.appendChild(meta);
         content.appendChild(p);
+
+        var toggle = document.createElement('span');
+        toggle.className = 'event-toggle';
+        toggle.textContent = 'Read more';
         content.appendChild(toggle);
+
+        if (ev.registerUrl) {
+          var registerLink = document.createElement('a');
+          registerLink.className = 'event-register-btn';
+          registerLink.href = ev.registerUrl;
+          registerLink.target = '_blank';
+          registerLink.rel = 'noopener noreferrer';
+          registerLink.textContent = 'Register';
+          registerLink.addEventListener('click', function (e) {
+            e.stopPropagation();
+          });
+          content.appendChild(registerLink);
+        }
+
         card.appendChild(date);
         card.appendChild(content);
 

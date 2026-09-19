@@ -1,12 +1,36 @@
 [
   {
+    "id": "monad-metropolis-hacker-house",
+    "title": "Monad Metropolis Hacker House",
+    "date": "2026-10-02",
+    "time": "10:00 - 18:00",
+    "location": "41 Pitfield St, London N1 6DA",
+    "description": "A hands-on day of talks and workshops from the Monad engineering team, followed by open coworking with mentors on hand. Come solo and team up on the day, no need to arrive with a team already formed. FLaT members get priority access through our partnership with Encode Club.",
+    "status": "upcoming",
+    "host": "Encode Club",
+    "registerUrl": "https://luma.com/metropolis-lon-oct-2026"
+  },
+  {
+    "id": "encode-london-2026",
+    "title": "Encode London 2026",
+    "date": "2026-10-23",
+    "time": "10:00 - 25 Oct, 16:30",
+    "location": "41 Pitfield St, London N1 6DA",
+    "description": "Encode's flagship three-day hackathon and conference, running 23 to 25 October, bringing together developers and industry leaders building in AI. FLaT members get guaranteed entry through our partnership with Encode Club, even if public tickets have sold out.",
+    "status": "upcoming",
+    "host": "Encode Club",
+    "registerUrl": "https://luma.com/encode-london-2026"
+  },
+  {
     "id": "student-finance-actually-explained",
     "title": "Student Finance, Actually Explained",
     "date": "Date TBC",
     "time": "Time TBC",
     "location": "Room TBC, Greenwich campus",
     "description": "A practical first-week workshop on reading your student finance statement, budgeting a loan that arrives in three termly instalments rather than monthly, how a student overdraft actually works, and council tax exemption. Open floor for questions specific to your situation. No prior knowledge needed.",
-    "status": "upcoming"
+    "status": "upcoming",
+    "host": "",
+    "registerUrl": ""
   },
   {
     "id": "flat-quiz-night",
@@ -15,6 +39,8 @@
     "time": "TBC",
     "location": "TBC, Greenwich Campus",
     "description": "Finance, law and tech trivia in teams of 4–6, prizes for the winning team. A relaxed way to meet other members after the term's first session.",
-    "status": "upcoming"
+    "status": "upcoming",
+    "host": "",
+    "registerUrl": ""
   }
 ]

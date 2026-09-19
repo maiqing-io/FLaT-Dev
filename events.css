@@ -218,6 +218,63 @@
   color: var(--brass);
 }
 
+/* ---------- Partner (host) events ---------- */
+.event-card-partner {
+  border-left: 3px solid #6b6f8c;
+}
+
+.event-host-badge {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 10px;
+  padding: 4px 10px;
+  border: 1px solid rgba(107, 111, 140, 0.35);
+  border-radius: 999px;
+  background: rgba(107, 111, 140, 0.08);
+  color: #4d5170;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  max-width: fit-content;
+}
+
+.event-register-btn {
+  display: inline-block;
+  margin-top: 12px;
+  margin-left: 16px;
+  padding: 8px 18px;
+  border: 1px solid #6b6f8c;
+  border-radius: 3px;
+  background: #6b6f8c;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.event-register-btn:hover {
+  background: #565a75;
+  border-color: #565a75;
+}
+
+.event-register-btn:focus-visible {
+  outline: 2px solid #6b6f8c;
+  outline-offset: 2px;
+}
+
+@media (max-width: 620px) {
+  .event-register-btn {
+    display: block;
+    margin-left: 0;
+    text-align: center;
+  }
+}
+
 @media (max-width: 620px) {
   .event-desc {
     white-space: normal;

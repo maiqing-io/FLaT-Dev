@@ -12,7 +12,7 @@
     "packageJson": {
       "dependencies": [
         "npm:@netlify/blobs@11",
-        "npm:@netlify/database@2"
+        "npm:@netlify/database@^2.0.1"
       ]
     }
   }

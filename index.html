@@ -320,13 +320,10 @@
         </div>
 
         <div class="join-secondary">
-          <h3>Just want to be a member?</h3>
-          <p>You don't need a committee role to get involved. Sign up to hear about upcoming sessions, or get in touch if you've got questions.</p>
-          <form class="join-form" id="updatesForm">
-            <input type="email" id="updatesEmail" required placeholder="your.email@greenwich.ac.uk" aria-label="Email address">
-            <button type="submit" class="btn btn-primary btn-unstyled">Join FLaT</button>
-          </form>
-          <p class="apply-status" id="updatesStatus" role="status" aria-live="polite"></p>
+          <h3>Want to become a member?</h3>
+          <p>General membership is handled through the Students' Union. Head to our GSU page to sign up.</p>
+          <a class="btn btn-primary" href="https://www.greenwichsu.co.uk/societies/19814/" target="_blank" rel="noopener noreferrer">Visit our GSU page</a>
+          <p>For partnership or sponsorship enquiries, get in touch directly.</p>
           <div class="join-links">
             <a href="mailto:flatsociety.greenwich@gmail.com" target="_blank" rel="noopener noreferrer">Email</a>
             <a href="https://instagram.com/flatsociety" target="_blank" rel="noopener noreferrer">Instagram</a>
@@ -622,61 +619,6 @@
     })();
   </script>
 
-  <script>
-    (function () {
-      var form = document.getElementById('updatesForm');
-      if (!form) return;
-      var status = document.getElementById('updatesStatus');
-      var submitBtn = form.querySelector('button');
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var email = document.getElementById('updatesEmail').value;
-
-        if (window.FLaTFormProtection && window.FLaTFormProtection.isRateLimited()) {
-          status.textContent = 'Too many submissions. Please wait an hour before trying again.';
-          status.className = 'apply-status error';
-          return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Submitting…';
-        status.textContent = '';
-        status.className = 'apply-status';
-
-        fetch('/api/apply', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            role: 'General interest',
-            name: 'General interest signup',
-            email: email,
-            contact: '',
-            message: ''
-          }),
-          signal: AbortSignal.timeout(10000)
-        })
-          .then(function (res) {
-            return res.json().then(function (data) { return { ok: res.ok, status: res.status, data: data }; });
-          })
-          .then(function (result) {
-            if (!result.ok) {
-              throw new Error(result.data && result.data.error ? result.data.error : 'Submission failed');
-            }
-            status.textContent = 'Thanks, we\'ll be in touch.';
-            status.className = 'apply-status success';
-            submitBtn.textContent = 'Thanks, we\'ll be in touch';
-          })
-          .catch(function (error) {
-            status.textContent = 'Something went wrong. Please email us at flatsociety.greenwich@gmail.com instead. Error: ' + error.message;
-            status.className = 'apply-status error';
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Join FLaT';
-          });
-      });
-    })();
-  </script>
-<script src="form-protection.js"></script>
 <script src="cookie-banner.js"></script>
 </body>
 </html>

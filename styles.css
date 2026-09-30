@@ -725,6 +725,75 @@ footer{
   font-style: italic;
 }
 
+.article-modal-chart{
+  margin: 20px 0 26px;
+  padding: 18px 20px;
+  background: var(--paper-dim);
+  border-radius: 4px;
+}
+.article-modal-chart-title{
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-on-paper);
+  margin: 0 0 16px;
+}
+.article-modal-chart-bars{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.article-modal-chart-bar{
+  margin: 0 0 14px;
+}
+.article-modal-chart-bar:last-child{ margin-bottom: 0; }
+.article-modal-chart-row{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 0 0 6px;
+}
+.article-modal-chart-label{
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-on-paper);
+}
+.article-modal-chart-value{
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.article-modal-chart-track{
+  display: block;
+  width: 100%;
+  height: 10px;
+  background: rgba(32,29,24,0.12);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.article-modal-chart-fill{
+  display: block;
+  height: 100%;
+  background: var(--brass);
+  border-radius: 3px;
+}
+.bar-fill-76{ width: 76%; }
+.bar-fill-50{ width: 50%; }
+.bar-fill-49{ width: 49%; }
+.bar-fill-43{ width: 43%; }
+.bar-fill-33{ width: 33%; }
+.bar-fill-25{ width: 25%; }
+.article-modal-chart-caption{
+  margin: 16px 0 0;
+  font-size: 0.8rem;
+  color: var(--text-on-paper-soft);
+  line-height: 1.6;
+}
+
 .article-modal-references{
   margin-top: 32px;
   padding-top: 20px;

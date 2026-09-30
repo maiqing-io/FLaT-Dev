@@ -480,9 +480,56 @@
         },
         {
           eyebrow: 'ARTICLE II · LAW & TECHNOLOGY',
-          title: 'Law × Technology',
-          meta: 'Article II · Coming soon · Law & Technology',
-          pending: true
+          title: 'How agentic AI is reshaping in-house legal practice',
+          meta: 'Article II · 4 min read · Law & Technology',
+          sections: [
+            {
+              heading: 'The Bigger Picture',
+              paragraphs: [
+                'For most of the past two years, the conversation about AI in law centred on generative tools: systems that respond to a prompt with a draft, a summary or an answer. That conversation has moved on. The focus now is agentic AI, which Thomson Reuters describes as systems that can plan and carry out multi-step workflows towards a set goal rather than simply responding to instructions. The distinction matters because it changes what a lawyer is actually doing: less producing work line by line, more designing and supervising the process that produces it.'
+              ]
+            },
+            {
+              heading: 'Legora and the In-House Shift',
+              paragraphs: [
+                'Legora, a Swedish legal AI platform supporting lawyers across practice areas from M&A to tax, is one of the clearest examples of how quickly this has moved. It raised $550 million at a $5.55 billion valuation in its Series D in March 2026, roughly tripling its valuation from October 2025, and announced in September that it had passed $200 million in annual recurring revenue. The more telling signal is who is buying. Salesforce has now rolled Legora out across its legal function, which is notable because Salesforce has a track record of building its own legal technology, although Salesforce Ventures was also among the investors in Legora’s Series D. Either way, agentic AI is no longer confined to private practice; in-house teams are adopting it just as quickly.'
+              ]
+            },
+            {
+              heading: 'Designing the System, Not the Draft',
+              paragraphs: [
+                'Legora’s chief executive, Max Junestrand, has encouraged in-house teams to use AI to speed up their work while warning against “vibe drafting” critical agreements. His argument is that lawyers should move upstream and design the systems that produce the drafts, so that an agent is neither so constrained it is useless nor so permissive it is risky. In a contract, one misplaced phrase can create a problem that only surfaces late in a deal. A well-designed system lets lawyers hand the agent a strict playbook of approved clauses to work from, which keeps legal judgement where it belongs.'
+              ]
+            },
+            {
+              heading: 'What In-House Teams Are Building',
+              paragraphs: [
+                'Agentic tools are also opening up technical work to lawyers who would never have written code. The Financial Times reported that Prosus’s legal team of 50 has built 298 agents of its own. The FT Innovative Lawyers Europe 2026 awards, researched by RSGI, highlighted nine case studies of pioneering in-house work. Among them was HSBC’s legal team, which won the New Products and Services award for helping launch a service that lets customers convert deposits into digital tokens on HSBC’s private blockchain, turning transfers that could take up to two days into near-instant ones. That project is not an AI story in itself, but it shows in-house lawyers taking on more complex, commercially central work, and AI is part of what frees up the time for it: in a LexisNexis survey, 71% of lawyers reported faster output from using AI and 54% reported better client service.'
+              ]
+            },
+            {
+              heading: 'The Risks Regulators Are Watching',
+              paragraphs: [
+                ['Some scepticism is warranted. After receiving 42 reports of potential AI misuse, the Solicitors Regulation Authority issued a formal warning notice. Its concerns centre on hallucinated material reaching the courts, the problem at the heart of ', { em: 'R (Ayinde) v Haringey LBC' }, ', and on client confidentiality being breached through AI systems.'],
+                'Lawyers share the worry. In LexisNexis’s 2024 survey, the most common concern about using AI for legal research was relying on fabricated information, cited by 76% of respondents, ahead of becoming too reliant on it (50%) and leaking confidential data (49%).',
+                'Providers are responding, with OpenAI now offering zero data retention for its frontier models, so that prompts and responses are discarded once processed. Concerns about data leaking between matters remain wherever integrated tools are used heavily, which is why leading firms are keeping a human in the loop to review AI outputs, templates and responses throughout.'
+              ],
+              chartAfter: 1,
+              chart: {
+                title: 'Biggest concerns about using AI tools for legal research',
+                caption: 'Source: LexisNexis Generative AI Survey, September 2024',
+                bars: [
+                  { label: 'Relying on fabricated information', value: '76%', widthClass: 'bar-fill-76' },
+                  { label: 'Becoming too reliant on it', value: '50%', widthClass: 'bar-fill-50' },
+                  { label: 'Leaking confidential data', value: '49%', widthClass: 'bar-fill-49' },
+                  { label: 'Accidental bias', value: '43%', widthClass: 'bar-fill-43' },
+                  { label: 'My quality of work will decline', value: '33%', widthClass: 'bar-fill-33' },
+                  { label: 'My clients might not like it', value: '25%', widthClass: 'bar-fill-25' }
+                ]
+              }
+            }
+          ],
+          keyTakeaway: 'AI will not replace lawyers, but it has raised the bar for what due diligence means, evidenced by agentic tools moving into in-house teams and regulators treating AI misuse as a conduct issue. For students heading towards training contracts, knowledge of data governance and regulatory compliance, along with the habit of checking every AI output, is becoming as valuable as core doctrine.'
         },
         {
           eyebrow: 'ARTICLE III · FINANCIAL & LEGAL LITERACY',
@@ -524,6 +571,59 @@
       var modalContent = document.getElementById('articleModalContent');
       var lastFocusedElement = null;
 
+      function buildChart(chart) {
+        var wrap = document.createElement('div');
+        wrap.className = 'article-modal-chart';
+
+        var title = document.createElement('p');
+        title.className = 'article-modal-chart-title';
+        title.textContent = chart.title;
+        wrap.appendChild(title);
+
+        var list = document.createElement('ul');
+        list.className = 'article-modal-chart-bars';
+
+        chart.bars.forEach(function (bar) {
+          var li = document.createElement('li');
+          li.className = 'article-modal-chart-bar';
+
+          var row = document.createElement('div');
+          row.className = 'article-modal-chart-row';
+
+          var label = document.createElement('span');
+          label.className = 'article-modal-chart-label';
+          label.textContent = bar.label;
+          row.appendChild(label);
+
+          var value = document.createElement('span');
+          value.className = 'article-modal-chart-value';
+          value.textContent = bar.value;
+          row.appendChild(value);
+
+          li.appendChild(row);
+
+          var track = document.createElement('span');
+          track.className = 'article-modal-chart-track';
+          track.setAttribute('aria-hidden', 'true');
+
+          var fill = document.createElement('span');
+          fill.className = 'article-modal-chart-fill ' + bar.widthClass;
+          track.appendChild(fill);
+
+          li.appendChild(track);
+          list.appendChild(li);
+        });
+
+        wrap.appendChild(list);
+
+        var caption = document.createElement('p');
+        caption.className = 'article-modal-chart-caption';
+        caption.textContent = chart.caption;
+        wrap.appendChild(caption);
+
+        return wrap;
+      }
+
       function renderArticle(article) {
         modalContent.innerHTML = '';
 
@@ -562,10 +662,26 @@
           heading.textContent = section.heading;
           sectionEl.appendChild(heading);
 
-          section.paragraphs.forEach(function (paragraph) {
+          section.paragraphs.forEach(function (paragraph, pIndex) {
             var p = document.createElement('p');
-            p.textContent = paragraph;
+            if (Array.isArray(paragraph)) {
+              paragraph.forEach(function (part) {
+                if (typeof part === 'string') {
+                  p.appendChild(document.createTextNode(part));
+                } else if (part.em) {
+                  var em = document.createElement('em');
+                  em.textContent = part.em;
+                  p.appendChild(em);
+                }
+              });
+            } else {
+              p.textContent = paragraph;
+            }
             sectionEl.appendChild(p);
+
+            if (section.chart && section.chartAfter === pIndex) {
+              sectionEl.appendChild(buildChart(section.chart));
+            }
           });
 
           modalContent.appendChild(sectionEl);

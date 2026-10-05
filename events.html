@@ -319,12 +319,17 @@
       function renderList(container, events) {
         container.innerHTML = '';
         events.forEach(function (ev) {
-          container.appendChild(createEventCard(ev));
+          try {
+            container.appendChild(createEventCard(ev));
+          } catch (err) {
+            console.error('Skipping malformed event', ev && ev.id, err);
+          }
         });
       }
 
       var UPCOMING_EMPTY = 'Our first events are landing soon — we\'re finalising dates for term one. Check back shortly, or <a href="mailto:flatsociety.greenwich@gmail.com" target="_blank" rel="noopener noreferrer">get in touch with our co-presidents</a> if you\'d like a say in what we run first.';
       var PAST_EMPTY = 'FLaT Society is brand new, so there\'s no past events archive yet — and we\'d rather tell you that plainly than fake one. The moment a session wraps up, it\'ll appear here.';
+      var LOAD_ERROR = 'Events couldn\'t be loaded, please try again shortly.';
 
       function parseEventDate(rawDate) {
         var match = ISO_DATE_RE.exec(rawDate || '');
@@ -332,10 +337,14 @@
         return new Date(match[1] + '-' + match[2] + '-' + match[3]).getTime();
       }
 
-      fetch('data/events.json')
-        .then(function (res) { return res.ok ? res.json() : []; })
+      fetch('/data/events.json')
+        .then(function (res) {
+          if (!res.ok) throw new Error('Failed to fetch events.json: ' + res.status);
+          return res.json();
+        })
         .then(function (events) {
-          if (!Array.isArray(events)) events = [];
+          if (!Array.isArray(events)) throw new Error('events.json did not contain an array');
+
           var upcoming = events.filter(function (e) { return e && e.status === 'upcoming'; });
           var past = events.filter(function (e) { return e && e.status === 'past'; });
 
@@ -360,9 +369,10 @@
             renderEmpty(lists.past, PAST_EMPTY);
           }
         })
-        .catch(function () {
-          renderEmpty(lists.upcoming, UPCOMING_EMPTY);
-          renderEmpty(lists.past, PAST_EMPTY);
+        .catch(function (err) {
+          console.error('Failed to load events:', err);
+          renderEmpty(lists.upcoming, LOAD_ERROR);
+          renderEmpty(lists.past, LOAD_ERROR);
         });
     })();
   </script>

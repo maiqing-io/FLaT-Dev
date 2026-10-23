@@ -17,14 +17,23 @@
   // in-page article (reusing the article-modal-* pattern from index.html), rather
   // than fetching a Google Drive PDF into an iframe like the Sheet-backed reports do.
   //
-  // To add a future report: append a new object to this array with the same shape
+  // To add a future report: insert a new object into this array with the same shape
   // as the ones below, plus a `categories` array drawn from the ids in CATEGORIES
   // above (e.g. categories: ['law', 'finance']). A report tagged with more than one
   // category automatically appears under each of those filters without the content
   // being duplicated anywhere. An optional `abstract` array of paragraph strings
   // renders as a highlighted abstract block before the numbered sections, and a
   // paragraph entry shaped as { quote: '...' } inside any section renders as a
-  // styled blockquote instead of a plain paragraph.
+  // styled blockquote instead of a plain paragraph. Give each report a unique,
+  // URL-safe `slug` (e.g. 'my-report-title') so it can be opened directly via
+  // reports.html?report=my-report-title. The listing shows newest first, which is
+  // simply the order reports appear in this array, so insert a new report above
+  // (earlier in the array than) any older report it should outrank. Each card shows
+  // an `author` line and, for its excerpt, a hand-written `summary` string if one is
+  // given, otherwise the first two sentences of `abstract[0]` are used automatically.
+  // References can use *asterisks* for italics (titles, case names) and plain
+  // https:// URLs, both of which are rendered automatically as italic text and
+  // clickable new-tab links respectively.
   var NATIVE_REPORTS = [
     {
       kind: 'native',
@@ -209,6 +218,324 @@
       keyTakeaway: 'A decade of compulsory school-based financial education has left the government\'s own tracked measure flat, 47% in 2022 against 48% in 2019, and the current reform bets on the same single lever reaching younger children rather than addressing what the evidence actually shows: outcomes are concentrated among the small minority who get a joined-up education spanning both school and home, not either channel alone.'
     },
     {
+      "kind": "native",
+      "slug": "dollarisation-by-code",
+      "title": "Dollarisation by Code: Can Sterling Stablecoins Hold the Line Against the Dollar?",
+      "author": "Madison Farrell · BA (Hons) International Business with Italian",
+      "date": "October 2026",
+      "eyebrow": "COMMITTEE REPORT · STABLECOIN REGULATION",
+      "meta": "Madison Farrell · BA (Hons) International Business with Italian",
+      "categories": [
+        "finance",
+        "technology",
+        "law"
+      ],
+      "abstract": [
+        "Stablecoins have moved from the margins of cryptoasset trading into the centre of debates about the future of money. The market is now overwhelmingly denominated in US dollars, and the United States has legislated to turn that dominance into a durable feature of the global financial system. The euro area treats the same development as a direct threat to its monetary sovereignty. The United Kingdom has chosen a third path: a two-tier regime in which the Financial Conduct Authority (FCA) regulates stablecoin issuance generally and the Bank of England supervises sterling stablecoins that become systemic. In June 2026 the Bank softened its original proposals, dropping individual holding limits and loosening its backing requirements, in response to arguments that a stricter regime would leave sterling tokens uncompetitive against dollar rivals. This report asks whether the UK framework can protect sterling's role in a tokenised financial system. It argues that the regime is well calibrated for domestic financial stability but poorly aimed at the sovereignty question, because the real contest between currencies will be decided in wholesale and tokenised settlement rather than in retail payments, and because the regime's structure risks penalising the sterling tokens that succeed."
+      ],
+      "sections": [
+        {
+          "heading": "1. Introduction",
+          "paragraphs": [
+            "Money has always been a form of infrastructure, and infrastructure has always been a source of power. The dollar's position at the centre of international trade, debt issuance and foreign exchange reserves gives the United States what Eichengreen (2011) famously called an \"exorbitant privilege\": cheaper borrowing, deeper capital markets and considerable leverage over the financial behaviour of other states. For most of the post-war period that privilege rested on banks, correspondent networks and payment systems that other countries could observe, regulate and occasionally route around. Stablecoins introduce a new layer to this arrangement. They allow dollar-denominated value to circulate directly between individuals and firms anywhere with an internet connection, outside the domestic banking system of the country where they are used.",
+            "The scale of this shift is no longer trivial. By mid-2026 the stablecoin market had reached roughly USD 300 billion, with over 99 per cent of that value denominated in US dollars and two issuers, Tether and Circle, responsible for more than four-fifths of supply, while euro-denominated stablecoins together amounted to well under EUR 1 billion (European Merchant Bank, 2026). For a country whose currency has been a global reserve asset for over two centuries, this raises an uncomfortable question about whether sterling will have a meaningful place in the next generation of payments infrastructure.",
+            "The research question this report addresses is therefore:",
+            {
+              "quote": "Can the UK's stablecoin regime protect sterling's monetary sovereignty in a financial system increasingly dominated by dollar-denominated tokens?"
+            }
+          ]
+        },
+        {
+          "heading": "2. Why the currency of a stablecoin matters",
+          "paragraphs": [
+            "A stablecoin is a privately issued token that promises redemption at par in a reference currency, backed by a pool of reserve assets held by the issuer. In economic terms it resembles a narrow bank liability. Gorton and Zhang (2023) draw the comparison with the \"wildcat\" banknotes of nineteenth-century America, privately issued paper that traded at fluctuating discounts depending on the perceived quality of the issuing bank, and argue that stablecoins reproduce many of the same vulnerabilities. The Bank for International Settlements (2025) goes further, assessing stablecoins against three tests it regards as essential for any form of money to serve as the foundation of a monetary system: singleness (every unit is accepted at par without question), elasticity (supply can expand to meet the economy's payment needs) and integrity (the system resists financial crime). It concludes that stablecoins perform poorly on all of them.",
+            "The currency of denomination matters because each dollar stablecoin is, in effect, an exported dollar liability. When a business in Lagos, Istanbul or Manchester holds a dollar stablecoin, it holds a claim whose value moves with US monetary conditions, and the issuer typically backs that claim with short-term US government debt. This creates a channel through which American monetary policy is transmitted directly into the payment balances of non-American users, reinforcing what Rey (2013) describes as the global financial cycle, in which conditions set in Washington shape credit and asset prices worldwide regardless of local exchange rate arrangements. It also extends the reach of US legal jurisdiction. Farrell and Newman (2019) show how states that control central nodes in global networks can turn that control into coercive leverage, a concept they term \"weaponised interdependence\". A payments system built on dollar tokens issued under US law, held in US-regulated custody and backed by US Treasury bills is a network with Washington at its centre.",
+            "For smaller monetary areas, the consequences are potentially serious. If dollar stablecoins came into wide use for payments, saving or settlement, the issuing central bank's control over domestic monetary conditions could be weakened (Schaaf, 2025). The question for the United Kingdom is whether this risk applies to sterling with the same force, and whether its regulatory response is designed to meet it."
+          ]
+        },
+        {
+          "heading": "3. The United States: regulation as strategy",
+          "paragraphs": [
+            "The American approach makes the strategic dimension explicit. The GENIUS Act, signed into law on 18 July 2025, restricts the issuance of payment stablecoins in the United States to permitted issuers and registered foreign issuers, and offers federal, state and foreign routes to authorisation (Orrick, 2025). The Act imposes reserve and disclosure requirements that are, on their face, consumer protection measures. Issuers must publish monthly reports on reserve composition and outstanding supply, certified by their chief executive and chief financial officer, and holders receive a first-priority security interest in the reserve assets if the issuer becomes insolvent (A&O Shearman, 2025).",
+            "The protective function of these rules should not obscure their geopolitical effect. Because permitted reserves consist overwhelmingly of cash, central bank deposits and short-dated Treasury securities, every dollar of stablecoin growth creates a dollar of demand for US government debt. Regulatory legitimacy makes dollar tokens more attractive to institutional users worldwide, and that attractiveness is converted directly into financing for the US state. At the same time, commentators have noted that the requirements for foreign issuers, including a comparability determination that requires unanimous approval, create significant barriers to non-US issuers seeking access to the American market (A&O Shearman, 2025). The architecture is asymmetric by design: dollar tokens are encouraged to flow outward, while foreign tokens face a high wall on the way in."
+          ]
+        },
+        {
+          "heading": "4. The euro area: sovereignty as the central concern",
+          "paragraphs": [
+            "European institutions have framed the same development in defensive terms. In a widely cited blog post, an ECB adviser warned that European monetary sovereignty and financial stability could erode without a strategic response, noting that dollar stablecoins accounted for some 99% of total stablecoin market capitalisation while euro-denominated stablecoins remained below €350 million (Schaaf, 2025). The same analysis observed that in tokenised settlement, where a dependable digital cash equivalent is essential, dollar stablecoins may lock in their early dominance unless credible euro alternatives emerge.",
+            "What is striking about the European debate is that it does not produce a single answer. In May 2026, ECB President Christine Lagarde cautioned against promoting euro stablecoins as Europe's response to the US strategy, arguing that Europe should instead build public settlement infrastructure anchored in central bank money (Lovguiden, 2026). The Deutsche Bundesbank has taken a more permissive view, and commercial banks have moved ahead regardless. A consortium of nine lenders, including ING, UniCredit, CaixaBank and the Italian bank Banca Sella, announced plans to issue a MiCA-compliant euro stablecoin in the second half of 2026 (Yahoo Finance, 2025). Meanwhile, the digital euro is targeting full issuance in 2029, conditional on EU legislation being adopted by the end of 2026 (CoinPaprika, 2026). The euro area therefore illustrates the tension that any non-dollar jurisdiction faces: a private stablecoin may offer the fastest route to market presence, but it also weakens the transmission of monetary policy through the banking system, which is precisely the mechanism a central bank seeks to protect."
+          ]
+        },
+        {
+          "heading": "5. The United Kingdom's two-tier regime",
+          "paragraphs": [
+            "The UK framework divides responsibility between two regulators. The FCA's final rules, published on 30 June 2026, build on a licensing regime created by the Financial Services and Markets Act 2000 (Cryptoassets) Regulations 2026, which brings the issuance of qualifying stablecoins within the regulatory perimeter (A&O Shearman, 2026), and the regime will come into force on 25 October 2027 (BCLP, 2026). Under the joint arrangements, the FCA regulates every UK stablecoin issuer, and once HM Treasury recognises an issuer as systemic, the Bank of England takes the lead on prudential rules under joint oversight (Payment Expert, 2026).",
+            "The Bank's own regime has shifted considerably since it was first proposed. Its November 2025 consultation suggested holding limits of £20,000 per coin for individuals and £10 million for businesses, presented as a transitional measure against the risk of deposits draining from banks (Linklaters, 2025). The June 2026 policy statement abandoned those limits in favour of a temporary issuance guardrail of £40 billion per systemic stablecoin, and raised the maximum share of backing assets that may be held in short-term UK government debt from 60% to 70%, with the remainder held as central bank deposits (The Paypers, 2026). Systemic issuers will not be allowed to pay interest to holders (The Block, 2026), and the Bank confirmed plans for a future liquidity facility for eligible systemic issuers (PwC, 2026).",
+            "The reasons for the change are revealing. The Bank's Deputy Governor had signalled in May 2026 that it was reconsidering holding limits and reserve requirements after digital asset firms argued that the restrictions would hinder adoption and leave UK-issued stablecoins less competitive than dollar-backed rivals (Cointelegraph, 2026). In other words, the competitive pressure exerted by dollar tokens shaped the design of the sterling regime before a single systemic sterling stablecoin had been issued."
+          ]
+        },
+        {
+          "heading": "6. Does the regime hold the line?",
+          "paragraphs": [
+            "The UK regime should be assessed against two distinct objectives that are often conflated. The first is domestic financial stability: protecting bank funding, ensuring redemption at par and preventing runs. The second is monetary sovereignty: ensuring that sterling, and the Bank of England's influence over sterling conditions, retain a meaningful role as payments become tokenised. The regime performs well against the first objective and considerably less well against the second.",
+            "On domestic stability, the design is coherent. The prohibition on interest removes the main incentive for households to move savings from bank deposits into stablecoins, and the requirement to hold part of the backing in central bank deposits ensures that redemptions can be met quickly even under stress. The liquidity facility addresses the run dynamics that Gorton and Zhang (2023) identify as the central weakness of privately issued money. The issuance guardrail allows the Bank to observe the effects of growth before it becomes unmanageable.",
+            "The sovereignty question is harder, and it depends on where the competition between currencies will take place. In retail payments, the threat to sterling is limited. Domestic consumers already have fast, cheap and well-protected options through Faster Payments and card schemes, and a dollar stablecoin offers a UK household currency risk without a compensating benefit. In this setting, the UK is in a stronger position than emerging economies with unstable currencies or the euro area with its fragmented payment landscape.",
+            "Wholesale and tokenised settlement is a different matter. As securities, funds and eventually deposits are issued on distributed ledgers, those markets will need a settlement asset that lives on the same infrastructure. Whichever asset becomes the default for that role is likely to benefit from strong network effects, because liquidity attracts liquidity. Dollar stablecoins already enjoy a head start measured in hundreds of billions. Set against that scale, a £40 billion cap on any single sterling coin signals caution more than ambition, and the Bank's own framing, which positions stablecoins alongside tokenised deposits and a possible retail digital pound as one element of a \"multi-money\" system, leaves open which asset is meant to anchor sterling-denominated tokenised markets.",
+            "The regime also contains a structural asymmetry that deserves more attention than it has received. Stablecoins that are not designated as systemic and are used mainly for cryptoasset transactions, including USDT and USDC, remain under the FCA's supervision alone (The Block, 2026). A sterling stablecoin that succeeds, gaining enough use in payments to be recognised as systemic, moves into the more demanding Bank of England regime, with its backing constraints, its interest prohibition and its issuance guardrail. A dollar stablecoin with significant UK usage may remain outside that regime unless HM Treasury chooses to recognise it. The effect is a potential penalty on success that applies to domestic issuers more readily than to foreign ones. The Bank has acknowledged the need for a managed transition between the two tiers, but managing a transition is a different task from ensuring competitive neutrality between sterling and dollar tokens operating in the same market."
+          ]
+        },
+        {
+          "heading": "7. Policy implications",
+          "paragraphs": [
+            "If the sovereignty objective is taken seriously, four adjustments would strengthen the UK's position without sacrificing the stability gains of the current design.",
+            "First, the authorities should treat sovereignty principally as a settlement question. The decisive contest is over which asset settles tokenised transactions in sterling markets, and the strongest answer is one anchored in central bank money. The Bank's existing work on tokenised settlement and the Digital Securities Sandbox gives it a foundation; the priority should be ensuring that wholesale tokenised markets in the UK can settle in a sterling asset with the safety of central bank money before dollar tokens become entrenched by default.",
+            "Second, HM Treasury should publish clear, quantitative criteria for recognising foreign-currency stablecoins as systemic when their use in UK payments reaches a defined threshold. This would remove the asymmetry identified above and ensure that the most demanding rules apply according to a token's role in the UK economy rather than its currency of denomination.",
+            "Third, the issuance guardrail should come with a published review path. Uncertainty about whether and when the £40 billion figure will rise is itself a competitive handicap, because institutional users choosing a settlement asset need confidence that it can scale with their activity.",
+            "Fourth, the UK should pursue comparability arrangements with the European Union, where the sovereignty concern is shared. A coordinated approach to recognising each other's regulated non-dollar stablecoins would create a larger combined market than either jurisdiction can offer alone, and would give both a stronger position when negotiating access under the comparability provisions of the GENIUS Act."
+          ]
+        },
+        {
+          "heading": "8. Conclusion",
+          "paragraphs": [
+            "The UK's stablecoin regime is a careful piece of financial engineering, and its June 2026 revisions show a central bank willing to adjust in response to evidence and argument. Judged as a framework for protecting bank funding and ensuring redemption at par, it is among the more robust in the world. Judged as a defence of sterling's monetary sovereignty, it is incomplete. The softening of the Bank's proposals was itself a response to dollar competition, which demonstrates how much the regime's design is shaped by forces it does not control.",
+            "Sterling is not in immediate danger in British retail payments. The risk lies in a slower and less visible process, in which the infrastructure of tokenised finance is built around a dollar settlement asset because no credible sterling alternative existed when the choice was made. Monetary sovereignty in the twenty-first century will depend less on who prints the notes than on whose liabilities sit at the centre of the ledgers. The UK has built a sound framework for regulating the coins. The more consequential task is securing a place for sterling in the settlement layer beneath them."
+          ]
+        }
+      ],
+      "references": [
+        "A&O Shearman (2025) *The GENIUS Act: transforming US stablecoin regulation*. Available at: https://www.aoshearman.com/insights/ao-shearman-on-fintech-and-digital-assets/the-genius-act-transforming-us-stablecoin-regulation (Accessed: 23 October 2026).",
+        "A&O Shearman (2026) *UK FCA confirms final rules for new UK crypto regime*. Available at: https://finreg.aoshearman.com/uk-fca-confirms-final-rules-for-new-uk-crypto-regime (Accessed: 23 October 2026).",
+        "Bank for International Settlements (2025) 'The next-generation monetary and financial system', in *Annual Economic Report 2025*. Basel: BIS.",
+        "Bank of England (2025) *Proposed regulatory regime for sterling-denominated systemic stablecoins*. Consultation Paper, November 2025. London: Bank of England.",
+        "Bank of England (2026) *Policy statement and draft Code of Practice for sterling-denominated systemic stablecoin issuers*. London: Bank of England.",
+        "BCLP (2026) *The FCA's final crypto regime: what firms need to know and do next*. Available at: https://www.bclplaw.com/en-US/events-insights-news/the-fcas-final-crypto-regime-what-firms-need-to-know-and-do-next.html (Accessed: 23 October 2026).",
+        "CoinPaprika (2026) *Lagarde warns dollar stablecoins erode Europe's financial sovereignty*. Available at: https://coinpaprika.com/news/lagarde-dollar-stablecoins-europe-sovereignty/ (Accessed: 23 October 2026).",
+        "Cointelegraph (2026) *Bank of England eases stablecoin rules, introduces 40B pound issuance cap*. Available at: https://cointelegraph.com/news/bank-of-england-stablecoin-rules-clears-path-for-2027-launch (Accessed: 23 October 2026).",
+        "Eichengreen, B. (2011) *Exorbitant Privilege: The Rise and Fall of the Dollar and the Future of the International Monetary System*. Oxford: Oxford University Press.",
+        "European Merchant Bank (2026) *Euro stablecoins and the EU's monetary sovereignty*. Available at: https://em.bank/blog/thought-leadership/euro-stablecoins-and-the-eus-monetary-sovereignty/ (Accessed: 23 October 2026).",
+        "Farrell, H. and Newman, A.L. (2019) 'Weaponized interdependence: how global economic networks shape state coercion', *International Security*, 44(1), pp. 42-79.",
+        "Financial Conduct Authority (2026) *PS26/10: Stablecoin issuance*. London: FCA.",
+        "Gorton, G.B. and Zhang, J.Y. (2023) 'Taming wildcat stablecoins', *University of Chicago Law Review*, 90(3), pp. 909-971.",
+        "Linklaters (2025) *Bank of England consults on UK regime for systemic stablecoins*. Available at: https://financialregulation.linklaters.com/post/102lu4i/bank-of-england-consults-on-uk-regime-for-systemic-stablecoins (Accessed: 23 October 2026).",
+        "Lovguiden (2026) *ECB warns against euro stablecoins, builds DLT infrastructure instead*. Available at: https://lovguiden.dk/en/det-offentlige/den-europaeiske-centralbank/2026-05-08-ecb-advarer-mod-eurostablecoins-bygger-i-stedet-dlt-infrastruktur (Accessed: 23 October 2026).",
+        "Orrick (2025) *Stablecoin framework signed into law*. Available at: https://www.orrick.com/en/Insights/2025/07/Stablecoin-Framework-Signed-into-Law (Accessed: 23 October 2026).",
+        "Payment Expert (2026) *FCA sets final crypto rules, Bank takes systemic stablecoins*. Available at: https://paymentexpert.com/2026/06/30/fca-crypto-rules-bank-stablecoin/ (Accessed: 23 October 2026).",
+        "PwC (2026) *BoE softens systemic stablecoin rules*. Available at: https://www.pwc.co.uk/industries/financial-services/understanding-regulatory-developments/boe-softens-systemic-stablecoin-rules.html (Accessed: 23 October 2026).",
+        "Rey, H. (2013) 'Dilemma not trilemma: the global financial cycle and monetary policy independence', *Proceedings of the Economic Policy Symposium, Jackson Hole*. Kansas City: Federal Reserve Bank of Kansas City, pp. 285-333.",
+        "Schaaf, J. (2025) *From hype to hazard: what stablecoins mean for Europe*. The ECB Blog, 28 July. Available at: https://www.ecb.europa.eu/press/blog/date/2025/html/ecb.blog20250728~e6cb3cf8b5.en.html (Accessed: 23 October 2026).",
+        "The Block (2026) *Bank of England drops proposed holding caps for sterling stablecoins, sets £40 billion issuance guardrail*. Available at: https://www.theblock.co/news/regulation/2026-06-22-bank-of-england-drops-proposed-individual-holding-caps-for-sterling-stablecoins-sets-40-billion-issuance-guardrail-405545 (Accessed: 23 October 2026).",
+        "The Paypers (2026) *Bank of England publishes stablecoin rules for systemic issuers*. Available at: https://thepaypers.com/regulations/news/bank-of-england-publishes-stablecoin-rules-for-systemic-issuers (Accessed: 23 October 2026).",
+        "Yahoo Finance (2025) *Nine European banks to launch MiCA euro stablecoin in 2026*. Available at: https://finance.yahoo.com/news/nine-european-banks-launch-mica-130701192.html (Accessed: 23 October 2026)."
+      ]
+    },
+    {
+      "kind": "native",
+      "slug": "who-authorised-that",
+      "title": "Who Authorised That? AI Agents and the Breakdown of Payment Consent",
+      "author": "Madison Farrell · BA (Hons) International Business with Italian",
+      "date": "October 2026",
+      "eyebrow": "COMMITTEE REPORT · AI AGENTS & PAYMENTS",
+      "meta": "Madison Farrell · BA (Hons) International Business with Italian",
+      "categories": [
+        "finance",
+        "law",
+        "technology"
+      ],
+      "abstract": [
+        "UK payments law rests on a simple division between authorised and unauthorised transactions. Where a customer has consented to a payment, the loss generally falls on the customer; where they have not, the payment service provider must normally refund it. Agentic payments, in which an AI system initiates transactions on a person's behalf under a broad instruction rather than a specific approval, place that division under considerable strain. In July 2026 HM Treasury formally asked whether the Payment Services Regulations 2017 need to change to accommodate them. This report examines how the existing framework applies to agent-initiated payments, identifies the scenarios in which it produces unclear or unfair outcomes, and evaluates the main candidate models for allocating loss. It argues that the signed mandate, rather than the individual transaction, should become the legal unit of consent, and that residual losses arising from agent error or manipulation should fall on the party best placed to prevent them, which in most cases is the regulated provider of the agentic service."
+      ],
+      "sections": [
+        {
+          "heading": "1. Introduction",
+          "paragraphs": [
+            "For most of the history of electronic payments, a person has stood at the moment of decision. A customer enters a card number, approves a transfer in a banking app, or authorises a direct debit with full knowledge of its terms. The law has been built around that moment. Consent is given or withheld, authentication confirms who gave it, and liability follows from the answer.",
+            "Agentic AI changes the structure of that moment. A customer may now instruct an AI system to keep office supplies stocked within a monthly budget, rebook a cancelled flight at the best available fare, or switch energy supplier whenever a cheaper tariff appears. The system then searches, compares, decides and pays, often without any further input. The customer has consented to something, but what they consented to is a goal and a set of constraints, and the individual payment that results is a decision the customer never saw.",
+            "UK policymakers have recognised the problem. HM Treasury's consultation of 14 July 2026 on modernising payment services regulation asks whether the Payment Services Regulations 2017 should be updated in areas such as authentication, consent and liability for unauthorised transactions so that agentic payments can operate safely and at scale (A&O Shearman, 2026). A companion Financial Services AI Adoption Plan, published the same day, calls for an agentic payments trust framework including a \"Know Your Agent\" standard and secure machine-to-machine authentication (Finexer, 2026).",
+            "The research question of this report is therefore:",
+            {
+              "quote": "When an AI agent initiates a payment on a customer's behalf and the outcome is one the customer did not want, who should bear the loss under UK law, and what should the rules be?"
+            }
+          ]
+        },
+        {
+          "heading": "2. How agentic payments work",
+          "paragraphs": [
+            "The infrastructure for agentic payments is developing rapidly and largely through private standard-setting. Google announced its open Agent Payments Protocol (AP2) on 16 September 2025 with more than sixty launch partners, including Mastercard, PayPal, Coinbase and American Express (Eco, 2026). The protocol's central concept is the mandate. An Intent Mandate records the conditions a user has approved in advance, while a Cart Mandate gives explicit authorisation for a specific purchase, and both act as tamper-evident records using verifiable credential standards (Gefferie, 2025). Card networks have built parallel arrangements. Mastercard's Agent Pay uses tokenisation to allow AI agents to transact on a user's behalf (Technology Magazine, 2025), and Visa requires providers of agentic payment services to register with the network and to maintain a defensible chain of authorisation by verifying the user's instruction, enforcing controls that reflect the scope of what was delegated, and keeping transaction-level records (Goodwin Procter, 2026).",
+            "Two features of this emerging architecture matter for the legal analysis. The first is that the customer's consent is increasingly expressed as a structured, machine-readable mandate, which creates the possibility of determining with some precision what the customer did and did not authorise. The second is that the rules governing mandates are currently being written by card networks and technology firms through contract and scheme rules. Private ordering is filling a space that public law has not yet occupied."
+          ]
+        },
+        {
+          "heading": "3. The current UK framework",
+          "paragraphs": [
+            "The Payment Services Regulations 2017 (PSRs) allocate loss primarily through the concept of consent. Regulation 67 provides that a payment transaction is authorised only where the payer has given consent, and it requires the payer to consent to each specific transaction or to a defined series of transactions (Finexer, 2026). Where a transaction is unauthorised, regulation 76 requires the payer's provider to refund it promptly, subject to limited exceptions. Regulation 77 restricts the payer's own liability: a payer may bear up to £35 of losses arising from a lost or stolen payment instrument, and bears the full loss only where they have acted fraudulently or failed, intentionally or with gross negligence, to keep their security credentials safe. The structure is consumer-protective for unauthorised transactions and largely indifferent to the merits of authorised ones.",
+            "That indifference was confirmed by the Supreme Court in *Philipp v Barclays Bank UK plc* [2023] UKSC 25. Mrs Philipp had been deceived by fraudsters into instructing her bank to transfer her savings, and argued that the bank owed her a duty to protect her from her own instruction. The Court rejected the claim, holding that where a customer has authorised a payment, the bank's basic duty is to execute it, and that the so-called *Quincecare* duty arises only where the instruction comes from an agent whose authority is in doubt. The decision draws a firm line: authorisation places the risk of a bad decision on the person who made it.",
+            "Regulation has softened that line for one category of loss. Since 7 October 2024, mandatory reimbursement for authorised push payment (APP) fraud has required sending and receiving payment providers to reimburse most victims, with liability split 50/50 between the two providers (Payment Expert, 2026a), up to a maximum of £85,000 per claim. APP reimbursement represents a policy judgement that, at least where fraud is involved, the formal fact of authorisation should not settle the question of who bears the loss."
+          ]
+        },
+        {
+          "heading": "4. Where the binary breaks down",
+          "paragraphs": [
+            "The difficulty with agentic payments is that they generate outcomes that do not fit comfortably on either side of the authorised and unauthorised divide. Four scenarios illustrate the problem.",
+            "In the first, a criminal gains control of the customer's agent or the credentials it uses and directs payments to themselves. This is the easiest case. A criminal who compromises an account and diverts funds to themselves does not become legitimate merely because an AI tool was involved (Ashfords, 2026), and the transaction is unauthorised in the ordinary sense, triggering the refund obligation under regulation 76.",
+            "In the second, the agent is manipulated rather than hijacked. A malicious website might contain hidden instructions that cause the agent to purchase from a fraudulent merchant, a technique known as prompt injection. The customer's credentials were never compromised, the agent acted within its technical permissions, and the payment was initiated through the channel the customer had approved. Formally, the transaction looks authorised. Substantively, the customer would never have approved it, and the agent was deceived in a way that closely resembles the deception practised on Mrs Philipp. Under *Philipp*, the loss would fall on the customer; under the logic of APP reimbursement, it arguably should not.",
+            "In the third, the agent makes a genuine error within its mandate. It buys the wrong item, misreads a fare or renews a subscription the customer had meant to cancel. No third party is at fault and nothing was hacked. The payment is authorised in every formal sense, and the customer's complaint is really about the quality of the service the agent's provider supplied.",
+            "In the fourth, the agent exceeds its mandate, spending above an agreed limit or buying a category of goods the customer had excluded. Regulation 67's reference to a \"defined series of transactions\" was drafted with standing orders and recurring card payments in mind, where the parameters are fixed in advance. An intent-based mandate is open-textured by design. Whether a particular payment falls inside or outside it may depend on interpretation, which is exactly the kind of judgement the agent was given discretion to exercise. The question of whether the payment was authorised therefore turns on the content of the mandate, which current law does not define.",
+            "One US analysis concludes that existing rules allocate risk between customers and financial institutions with reasonable clarity, but leave unresolved the position between a user and the provider of the agentic service where the agent is alleged to have acted outside its authority (Goodwin Procter, 2026). The scenarios above suggest that the UK position is less settled still, because the PSRs make the customer's consent the decisive fact and agentic systems make that consent difficult to locate."
+          ]
+        },
+        {
+          "heading": "5. The limits of agency law",
+          "paragraphs": [
+            "An obvious response is to treat the AI system as the customer's agent and apply the established law of agency, under which a principal is bound by acts within the agent's actual or apparent authority. Chopra and White (2011) argued over a decade ago that autonomous software could be analysed in precisely these terms. The analogy is attractive because agency law already contains a sophisticated vocabulary for scope of authority, ratification and the allocation of loss when agents overstep.",
+            "The analogy has a significant limitation in English law. Agency is a relationship between legal persons, and an AI system is not one. The Law Commission has noted that AI systems lack separate legal personality and so can be neither sued nor prosecuted (Legal Cheek, 2025), and has warned that \"liability gaps\" may emerge in which no natural or legal person is responsible for harm caused by an AI system. It went so far as to raise the \"perhaps radical\" option of granting some form of legal personality to AI systems (Legal Futures, 2025), while acknowledging that this would not be appropriate for all systems. In practice, the legally relevant agent in an agentic payment is the firm that provides and operates the AI system. That firm's relationship with the customer is contractual, and absent regulation, its terms of service will determine how much of the risk it accepts."
+          ]
+        },
+        {
+          "heading": "6. Allocating loss across a multi-party chain",
+          "paragraphs": [
+            "Agentic payments involve more participants than a conventional transfer. A single agentic payment may involve the AI provider, the fintech operating the customer interface, a wallet or payment initiator, the customer's bank, a merchant and outside data providers (Ashfords, 2026). Each controls a different part of the risk. The customer sets the mandate; the agent provider determines how the system interprets it and how resistant it is to manipulation; the bank authenticates and executes; the merchant controls the content the agent reads.",
+            "The most useful framework for allocating loss in such a chain comes from the economic analysis of accident law. Calabresi (1970) argued that liability should rest with the \"cheapest cost avoider\", the party who can prevent a loss at the lowest cost, because placing the loss there creates the strongest incentive for prevention. Applied to agentic payments, this principle points away from the customer in most of the scenarios above. A consumer cannot audit a model's resistance to prompt injection or the reliability of its interpretation of an instruction. The agent provider can, and is also best placed to spread the residual cost across its customer base through pricing.",
+            "The APP reimbursement model offers a partial template, but it should be adopted with care. Freshfields observes that if the APP approach were extended to agentic AI, payment providers' aggregate exposure could become significant given how quickly and at what scale agents can authorise payments (Freshfields, 2026). APP reimbursement places the loss on the sending and receiving banks, which in an agentic context may be the parties least able to prevent it. A bank executing a correctly authenticated instruction from a customer's agent has no visibility of the manipulation that preceded it. Extending APP reimbursement without adjustment would therefore misplace the incentive, loading cost onto banks while leaving the agent provider, who controls the decisive risk, outside the allocation."
+          ]
+        },
+        {
+          "heading": "7. A mandate-based framework",
+          "paragraphs": [
+            "A more coherent approach would rebuild the consent rules around the mandate itself. Three elements would be required.",
+            "The first is to recognise a verifiable mandate as the legal unit of consent for agentic payments. A payment falling within the parameters of a signed mandate would be treated as authorised; a payment falling outside them would be treated as unauthorised and refundable by the payer's provider under the existing regulation 76 mechanism. The emerging industry standards already create machine-readable mandates, which means the boundary between authorised and unauthorised could be determined by inspecting a record. This would extend regulation 67's concept of a \"defined series of transactions\" to a form of consent that is defined by parameters rather than by a fixed schedule.",
+            "The second element addresses payments that fall within the mandate but result from manipulation or error. These cases cannot be resolved by inspecting the mandate, because the payment sits within its terms. Here the cheapest cost avoider principle suggests that providers of agentic payment services should hold a specific regulatory permission, and that a condition of that permission should be a duty to reimburse customers for losses caused by manipulation of the agent or by material errors in executing the customer's instructions, with a right of recourse against merchants or other parties shown to be responsible. Placing the primary obligation on the agent provider gives that firm a direct financial incentive to invest in robustness and monitoring, which is the outcome policymakers most need.",
+            "The third element preserves customer responsibility where it belongs. A customer who sets a careless mandate, for instance by authorising unlimited spending in a broad category, should bear the consequences of payments that fall within it, much as a customer who shares their security credentials bears losses under regulation 77. Mandate design tools offered by providers should be subject to Consumer Duty expectations, so that customers are guided towards sensible parameters rather than left to set them unaided.",
+            "The Treasury's proposed \"Know Your Agent\" standard fits naturally within this framework. Requiring agents to be registered and identifiable would allow banks to distinguish between regulated agentic services, whose providers carry the reimbursement obligation, and unregistered tools, for which banks might reasonably apply stricter authentication."
+          ]
+        },
+        {
+          "heading": "8. Conclusion",
+          "paragraphs": [
+            "Agentic payments do not break UK payments law because the law contains no relevant concepts. The PSRs already recognise payments initiated on a customer's behalf and consent given to a series of transactions, and *Philipp* provides a clear account of what authorisation means. The difficulty is that these concepts assume a customer who decides each payment or fixes its parameters in advance, and agentic systems are valuable precisely because they remove that requirement.",
+            "The risk is that the law resolves this tension by default. If authorisation continues to be judged by whether the customer's channel and credentials were used, then customers will bear losses caused by manipulation and error they could not have prevented, and agent providers will have little incentive to invest in preventing them. If, on the other hand, APP reimbursement is extended without modification, banks will carry risks generated elsewhere in the chain. A mandate-based framework, combined with a reimbursement duty on regulated agent providers, would align legal responsibility with practical control. The Treasury's consultation closed on 6 October 2026, and the response will shape whether the UK becomes a jurisdiction where agentic payments are trusted or one where their risks are quietly shifted onto those least able to manage them."
+          ]
+        }
+      ],
+      "references": [
+        "A&O Shearman (2026) *Modernising UK payments: HM Treasury's proposed overhaul of the payment services regime*. Available at: https://www.aoshearman.com/en/insights/ao-shearman-on-fintech-and-digital-assets/modernising-uk-payments-hm-treasurys-proposed-overhaul-of-the-payment-services-regime (Accessed: 23 October 2026).",
+        "Ashfords (2026) *When an AI agent makes the wrong payment, who carries the loss?* Available at: https://www.ashfords.co.uk/insights/articles/when-an-ai-agent-makes-the-wrong-payment-who-carries-the-loss (Accessed: 23 October 2026).",
+        "Calabresi, G. (1970) *The Costs of Accidents: A Legal and Economic Analysis*. New Haven: Yale University Press.",
+        "Chopra, S. and White, L.F. (2011) *A Legal Theory for Autonomous Artificial Agents*. Ann Arbor: University of Michigan Press.",
+        "Eco (2026) *AP2 protocol explained: Google's agentic commerce standard 2026*. Available at: https://eco.com/support/en/articles/15192002-ap2-protocol-explained-google-s-agentic-commerce-standard-2026 (Accessed: 23 October 2026).",
+        "Finexer (2026) *HM Treasury opens the door to agentic commerce payments, and UK consent rules aren't ready yet*. Available at: https://blog.finexer.com/newsroom/agentic-commerce-payments-2026/ (Accessed: 23 October 2026).",
+        "Freshfields (2026) *Agentic AI in the payments chain: regulatory challenges for financial institutions*. Available at: https://www.freshfields.com/ja/our-thinking/briefings/2026/05/agentic-ai-in-the-payments-chain-regulatory-challenges-for-financial-institutions (Accessed: 23 October 2026).",
+        "Gefferie, D. (2025) *Agentic commerce*. Available at: https://dwaynegefferie.substack.com/p/agentic-commerce (Accessed: 23 October 2026).",
+        "Goodwin Procter (2026) *Authorizing agentic payments*. Available at: https://webiis08.mondaq.com/unitedstates/financial-services/1802856/authorizing-agentic-payments (Accessed: 23 October 2026).",
+        "HM Treasury (2026a) *Modernising payment services regulation: consultation*. London: HM Treasury.",
+        "HM Treasury (2026b) *Financial Services AI Adoption Plan*. London: HM Treasury.",
+        "Law Commission (2025) *Artificial Intelligence and the Law: A Discussion Paper*. London: Law Commission.",
+        "Legal Cheek (2025) *Should AI be given legal personhood? New Law Commission paper raises 'radical' possibility*. Available at: https://www.legalcheek.com/2025/08/should-ai-be-given-legal-personhood-new-law-commission-paper-raises-radical-possibility/ (Accessed: 23 October 2026).",
+        "Legal Futures (2025) *Law Commission raises \"radical\" option of granting AI legal personality*. Available at: https://www.legalfutures.co.uk/latest-news/law-commission-raises-radical-option-of-granting-ai-legal-personality (Accessed: 23 October 2026).",
+        "Payment Expert (2026a) *myTU's Ignas Dovidonis on agentic payments and the regulatory gap*. Available at: https://paymentexpert.com/2026/08/26/mytu-agentic-payments-regulation/ (Accessed: 23 October 2026).",
+        "Payment Services Regulations 2017, SI 2017/752.",
+        "*Philipp v Barclays Bank UK plc* [2023] UKSC 25.",
+        "Technology Magazine (2025) *How Google's AP2 sets new standards for agentic payments*. Available at: https://technologymagazine.com/news/agentic-pay-systems-googles-agent-payments-protocol (Accessed: 23 October 2026)."
+      ]
+    },
+    {
+      "kind": "native",
+      "slug": "one-model-many-banks",
+      "title": "One Model, Many Banks: Should AI Providers Be Regulated as Critical Infrastructure?",
+      "author": "Madison Farrell · BA (Hons) International Business with Italian",
+      "date": "October 2026",
+      "eyebrow": "COMMITTEE REPORT · AI AS CRITICAL INFRASTRUCTURE",
+      "meta": "Madison Farrell · BA (Hons) International Business with Italian",
+      "categories": [
+        "finance",
+        "technology"
+      ],
+      "abstract": [
+        "The UK financial system increasingly depends on a small number of technology firms for the cloud infrastructure, data and AI models on which its operations run. In July 2026 HM Treasury made the first designations under the Critical Third Parties (CTP) regime, bringing four global cloud and technology providers within direct regulatory oversight. In the same month, the Bank of England's Financial Policy Committee warned that rapid advances in frontier AI had increased risks to financial stability. This report argues that the CTP regime, as currently framed, addresses only one of the channels through which AI concentration threatens the system. It is designed to manage the risk that a critical service stops working. It is poorly suited to the risk that a widely used model works exactly as designed while producing correlated behaviour across many firms at once. The report proposes extending the designation criteria to model providers, introducing system-wide reporting of model dependencies, and stress-testing the financial system for correlated AI behaviour."
+      ],
+      "sections": [
+        {
+          "heading": "1. Introduction",
+          "paragraphs": [
+            "Systemic risk in finance has traditionally been understood through balance sheets. Banks fail because they lend to one another, hold similar assets and fund themselves in the same markets, so that losses in one institution spread to others through direct exposures and fire sales. The regulatory response since 2008 has focused on capital, liquidity and the resolution of failing institutions.",
+            "A different kind of interconnection has developed alongside these familiar channels. Financial firms that compete fiercely with one another increasingly rely on the same technology providers for their infrastructure and, more recently, for the AI models that inform their decisions. When those providers fail, or when their products behave in unexpected ways, the effects can appear simultaneously across firms that have no direct financial relationship with each other. The depth of this dependence became visible in October 2025, when a major cloud outage disrupted numerous financial firms (Morrison Foerster, 2026).",
+            "The question this raises for regulators is no longer whether technology providers matter to financial stability, which is now widely accepted, but whether the tools built to oversee them are aimed at the right risks.",
+            "The research question of this report is therefore:",
+            {
+              "quote": "Does the UK's Critical Third Parties regime adequately capture the systemic risks created by concentration in AI provision, and if not, how should its perimeter be redrawn?"
+            }
+          ]
+        },
+        {
+          "heading": "2. The evidence of concentration",
+          "paragraphs": [
+            "The most systematic evidence comes from the joint Bank of England and FCA survey of AI use in UK financial services. It found that 75% of responding firms were already using AI, with a further 10% planning to do so within three years (Bank of England and FCA, 2024). A third of deployed AI use cases were third-party implementations, compared with 17% in 2022 (Stephenson Harwood, 2024). Most significantly for this report, the three largest third-party providers accounted for 73% of reported cloud providers, 44% of model providers and 33% of data providers (Bank of England and FCA, 2024).",
+            "Two features of these figures deserve emphasis. Concentration at the model layer, at 44%, is lower than at the cloud layer but is already high for a technology that was barely deployed in financial services five years ago, and the direction of travel is clear. Respondents identified critical third-party dependencies as the source of the largest expected increase in systemic risk over the following three years (Financial Reporter, 2024). The survey also found that firms understood third-party models less well than those they developed internally, which means that the firms relying most heavily on external models are least able to assess how those models might behave under stress."
+          ]
+        },
+        {
+          "heading": "3. How AI concentration transmits risk",
+          "paragraphs": [
+            "Concentration in AI provision can affect financial stability through several distinct channels, and the argument of this report depends on keeping them separate.",
+            "The first is operational failure. If a cloud provider or model host suffers an outage, every firm relying on it loses access at the same time. This is the channel most visible in practice and the one regulators have done most to address. It is similar in kind to the failure of any shared utility, and the policy response, centred on resilience, substitutability and recovery planning, is well understood.",
+            "The second channel is correlated behaviour. Gensler and Bailey (2020) argued that widespread adoption of deep learning could increase systemic risk because firms using similar models trained on similar data would tend to reach similar conclusions at the same time, amplifying herding and reducing the diversity of views that stabilises markets. The risk does not depend on any system malfunctioning. A model that correctly identifies a deteriorating credit sector, used simultaneously by many lenders, could prompt a synchronised withdrawal of credit that turns a sectoral problem into a systemic one. Danielsson and Uthemann (2024) extend this concern, arguing that AI systems optimising for similar objectives may react to stress faster and more uniformly than human decision-makers, compressing the time available for authorities to respond. The Financial Stability Board (2024) has likewise identified third-party dependencies, market correlations and model risk among the main AI-related vulnerabilities in the global financial system.",
+            "The third channel is the use of AI against the system. The FPC has warned that more capable AI systems can find and exploit vulnerabilities at greater scale, raising the sophistication of cyber attacks on financial firms and market infrastructure (Regulation Tomorrow, 2026). This channel interacts with the first: concentration means that a successful attack on a widely used provider would have systemic rather than firm-specific consequences.",
+            "The Bank of England has recognised all of these concerns in general terms. The FPC's July 2026 record judged that recent rapid advances in frontier AI capabilities had increased financial stability risks related to cyber and operational resilience (Mondo Visione, 2026), and the Bank's AI Consortium is examining concentration risks, including those arising from third-party model providers, as a primary workstream (TLT, 2026). The question is whether the formal regulatory instrument available for overseeing third parties is designed to address each of them."
+          ]
+        },
+        {
+          "heading": "4. The Critical Third Parties regime",
+          "paragraphs": [
+            "The CTP regime was introduced by the Financial Services and Markets Act 2023, which inserted new powers into the Financial Services and Markets Act 2000. Regulations made under section 312L of the 2000 Act allow specific third-party entities to be designated as critical third parties where necessary to manage systemic risks from the services they provide to the UK financial sector (Lewis Silkin, 2026). Designation brings the provider within the direct oversight of the Bank of England, the PRA and the FCA, which can then set requirements on its resilience and test its ability to withstand disruption.",
+            "On 10 July 2026 HM Treasury designated four major global cloud and technology providers as critical third parties under the Critical Third Parties (Designation) Regulations 2026, the first designations since the regime came into force on 1 January 2025 (Herbert Smith Freehills Kramer, 2026). The designations followed a Treasury Committee report in January 2026 which recommended that the Treasury use its CTP powers to designate AI and cloud providers critical to the sector (Lewis Silkin, 2026). The UK's approach remains cautious by comparison with the European Union. The first UK designations covered only four providers, whereas the EU had already designated 19 critical ICT third-party providers under the Digital Operational Resilience Act (Morrison Foerster, 2026).",
+            "The regime is explicit that designation does not transfer responsibility away from regulated firms. Designation implies no judgement on the quality or reliability of a provider's services and does not reduce the obligations of regulated firms, which remain accountable for their outsourcing arrangements (Herbert Smith Freehills Kramer, 2026). The regime therefore operates as an additional layer, giving regulators direct visibility of providers whose failure could affect many firms at once."
+          ]
+        },
+        {
+          "heading": "5. A perimeter built for the wrong failure",
+          "paragraphs": [
+            "The CTP regime's design reflects its origins in operational resilience policy. Its central concern is the failure or disruption of a service, and its tools are oriented towards ensuring that critical services remain available, recover quickly and can be substituted if necessary. That orientation suits the first transmission channel identified above, and the July 2026 designations of cloud and technology providers are a sensible starting point for addressing it.",
+            "The orientation is much less suited to correlated behaviour. When a widely used model produces similar outputs for many firms, there is no outage to recover from and no service failure to remediate. The service is functioning precisely as intended. The risk lies in the aggregate effect of many firms acting on the same output, which is invisible from within any single firm. Each firm's outsourcing and model risk management may be entirely adequate when judged individually, while the system as a whole becomes dangerously homogeneous. This is a classic fallacy of composition, and it is the reason macroprudential policy exists as a discipline separate from the supervision of individual institutions.",
+            "The current framework places responsibility for model risk at the level of the individual firm, and it places responsibility for operational resilience of critical providers with the CTP regime. Neither instrument is designed to measure or respond to the system-wide correlation created when many firms depend on the same small group of models. A model provider whose products are embedded across lending, trading and risk management could become systemically important through the behaviour its outputs induce, without ever approaching the kind of operational significance that the designation criteria are designed to detect."
+          ]
+        },
+        {
+          "heading": "6. Redrawing the perimeter",
+          "paragraphs": [
+            "Three changes would bring the regulatory framework into line with the risks it is meant to address.",
+            "First, HM Treasury should assess foundation model providers for designation using criteria that reflect their distinctive risk. The existing criteria focus on the materiality of a provider's services and the consequences of their disruption. For model providers, the relevant questions also include how widely their models are used in material financial decisions, how similar the outputs are across deploying firms, and how far firms can substitute an alternative model without changing their behaviour. A provider might warrant designation on these grounds even where an outage of its service would be manageable.",
+            "Second, the Bank and the FCA should introduce regular reporting of model dependencies by regulated firms, covering which external models are used, for which material functions and with what degree of customisation. The 2024 survey demonstrated that such information can be collected, but a periodic survey is not a supervisory tool. Structured reporting would allow the Bank to build a system-wide map of model dependencies, in the same way that it monitors common exposures across bank balance sheets, and to identify emerging concentrations before they become entrenched.",
+            "Third, the Bank should conduct a system-wide exploratory exercise focused on correlated AI behaviour under stress. The Bank has used exploratory scenarios to examine how different parts of the financial system interact in a crisis, and the same method could be applied to ask how firms relying on common models would respond to a sharp market shock, and whether their responses would amplify or absorb it. The purpose would be to understand the dynamics rather than to set capital requirements, which matches the stage of knowledge the authorities are currently at.",
+            "These proposals face serious objections. Designating model providers could entrench the market position of the largest firms by signalling that they are the default safe choice, which would increase the very concentration the regime is meant to manage. Many of the relevant providers are headquartered in the United States, and the UK's ability to impose requirements on them will depend on their willingness to engage and on cooperation with US authorities. There is also a risk that heavy oversight discourages beneficial adoption at a time when the Treasury is explicitly seeking to accelerate it.",
+            "None of these objections is decisive. The entrenchment concern applies equally to cloud designation and has not prevented the UK or the EU from proceeding. The jurisdictional concern argues for coordination, and the EU's broader approach under DORA provides a natural partner for joint oversight arrangements. The concern about adoption is better addressed by designing proportionate requirements than by declining to look. Dependency reporting and exploratory stress testing impose modest costs and produce information that the authorities currently lack."
+          ]
+        },
+        {
+          "heading": "7. Conclusion",
+          "paragraphs": [
+            "The UK has taken an important step by designating its first critical third parties, and the decision to begin with cloud and technology providers reflects the most visible form of concentration risk. The October 2025 outage demonstrated that operational dependence on a few providers is a present reality rather than a theoretical concern.",
+            "The more distinctive risk posed by AI is of a different character. It arises when many firms rely on the same models and act on similar outputs, producing synchronised behaviour that no individual firm can see and no outage-focused regime is designed to catch. The Bank of England has identified this risk, and its AI Consortium is studying it, but the formal instrument for overseeing third parties remains anchored in the logic of service continuity. Extending the designation criteria to model providers, building a system-wide view of model dependencies and testing how correlated AI behaviour would interact with market stress would close that gap. The central lesson of the 2008 crisis was that institutions can be individually sound while the system they form is fragile. The concentration of AI provision presents the same problem in a new form, and it deserves the same macroprudential response."
+          ]
+        }
+      ],
+      "references": [
+        "Bank of England and Financial Conduct Authority (2024) *Artificial intelligence in UK financial services - 2024*. Available at: https://www.bankofengland.co.uk/report/2024/artificial-intelligence-in-uk-financial-services-2024 (Accessed: 23 October 2026).",
+        "Bank of England (2026) *Financial Stability Report - July 2026*. Available at: https://www.bankofengland.co.uk/-/media/boe/files/financial-stability-report/2026/financial-stability-report-july-2026.pdf (Accessed: 23 October 2026).",
+        "Danielsson, J. and Uthemann, A. (2024) 'On the use of artificial intelligence in financial regulations and the impact on financial stability', *arXiv preprint*.",
+        "Financial Reporter (2024) *75% of financial services firms using AI: FCA*. Available at: https://www.financialreporter.co.uk/75-of-financial-services-firms-using-ai-fca.html (Accessed: 23 October 2026).",
+        "Financial Services and Markets Act 2000, s. 312L (as inserted by the Financial Services and Markets Act 2023).",
+        "Financial Stability Board (2024) *The Financial Stability Implications of Artificial Intelligence*. Basel: FSB.",
+        "Gensler, G. and Bailey, L. (2020) 'Deep learning and financial stability', *SSRN Working Paper*.",
+        "Herbert Smith Freehills Kramer (2026) *HM Treasury makes first designations under UK CTP regime*. Available at: https://www.hsfkramer.com/notes/fsrandcorpcrime/2026-posts/hm-treasury-makes-first-designations-under-uk-ctp-regime (Accessed: 23 October 2026).",
+        "Lewis Silkin (2026) *UK designates first technology providers under the Critical Third Parties regime*. Available at: https://www.lewissilkin.com/insights/2026/07/15/uk-designates-first-technology-providers-under-the-critical-third-parties-regime-102nbxt (Accessed: 23 October 2026).",
+        "Mondo Visione (2026) *Bank of England: Financial Policy Committee Record - July 2026*. Available at: https://mondovisione.com/media-and-resources/news/bank-of-england-financial-policy-committee-record-july-2026-202677/ (Accessed: 23 October 2026).",
+        "Morrison Foerster (2026) *UK announces list of first critical third parties*. Available at: https://www.mofo.com/resources/insights/260716-uk-announces-list-of-first-critical-third-parties (Accessed: 23 October 2026).",
+        "Regulation Tomorrow (2026) *BoE publishes latest Financial Stability Report*. Available at: https://www.regulationtomorrow.com/2026/07/boe-publishes-latest-financial-stability-report-2/ (Accessed: 23 October 2026).",
+        "Stephenson Harwood (2024) *The Bank of England and the FCA's survey on AI in UK financial services*. Available at: https://www.stephensonharwood.com/insights/the-bank-of-england-and-the-fcas-survey-on-ai-in-uk-financial-services/ (Accessed: 23 October 2026).",
+        "TLT (2026) *The Bank of England and PRA set out plans for safe AI innovation: what firms need to know*. Available at: https://tlt.com/insights-and-events/insight/the-bank-of-england-and-pra-set-out-plans-for-safe-ai-innovation-what-firms-need-to-know (Accessed: 23 October 2026)."
+      ]
+    },
+    {
       kind: 'native',
       title: 'When AI Becomes the Investment Adviser, Who Bears Legal Responsibility for Automated Financial Advice?',
       author: 'Parmis Eslami · Year 2 LLB Law',
@@ -339,6 +666,77 @@
     });
   }
 
+  // Returns the first two sentences of a paragraph, used to build a card excerpt
+  // from a report's abstract when it has no hand-written `summary`.
+  function firstTwoSentences(text) {
+    if (!text) return '';
+    var matches = text.match(/[^.!?]+[.!?]+(\s+|$)/g);
+    if (!matches || !matches.length) return text.trim();
+    return matches.slice(0, 2).join('').trim();
+  }
+
+  function excerptFor(report) {
+    if (report.summary) return report.summary;
+    if (report.abstract && report.abstract.length) return firstTwoSentences(report.abstract[0]);
+    return '';
+  }
+
+  function findReportBySlug(slug) {
+    if (!slug) return null;
+    var match = allReports.filter(function (r) { return r.slug === slug; });
+    return match.length ? match[0] : null;
+  }
+
+  function readReportSlugFromLocation() {
+    try {
+      return new URLSearchParams(window.location.search).get('report');
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function writeReportSlugToLocation(slug) {
+    if (!window.history || !window.history.replaceState) return;
+    var url = new URL(window.location.href);
+    if (!slug) {
+      url.searchParams.delete('report');
+    } else {
+      url.searchParams.set('report', slug);
+    }
+    var next = url.pathname + (url.search ? url.search : '');
+    window.history.replaceState(null, '', next);
+  }
+
+  // Builds the rich content of a reference entry: *asterisked* text becomes
+  // italic, and bare https:// URLs become clickable new-tab links.
+  function appendReferenceRichText(container, text) {
+    var italicSplit = text.split(/(\*[^*]+\*)/g);
+    italicSplit.forEach(function (chunk) {
+      if (!chunk) return;
+      var isItalic = chunk.charAt(0) === '*' && chunk.charAt(chunk.length - 1) === '*' && chunk.length > 1;
+      var inner = isItalic ? chunk.slice(1, -1) : chunk;
+      var wrapper = isItalic ? document.createElement('em') : null;
+      var target = wrapper || container;
+
+      var urlSplit = inner.split(/(https?:\/\/[^\s)]+)/g);
+      urlSplit.forEach(function (part) {
+        if (!part) return;
+        if (/^https?:\/\//.test(part)) {
+          var a = document.createElement('a');
+          a.href = part;
+          a.textContent = part;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          target.appendChild(a);
+        } else {
+          target.appendChild(document.createTextNode(part));
+        }
+      });
+
+      if (wrapper) container.appendChild(wrapper);
+    });
+  }
+
   function showEmpty(label) {
     listEl.innerHTML = '';
     var p = document.createElement('p');
@@ -411,6 +809,7 @@
     reports.forEach(function (report) {
       var card = document.createElement('div');
       card.className = 'report-card';
+      if (report.slug) card.id = 'report-' + report.slug;
 
       var content = document.createElement('div');
       content.className = 'report-content';
@@ -426,6 +825,13 @@
       titleEl.textContent = report.title;
       content.appendChild(titleEl);
 
+      if (report.author) {
+        var authorEl = document.createElement('p');
+        authorEl.className = 'report-author';
+        authorEl.textContent = report.author;
+        content.appendChild(authorEl);
+      }
+
       if (report.categories && report.categories.length) {
         var tagsRow = document.createElement('div');
         tagsRow.className = 'reports-tags';
@@ -439,10 +845,11 @@
         content.appendChild(tagsRow);
       }
 
-      if (report.summary) {
+      var excerpt = excerptFor(report);
+      if (excerpt) {
         var summaryEl = document.createElement('p');
         summaryEl.className = 'report-summary';
-        summaryEl.textContent = report.summary;
+        summaryEl.textContent = excerpt;
         content.appendChild(summaryEl);
       }
 
@@ -592,7 +999,7 @@
       var refsList = document.createElement('ol');
       report.references.forEach(function (ref) {
         var li = document.createElement('li');
-        li.textContent = ref;
+        appendReferenceRichText(li, ref);
         refsList.appendChild(li);
       });
       refsWrap.appendChild(refsList);

@@ -16,8 +16,8 @@
     "date": "2026-10-23",
     "time": "10:00 - 25 Oct, 16:30",
     "location": "41 Pitfield St, London N1 6DA",
-    "description": "Encode's flagship three-day hackathon and conference, running 23 to 25 October, bringing together developers and industry leaders building in AI. FLaT members get guaranteed entry through our partnership with Encode Club, even if public tickets have sold out.",
-    "status": "upcoming",
+    "description": "Encode's flagship three-day hackathon and conference, which ran 23 to 25 October, bringing together developers and industry leaders building in AI.",
+    "status": "past",
     "host": "Encode Club",
     "registerUrl": "https://luma.com/encode-london-2026"
   },
@@ -39,6 +39,17 @@
     "time": "TBC",
     "location": "TBC, Greenwich Campus",
     "description": "Finance, law and tech trivia in teams of 4–6, prizes for the winning team. A relaxed way to meet other members after the term's first session.",
+    "status": "upcoming",
+    "host": "",
+    "registerUrl": ""
+  },
+  {
+    "id": "banking-vs-fintech-panel-discussion",
+    "title": "Banking vs Fintech: Panel Discussion",
+    "date": "2027-02-04",
+    "time": "TBC",
+    "location": "University of Greenwich, room TBA",
+    "description": "A panel discussion on how careers in traditional banking compare with careers in fintech: how the work, the skills and the regulation differ, and where the two are starting to overlap.",
     "status": "upcoming",
     "host": "",
     "registerUrl": ""

@@ -208,6 +208,12 @@
   white-space: normal;
 }
 
+.event-content p.event-recap {
+  margin-top: 8px;
+  font-style: italic;
+  color: var(--text-on-paper-soft);
+}
+
 .event-toggle {
   display: inline-block;
   margin-top: 10px;

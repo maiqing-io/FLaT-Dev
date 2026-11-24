@@ -267,6 +267,13 @@
         if (metaParts.length) content.appendChild(meta);
         content.appendChild(p);
 
+        if (isPast && ev.recap) {
+          var recap = document.createElement('p');
+          recap.className = 'event-recap';
+          recap.textContent = ev.recap;
+          content.appendChild(recap);
+        }
+
         var toggle = document.createElement('span');
         toggle.className = 'event-toggle';
         toggle.textContent = 'Read more';
